@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" href="../css/add.css">
+      <link rel="stylesheet" href="../css/vant.css">
+      <style>
+        body{
+          background: #fff;
+        }
+        #header{
+          height: 12.5vw;
+          position: fixed;
+          top:0;
+          left:0;
+        }
+        #header{
+          background-color: #fff;
+          border-bottom: 1px solid #eee;
+        }
+        #header .aui-title{
+          color: #000;
+        }
+        #header .aui-icon-left{
+          color: #000
+        }
+        .list{
+          height: 100vh;
+          background-color: red;
+        }
+        video::-webkit-media-controls-fullscreen-button {
+            display: none;
+        }
+      </style>
+  </head>
+  <body>
+      <div id="app">
+        <div>123
+          <!-- <video style="widgh:100vw;height:40vw;margin-top:30vw;" src="http://kyt.wh66.cn/Uploads/Download/2020-03-20/5e741ad225694.mp4" loop autoplay webkit-playsinline controlsList="nodownload" >
+
+          </video> -->
+        </div>
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script type="text/javascript" src="../script/util.js"></script>
+  <script type="text/javascript" src="../script/vant.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var moviePlayer = api.require('moviePlayer');
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+              data:api.pageParam,
+              timer:null
+            },
+            mounted: function () {
+              var that = this;
+              api.addEventListener({
+                name : 'keyback'
+              }, function(ret, err) {
+                that.back();
+              });
+              api.addEventListener({
+                  name:'swipeleft'
+              }, function(ret, err){
+                 that.back();
+              });
+              api.addEventListener({
+                  name:'swiperight'
+              }, function(ret, err){
+                 that.back();
+              });
+              setTimeout(function(){
+                that.initData();
+              },500)
+            },
+            methods:{
+              initData1(){
+
+              },
+              back(){
+                var that = this;
+                window.clearInterval(that.timer);
+                moviePlayer.getCurrentPosition(function(ret){
+                    moviePlayer.close();
+      							var seconds = ret.position;
+                    api.sendEvent({
+                        name: 'video_time',
+                        extra:seconds
+                    });
+                    // api.setScreenOrientation({
+        						// 		orientation: 'portrait_up'
+      						  // });
+                    api.setFullScreen({
+                        fullScreen: false
+                    });
+          					api.closeWin();
+      					});
+
+              },
+              addHistory:function(a,func){
+      					var that = this;
+      						moviePlayer.getCurrentPosition(function(ret){
+      								var seconds = ret.position;
+      								var param = {
+      									chapter_id:that.data.id,
+      									time:seconds
+      								}
+      								that.ajaxpost_noloading('post',globalData.addUserChapter,param).then((res)=>{
+      									var res = $.parseJSON(res);
+      									if(res.code==1){
+
+      									}
+      								}).catch((ret)=>{
+      									loginfo(ret)
+      								})
+      						});
+      				},
+              initData() {
+      					var that = this
+                var item = this.data;
+                console.log(JSON.stringify(item))
+      					  moviePlayer.open({
+
+      										rect:{
+                            x: 0,
+    												y: 0,
+    												w: $(window).width(),
+    												h: $(window).height()
+      										},
+      										texts:{
+      												 title: item.title    //（可选项）字符串类型；顶部标题文字
+      										},
+      										autorotation:false,
+      										styles:{
+      											head:{
+      												bg: 'rgba(0,0,0,0.5)',
+      												height: 30,
+      												y:0,
+      												title:{
+      													size:15,
+      													color:'#fff',
+      													width:200,
+      													leftMargin:10
+      												},
+      												backSize: 28,
+      												// backImg:'widget://image/back.png',
+      												customButtons:[{
+      													w:30,
+      													h:30,
+      													rightMagin:10,
+      													img:'widget://image/image/collect.png',
+      													imgSelected:'fs://image/collectSelected.png',
+      												}]
+      											},
+      											foot:{
+      												bg: 'rgba(0,0,0,0.5)',
+      												height: 44,
+      												palyBtn:{
+      													size: 20,
+      													playImg:'widget://image/play.png',
+      													pauseImg:'widget://image/pause.png',
+      													marginLeft:5
+      												},
+      												currentTimeLabel:{
+      													textSize:14,
+      													textColor:"#FFF",
+      													textWidth: 43,
+      													marginLeft:5
+      												},
+      												seekBar:{
+      													sliderImg:'widget://image/circle.png',
+      													sliderW : 20,
+      													sliderH : 20,
+      													progressColor: '#696969',
+      													progressSelected: '#76EE00',
+      													marginLeft:10,
+      													marginRight:10
+      												},
+      												totalTimeLabel:{
+      													textSize:14,
+      													textColor:"#FFF",
+      													textWidth: 43,
+      													marginRight:5
+      												},
+      												fullscreenBtn:{
+      													size:0,
+      													// verticalImg:'../image/full.pngg',
+      													// horizontalImg:'../image/full_n.png',
+      												}
+      											}
+      										},
+      										 path:item.url,
+      										 autoPlay: true,
+                           autorotation:true,
+                           videoDirection:'landscape'
+      										},function(ret, err){
+      													if(ret){
+      															console.log(JSON.stringify(ret));
+      															var moviePlayer = api.require('moviePlayer');
+      															moviePlayer.addEventListener(function(ret){
+      																	if(ret){
+      																		console.log(JSON.stringify(ret));
+      																		if(ret.eventType=='prepared'){
+      																			that.timer = setInterval(function(){
+      																			   that.addHistory();
+      																			},10000)
+
+      																		}
+
+      																		if(ret.eventType=='back'||ret.eventType=='portrait'){
+                                            that.back();
+      																		}
+      																	}
+      															});
+      													} else {
+      															console.log(JSON.stringify(err));
+      													}
+      													if (api.systemType == 'ios'){
+      														setTimeout(function(){
+      															if(item.time > 0){
+      																moviePlayer.seekTo({
+      																		position:item.time
+      																});
+      															}
+      														},300)
+      													}
+      										});
+      					this.ajaxpost('post', globalData.addCourseOutlineLog, { cid: item.id }).then((res) => {
+
+
+      					}).catch((ret) => {
+      						loginfo(ret)
+      					})
+      				},
+            }
+        })
+      };
+  </script>
+  </html>

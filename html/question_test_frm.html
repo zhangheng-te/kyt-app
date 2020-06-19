@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/add.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/question_audition.css"/>
+      <style>
+          body{
+
+          }
+          .success{
+            color: #0280ec;
+          }
+
+          .error{
+            color: #d51212;
+          }
+          .answer_item{
+            margin-right: 2vw;
+          }
+          .answer_item:last-child{
+            margin-right: 0;
+          }
+          .score_line1{
+            margin-top: 10vw;
+          }
+          .i_arrow{
+              width: 2vw;
+              height: 2vw;
+              display: inline-block;
+              vertical-align: middle;
+              background: #fff url(../image/arrow.png) 0 0 no-repeat;
+              background-size: 100% 100%;
+              -webkit-background-size: 100% 100%;
+          }
+          .part_line{
+            padding: 3vw 0;
+            border-bottom: 1px solid #eee;
+          }
+          [v-cloak] {
+            display:none !important;
+          }
+          #footer{
+            height: 13vw;
+            width: 100vw;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            box-shadow: 0 0 5px #e5e5e5;
+            font-size: 4vw;
+            background-color: #ffffff;
+            opacity: 1.0;
+          }
+
+          .footer_btn2{
+            width: 80vw;
+            height: 9vw;
+            border-radius: 4.5vw;
+            background: linear-gradient(#0391ff, #0165d0);
+            color: #ffffff;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" v-cloak>
+      <div class="score_area" style="padding:0;height:83vw;" v-if="is_special==0">
+        <div class="score_line1">模拟测试预测分</div>
+        <div class="score_line2 f_middle"><div><span style="font-size:12vw;">{{Fs}}</span>%</div></div>
+        <div class="score_line3 f_middle" @click='navtestTopic'>开始模拟测试</div>
+        <div class="score_line4" @click='naverrTopic'>历史错题&nbsp;&nbsp;></div>
+      </div>
+      <div class="test_area" v-if="is_special==0" v-cloak>
+        <div class="test_title">
+          <div class="blue_icon"></div>
+          <div>模拟试卷</div>
+        </div>
+        <p style="text-align:center;color:#666;font-size:4vw;" v-if='Topic&&Topic.length==0'>暂无数据</p>
+        <div class="test_item" v-for='item,index in Topic'>
+          <div class="test_question">{{index+1}}.{{item.stem}}</div>
+          <div class="test_answer" >
+            <div class="answer_item" :style='item.question_list.length==4?"display:block;":""' v-for='ans in item.question_list'>{{ans.option}}.<span v-html="ans.title"></span></div>
+
+          </div>
+        </div>
+      </div>
+      <div v-if="is_special==1" class="pad_b" v-cloak>
+        <div class="part_line fsbc" v-for="(item,index) in list.data" @click="turnPart(item,index)">
+          <div>{{item.title}}</div>
+          <div class="color9" v-if="item.is_com!=1" style="font-size:3.3vw;">开始测试<i style="margin-left:2vw" class="i_arrow"></i></div>
+          <div class="color9" v-if="item.is_com==1" style="font-size:3.3vw;">查看结果<i style="margin-left:2vw" class="i_arrow"></i></div>
+        </div>
+      </div>
+      <div style="height:13vw;"></div>
+      <div v-if="is_special==1" id='footer' class="f_middle">
+        <div class="footer_btn2 f_middle" @click='reStart()'>重新测试</div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap",
+          data: {
+            testpaper_id:api.pageParam.testpaper_id,
+            infodata:'',
+            Fs:'',
+            Topic:[],
+            is_special:-1,
+            list:''
+          },
+          mounted: function () {
+            this.initTopicInfo()
+          },
+          methods: {
+            reStart(){
+              var that = this;
+              this.list = "";
+              var param = {
+                testpaper_id:this.testpaper_id
+              }
+              that.ajaxpost('post',globalData.testStartGetPaperQuestionList,param).then((res)=>{
+                var res =$.parseJSON(res);
+                if(res.code==1){
+                  that.list = res.data;
+                }
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            turnPart(item,index){
+              if(item.is_com!=1){
+                var data = {
+                  answer_id:this.list.answer_id,
+                  qg_id:item.qg_id,
+                  testpaper_id:this.testpaper_id,
+                  type:3,
+                  title:item.title,
+                  // now:index + 1,
+                }
+                // if(data.all > data.now){
+                //   data.arr = this.list;
+                // }
+                // console.log(JSON.stringify(data))
+                // return
+                this.openW('test_frm',data,true)
+              }else{
+                var data = {
+                  title: item.title,
+                  testpaper_id: item.result_id,
+                  qg_id: item.qg_id,
+                  type:3,
+                }
+                this.openW('error_details_win_add', data, true)
+              }
+
+            },
+            naverrTopic(){
+              this.openW('error_record_win',{},true)
+            },
+            //题目
+            initTopic(){
+              var that =this;
+              var data ={
+
+                is_option:1,
+                testpaper_id:that.testpaper_id
+              }
+
+              that.ajaxpost('post',globalData.getPaperQuestionList,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+                if (!res.data.data) {
+                  return
+                }
+                that.Topic=res.data.data;
+
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            //测试
+            navtestTopic(){
+              var that =this
+              if(that.infodata.length==0){
+                that.toast('暂无题目')
+                return
+              }
+              this.openW('test_frm',{category_id:that.infodata.categoryid,type:3,testpaper_id:that.infodata.id},true)
+            },
+            //
+            initTopicInfo(){
+              var that =this;
+              var data ={
+                testpaper_id:that.testpaper_id
+              }
+              that.ajaxpost('post',globalData.getTestPaperInfo,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+                if(!res.data){
+                  return
+                }
+                that.infodata=res.data;
+                that.is_special = res.data.is_special;
+                if(res.data.is_special !=1){
+                  that.initTopicFs()
+                  that.initTopic()
+                }else{
+                  that.getParts();
+                }
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            //题目部分
+            getParts(){
+              var that =this;
+              var data ={
+                testpaper_id:that.testpaper_id,
+                type:3
+              }
+
+              that.ajaxpost('post',globalData.testGetPaperQuestionList,data).then((res)=>{
+                var res =$.parseJSON(res);
+                that.list = res.data;
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            //预测分
+            initTopicFs(){
+              var that =this;
+              var data ={
+
+                type:3,
+                testpaper_id:that.testpaper_id
+              }
+              that.ajaxpost('post',globalData.getLastTestAccuracy,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+                res.data.accuracy_rate =parseInt(res.data.accuracy_rate)
+                console.log(JSON.stringify(res))
+                that.Fs=res.data.accuracy_rate
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

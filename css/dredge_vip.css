@@ -1,0 +1,141 @@
+#wrap2{
+  padding-bottom: 5vw;
+  box-sizing: border-box;
+}
+.top_area{
+  width: 100%;
+  padding: 5vw 4vw 5vw 4vw;
+  box-sizing: border-box;
+}
+
+.card{
+  width: 100%;
+  box-shadow: 0 3px 3px #e5e5e5;
+  border-radius: 2vw;
+}
+
+.top_img{
+  width: 92vw;
+  height: 34vw;
+  background:url(../image/dredge_vip.jpg) no-repeat 0 0;
+  background-size:92vw 34vw;
+}
+
+.top_line1{
+  padding: 0 3.5vw 0 3.5vw;
+  box-sizing: border-box;
+  font-size: 4.5vw;
+  height: 13vw;
+  line-height: 13vw;
+}
+
+.top_line2{
+  padding: 0 3.5vw 3.5vw 3.5vw;
+  box-sizing: border-box;
+  font-size: 3.8vw;
+}
+
+.buy_btn{
+  height: 6vw;
+  line-height: 6vw;
+  color: #0264ce;
+  border: 1px solid #0264ce;
+  padding: 0vw 2.5vw 0vw 2.5vw;
+  box-sizing: border-box;
+  border-radius: 3vw;
+}
+
+.vip_line1{
+  height: 13vw;
+  display: flex;
+  align-items: center;
+  font-size: 4.5vw;
+}
+
+.vip_area{
+  padding: 0 3.5vw 0 3.5vw;
+  box-sizing: border-box;
+}
+
+.icon1{
+  width: 9vw;
+  height: 7vw;
+  background: url(../icon/tixian.png) no-repeat;
+  background-size:9vw 7vw;
+}
+
+.icon2{
+  width: 7vw;
+  height: 7vw;
+  background: url(../icon/v_kc1.png) no-repeat;
+  background-size:7vw 7vw;
+}
+
+.icon3{
+  width: 7vw;
+  height: 7vw;
+  background: url(../icon/v_kc.png) no-repeat;
+  background-size:7vw 7vw;
+}
+
+.icon4{
+  width: 7vw;
+  height: 7vw;
+  background: url(../icon/v_zk.png) no-repeat;
+  background-size:7vw 7vw;
+}
+
+.vip_line2{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 20vw;
+}
+
+.vip_item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.4vw;
+  width: 25%;
+}
+
+.out_line{
+  width: 15vw;
+  height: 1vw;
+  background-color: #f2f4f5;
+  border-radius: 0.5vw;
+}
+
+.in_line{
+  width: 12.5vw;
+  height: 1vw;
+  border-radius: 0.5vw;
+  background: linear-gradient(to right, #0391ff , #0165d0);
+}
+
+.vip_table{
+  width:93vw;
+  margin-top: 8vw;
+  border-left: 1px solid #f2f2f2;
+  border-top: 1px solid #f2f2f2;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 4.2vw;
+}
+
+.table_item{
+  height: 13vw;
+  width: 31vw;
+  border-right: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  padding: 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 3.8vw;
+}
+
+.table_line{
+  color: #999999;
+}

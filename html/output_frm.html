@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/coupon.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/add.css"/>
+      <style>
+          body{
+
+          }
+          [v-cloak]{
+            display: none!important ;
+          }
+          #header{
+            background-color: #fff;
+          }
+          #header .aui-title{
+            color: #000;
+          }
+          #header .aui-icon-left{
+            color: #000
+          }
+
+          .output_line{
+        		padding: 2vw 0;
+        	}
+        	.bb{
+        		border-bottom: 1px solid #eeeeee;
+        	}
+      </style>
+  </head>
+  <body>
+    <div id='wrap2' class="pad_b" style="background-color:#ffffff">
+      <div class="output_line bb" v-for="(item,index) in list" :key="index">
+      				<div class="fsbc">
+      					<div>{{item.remark}}</div>
+      					<div class="colorr">{{item.num}}</div>
+      				</div>
+      				<div class="color9" style="font-size: 3.6vw;margin-top: 1vw;">{{item.create_time}}</div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap2",
+          data: {
+            page:1,
+            list:[]
+          },
+          mounted: function () {
+            var header = document.querySelector('#header');
+            $api.fixStatusBar(header);
+
+            this.initdata();
+            this.scrolltobottom()
+          },
+          methods: {
+            //上拉
+            scrolltobottom() {
+              var that =this;
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: 50 //距离底部距离
+                    }
+                }, function(ret, err) {
+                    // listAjax(true);
+                    console.log(JSON.stringify(ret))
+                    that.page =that.page+1;
+                    that.initdata()
+                });
+            },
+            initdata(){
+              var that =this;
+              var data ={
+                page:that.page,
+                size:30,
+              }
+              that.ajaxpost('post',globalData.scoreLog,data).then((res)=>{
+                var res =$.parseJSON(res);
+                if(res.data){
+                  res.data.map((item) => {
+      							item.create_time = that.formatTime(item.create_time)
+      						})
+                  that.list=that.list.concat(res.data);
+                }
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

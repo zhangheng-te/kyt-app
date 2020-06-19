@@ -33,6 +33,9 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
+      api.setStatusBarStyle({
+          style: 'dark',
+      })
         var ver = api.version;
         var sType = api.systemType;
         var sVer = api.systemVersion;

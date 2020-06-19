@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sign.css">
+    <link rel="stylesheet" href="../css/add.css">
+    <link rel="stylesheet" href="../css/vant.css">
+    <link rel="stylesheet" href="../css/swiper.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css"> -->
+    <style>
+        body {
+            background-color: #F5F5F5;
+        }
+
+        [v-cloak] {
+            display: none !important;
+        }
+
+        .home_with {
+            padding-bottom: 2vw;
+            border-bottom: 2vw solid #F5F5F5;
+        }
+
+        .my_s_wrap {
+            border: 0;
+        }
+
+        .my_s_content {
+            border: 0;
+        }
+
+        .home_top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /*height: 10vw;*/
+        }
+
+        .home_ss {
+            width: 3.5vw;
+            height: 3.5vw;
+            background: url(../image/select.png) 0 0 no-repeat;
+            background-size: 100% 100%;
+            margin: 0 2vw;
+
+        }
+
+        .home_top_wrap {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
+            height: 8vw;
+            margin-right: 2vw;
+            width: 100%;
+        }
+
+        .home_top_wrap input::-webkit-input-placeholder {
+            color: #fff;
+        }
+
+        .home_top_saom {
+            width: 5vw;
+            height: 5vw;
+            background: url(../image/scan.png) 0 0 no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .home_top_wrap input {
+            color: #fff;
+
+            font-size: 3.5vw;
+        }
+
+        .home-row-wrap img {
+            border-radius: 10px;
+        }
+
+        .ltl-layer {
+            z-index: 99999;
+            width: 67vw;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border-radius: 2vw;
+            padding: 5vw 0 0vw;
+        }
+
+        .ltl-ok {
+            text-align: center;
+        }
+
+        .ltl-ok h3 {
+            font-size: 4vw;
+            color: #333333;
+        }
+
+        .ltl-ok p {
+            font-size: 3.2vw;
+            color: #666666;
+            padding: 2vw;
+            line-height: 4vw;
+            text-align: left;
+        }
+
+        .ltl-ok-btn {
+            margin-top: 6vw;
+            padding: 3.5vw 0;
+            border-top: 1px solid #f5f5f5;
+        }
+
+        .ltl-ok-btn a {
+            font-size: 3.467vw;
+        }
+
+        .shop-wrap>li{
+            padding: 4vw;
+            background: rgb(245,245,245);
+            overflow: hidden;
+            margin: 2vw;
+        }
+        .shop-wrap>li>img{
+            width: 30vw;
+            height: 20vw;
+            object-fit: cover;
+            border-radius: 2vw;
+            float: left;
+        }
+        .shop-wrap>li>section{
+            float: left;
+            margin-left: 5vw;
+        }
+        .shop-wrap>li>section>p:nth-of-type(1){
+            color: rgb(51,51,51);
+            font-size: 4vw;
+        }
+        .shop-wrap>li>section>p:nth-of-type(2){
+            color: firebrick;
+            font-size: 6vw;
+        }
+        .shop-wrap>li>span{
+            width: 20vw;
+            height: 5vw;
+            line-height: 5vw;
+            text-align: center;
+            color: #fff;
+            background: darkorange;
+            margin-left: 5vw;
+            margin-top: 1vw;
+        }
+        .home_top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /*height: 10vw;*/
+            padding: 0 3vw;
+        }
+
+        .home_ss {
+            width: 3.5vw;
+            height: 3.5vw;
+            background: url(../image/select.png) 0 0 no-repeat;
+            background-size: 100% 100%;
+            margin: 0 2vw;
+
+        }
+
+        .home_top_wrap {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
+            height: 8vw;
+            margin-right: 2vw;
+            width: 100%;
+        }
+
+        .home_top_wrap input::-webkit-input-placeholder {
+            color: #fff;
+        }
+
+        .home_top_saom {
+            width: 5vw;
+            height: 5vw;
+            background: url(../image/scan.png) 0 0 no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .home_top_wrap input {
+            color: #fff;
+            font-size: 3.5vw;
+        }
+
+        .home-row-wrap img {
+            border-radius: 10px;
+        }
+        #header{
+          background-color: #F5F5F5;
+          background: #1A71D3;
+          position: fixed;
+          top:0;
+          left:0;
+          width: 94vw;
+          height: 12.5vw;
+          z-index: 1000;
+          padding: 0 2vw 0 4vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak class="aui-content home">
+      <div class="home_top" id='header'>
+          <div class="home_top_wrap" @click='navCourse(-1)'>
+              <i class="home_ss"></i>
+              <input type="text" name="" placeholder='请输入搜索内容' value="" disabled>
+          </div>
+          <!-- <div class="home_top_saom" @click='saom'></div> -->
+      </div>
+      <div id="main" class="main" style="position:relative;">
+        <div style="height:12.5vw;"></div>
+        <div class="home_banner">
+          <van-swipe style="width:96vw;height:30vw;border-radius:10px;overflow:hidden;" :autoplay="3000" indicator-color="white">
+            <van-swipe-item style="96vw;height:30vw;"  v-for='(items,index) in bannerimg'class="banner">
+              <img class="fill" style="96vw;height:30vw;" :src="items.path">
+            </van-swipe-item>
+          </van-swipe>
+        </div>
+        <div class="mask" :style="signmodel?'display:block':'display:none'"></div>
+        <div class="sign_model" :style="signmodel?'display:block':'display:none'">
+            <div class="sign_model_conent">
+                <img src="../icon/true.png" alt="">
+                <h4>签到</h4>
+                <p>签到获得{{datadata}}积分!</p>
+            </div>
+            <div class="sign_model_save" @click='signmodel=false'>
+                确定
+            </div>
+        </div>
+        <div class="mask" @click="signShow=false" :style="signShow?'display:block':'display:none'"></div>
+        <div class="my_s_wrap" :style="signShow?'display:block':'display:none'">
+            <div class="my_s_top">
+                <img src="../image/my-signin.png" alt="">
+                <span>{{timetitle}}</span>
+            </div>
+            <div class="my_s_content">
+                <div class="my_s_week">
+                    <span>一</span>
+                    <span>二</span>
+                    <span>三</span>
+                    <span>四</span>
+                    <span>五</span>
+                    <span>六</span>
+                    <span>日</span>
+                </div>
+                <div v-show='lsatdatalist.length>0' class="my_s_time">
+                    <span v-for='item,index in lsatdatalist'
+                        v-bind:class='item.sign==1?"my_s_active":item.now==1?"my_s_sign":""'>
+                          <div class="fcc" :class="{circle:item.now==1}">{{item.day}}</div>
+                        </span>
+                </div>
+                <div v-for='item,index in datelist' class="my_s_time">
+                    <span v-for='items in datelist[index]'
+                        v-bind:class='items.sign==1?"my_s_active":items.now==1?"my_s_sign":""'>
+                          <div class="fcc" :class="{circle:items.now==1}">{{items.day}}</div>
+                        </span>
+                    <!-- <span class="my_s_sign">2</span>
+              <span class="my_s_active">3</span>
+           -->
+                </div>
+                <div class="my_s_time" v-show='datelistcurr.length>0'>
+                    <span v-for='item,index in datelistcurr'
+                        v-bind:class='item.sign==1?"my_s_active":item.now==1?"my_s_sign":""'>
+                          <div class="fcc" :class="{circle:item.now==1}">{{item.day}}</div>
+                        </span>
+                    <!-- <span class="my_s_sign">2</span>
+              <span class="my_s_active">3</span>
+           -->
+                </div>
+                <div class="my_s_btn">
+                    <div @click="bindsignBtn" class="aui-btn">立即签到</div>
+                </div>
+            </div>
+            <!-- <div class="curriculum_home_sign_line"></div> -->
+            <div style="position:absolute;right:1.5vw;top:1.5vw;" class="curriculum_home_sign_cha" @click="bindcloseSign"></div>
+        </div>
+
+        <div class="f_c" style="width:100vw;box-sizing: border-box;background-color:#ffffff;padding:4vw 0;overflow-x:scroll">
+          <div class="fd_c" style="margin:0 3vw"  v-for='item in Tablist' @click='navCourse(item.id)'>
+            <div style="width:13vw;height:13vw">
+              <img class="fit" :src="item.path"/>
+            </div>
+            <div style="font-size:4vw;margin-top:2.5vw">{{item.title}}</div>
+          </div>
+        </div>
+
+
+        <!-- <div class="home-row-list" style="position: relative;">
+            <div class="home-row-wrap" v-for='item in Tablist' @click='navCourse(item.id)'>
+                <img :src="item.path" alt="">
+                <p>{{item.title}}</p>
+            </div>
+            <div @click='moreFl' class="fcc" style="width:6vw;height:6vw;position: absolute;right:2vw;top:0vw;">
+              <i class="i_arrow"></i>
+            </div>
+        </div> -->
+        <div class="line"></div>
+        <div class="home_topic">
+            <div class="home_time">
+                <p>考研倒计时</p>
+                <div class="home_time_day">
+                    <!-- <img src="../image/home_ico3.png" alt=""> -->
+                    <time style="font-size:2.2vw;color:#5AAFFE;"><span
+                            style="font-size:3.7vw;color:#5AAFFE;margin-right:1vw;">{{kectime}}</span>天</time>
+                </div>
+
+            </div>
+            <div class="home_Practice">
+                <div class="home_p_row" @click='navtest_frm'>
+                    <img src="../image/home_ico1.png" alt="">
+                    <span>每日练习</span>
+                    <div>
+                        <i class="i_arrow" style="height:2.8vw;"></i>
+                    </div>
+
+                </div>
+                <div class="home_p_row" @click='turnHistory'>
+                    <img src="../image/home_ico2.png" alt="">
+                    <span>继续学习</span>
+                    <div>
+                        <i class="i_arrow" style="height:2.8vw;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="home_course">
+            <div class="home_course_t">
+                <p>近期直播</p>
+                <div v-if='hotdirelist.data&&hotdirelist.data.length!=0' @click='navpubilc'> <span class="p_more">更多</span> <i class="i_arrow"></i></div>
+            </div>
+            <div class="swiper-transverse">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" @click='turnLive(item)' v-for='(item,index) in hotdirelist.data'>
+                        <div class="slide_img"><img :src="item.image_text[0]" alt="">
+                            <p></p><span>{{item.state_text}}</span>
+                        </div>
+                        <div class="slide_wrap">
+                            <h3>{{item.name}}</h3>
+                            <div class="silde_time">{{item.start_time}}开播</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align:center;color:#666;font-size:4vw;padding-bottom: 3vw;" v-if='hotdirelist.data&&hotdirelist.data.length==0'>暂无公开课</p>
+        </div>
+
+
+        <div class="line" v-show='shenheStaus == 1'></div>
+        <div class="home_course" v-show='shenheStaus == 1'>
+            <div class="home_course_t">
+                <p>商城</p>
+                <div></div>
+            </div>
+            <ul class="shop-wrap">
+                <li>
+                    <img src="../image/shop/shop_1.jpg" alt="">
+                    <section>
+                        <p>篮盟NBA篮球护腕一副</p>
+                        <p>￥99.00</p>
+                    </section>
+                    <span @click="buyFn(99.00,'篮盟NBA篮球护腕一副',1,225)">立即购买</span>
+                </li>
+                    <li>
+                    <img src="../image/shop/shop_2.jpg" alt="">
+                    <section>
+                        <p>篮盟实战篮球护膝一副</p>
+                        <p>￥139.00</p>
+                    </section>
+                    <span @click="buyFn(139.00,'篮盟实战篮球护膝一副',2,226)">立即购买</span>
+                </li>
+                <li>
+                    <img src="../image/shop/shop_3.jpg" alt="">
+                    <section>
+                        <p>篮盟NBA实战篮球一只</p>
+                        <p>￥329.00</p>
+                    </section>
+                    <span @click="buyFn(329.00,'篮盟NBA实战篮球一只',3,227)">立即购买</span>
+                </li>
+                <li>
+                    <img src="../image/shop/shop_4.jpg" alt="">
+                    <section>
+                        <p>篮盟实战场地篮球鞋一双</p>
+                        <p>￥179.00</p>
+                    </section>
+                    <span @click="buyFn(179.00,'篮盟实战场地篮球鞋一双',4,228)">立即购买</span>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="line"></div>
+
+        <div class="home_course home_with" v-for='(item,index_) in list.data'>
+            <div class="home_course_t">
+                <p>{{item.title}}</p>
+                <div @click='navCourse(item.id)'><span class="p_more">更多</span><i class="i_arrow"></i></div>
+            </div>
+            <div class="home_with_wrap">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for='(items,index) in item.data' @click='navCourselist(index_,index)'>
+                        <div class="slide_img add_c_img">
+                          <div v-if="items.is_pay==1" class="add_c_pay">已购</div>
+                          <img :src="items.path" alt="">
+                        </div>
+                        <div class="slide_wrap">
+                            <h3>
+                                <p class="title one_lines">{{items.title}}</p>
+                            </h3>
+                            <div class="fsbc" style="padding:0 1.5vw">
+                              <span style="color:red;font-size:3.4vw;" v-show='shenheStaus == 0'>
+                                <span v-if="items.is_free!=1">￥{{items.price}}</span>
+                                <span v-if="items.is_free==1">免费</span>
+                              </span>
+                              <span class="silde_time" style="margin-top:1vw;">
+                                <span v-if="items.is_free!=1">{{items.member_price>0?'会员价：'+'￥'+items.member_price:'会员免费'}}</span>
+                                <span v-if="items.is_free==1">会员免费</span>
+                              </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="mask" :style="flrst_xy?'display:block':'display:none'"></div>
+        <div class="ltl-layer" v-show='flrst_xy'>
+            <div class="ltl-ok">
+                <h3>用户协议和隐私协议</h3>
+                <p>请你阅读 <span style="color: #0B64CD;" @click='showXieyBox()'>《用户协议》</span>和 <span
+                        @click='showClauseBox()' style="color: #0B64CD;">《隐私协议》</span>了解详细信息。如同意，请点击“同意”开始我们的服务</p>
+                <div class="ltl-ok-btn "
+                    style="width: 80%;margin: auto; display: flex; justify-content: space-between;"><a class="ltl-blue"
+                        @click='is_xyShow(1)'>暂不使用</a><a class="ltl-blue" @click='is_xyShow(2)'>同意</a></div>
+            </div>
+        </div>
+      </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/vant.min.js"></script>
+<script src="../script/configUtil.js" charset="utf-8"></script>
+<script type="text/javascript" src="../script/swiper1.js"></script>
+<script src="../script/moment.js" charset="utf-8"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script> -->
+<script type="text/javascript">
+    apiready = function () {
+      api.setStatusBarStyle({
+          style: 'dark',
+      })
+      var header = document.querySelector('#header');
+      var main = document.querySelector('#main');
+      $api.fixStatusBar(header);
+      $api.fixStatusBar(main);
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    flrst_xy: false,
+                    kectime: '',
+                    title: '',
+                    bannerimg: [],
+                    timetitle: '',
+                    list: {
+                        data: []
+                    },
+                    hotdirelist: {
+                        data: []
+                    },
+                    Tablist: [],
+                    signmodel: false,
+                    signShow: false, //日历
+                    lsatdatalist: [],//日历第一行数组
+                    datelist: [],//日历中间数组
+                    datelistcurr: [],//日历最后一行数组
+                    // signNum:'',
+                    shenheStaus: 0,
+                    datadata:'',
+                    timer:null
+                }
+
+            },
+            created() {
+
+            },
+            mounted: function () {
+                //this.openW('video_fav',{},true,null,false);
+                // return
+                //.this.initShortVideos()
+                var that = this;
+                var token = window.localStorage.getItem('userinfo') || ''
+                var isxy = window.localStorage.getItem('is_xyShow') || true
+                if (typeof isxy == 'boolean') {
+                    that.flrst_xy = isxy
+
+                } else {
+                    that.flrst_xy = eval(isxy.toLowerCase())
+                }
+                // api.addEventListener({
+                //     name: 'tohome'
+                // }, function(ret, err){
+                //   alert(1)
+                //   api.setFrameGroupIndex({
+                //       name: "group",
+                //       index: 0,
+                //       scroll: false,
+                //       reload: false
+                //   });
+                // });
+                this.timer = setInterval(function(){
+                   that.getClipBoard();
+                },5000)
+                if (token != '') {
+                    this.bindsign();
+                }
+                this.bindcourseFengl();
+                api.addEventListener({
+                    name: 'root_data'
+                }, function(ret, err){
+                    // if (token != '') {
+                    //     that.bindsign();
+                    // }
+                    that.bindcourseList();
+                });
+                this.$nextTick(() => {
+                    this.getShenHeStatus();
+                    this.bindBanner();
+                    this.getCountDownDay();
+                    this.bindcourseList();
+                    this.hotDirectList();
+                })
+                api.setRefreshHeaderInfo({
+                    bgColor: '#ffffff'
+                }, function (ret, err) {
+                    that.bindBanner()
+                    that.bindcourseList();
+                    that.hotDirectList();
+                });
+
+                api.addEventListener({
+                    name: 'root_live'
+                }, function(ret, err){
+                  that.hotDirectList();
+                });
+
+            },
+            methods: {
+              getClipBoard(){
+                return
+                var that = this;
+                var clipBoard = api.require('clipBoard');
+                clipBoard.get(function(ret, err) {
+                  if (ret) {
+                    var code = ret.value.split('€')[1];
+                    console.log(code)
+                    if(!code){
+                      return
+                    }
+                    window.clearInterval(that.timer);
+                    var param = {
+                      shareCode:ret.value.split('€')[1]
+                    }
+                    that.$dialog.confirm({
+                      title: '提示',
+                      message: '获取到您复制的口令，是否前往此课程',
+                    }).then(function(){
+                      that.ajaxpost('post',globalData.getShareCourse,{shareCode:code}).then((res)=>{
+                        var res =$.parseJSON(res);
+                        if(res.code==1){
+                          console.log(JSON.stringify(res.data.data))
+                          var share = res.data.data;
+                          if(!share){
+                            that.toast('未查询到课程')
+                            return
+                          }
+                          that.openW('course-list', { course_id:share.lid,share:share }, true,null,false);
+                        }else{
+                          that.toast('未查询到课程')
+                        }
+                      }).catch((ret)=>{
+                        loginfo(ret)
+                      })
+                      // this.openW('course-list', { course_id: this.list.data[index_].data[index].id }, true,null,false);
+                    }).catch(function(){
+
+                    });
+                  }
+                });
+              },
+              initShortVideos:function(){
+                var UIScrollPlayer = api.require('UIScrollPlayer');
+                UIScrollPlayer.open({
+                    rect : {
+                        x : 0,
+                        y : 0,
+                        h : 400
+                    },
+                    videos : [{
+                        imageUrl:'../image/108.png',
+                        videoUrl:'../image/1.mp4',
+                    },{
+                        imageUrl:'../image/108.png',
+                        videoUrl:'../image/1.mp4',
+                    }],
+                },function(ret, err){
+                    console.log(JSON.stringify(ret));
+                });
+              },
+                turnLive(item){
+                  var that =this;
+                  if(item.state==1){
+                    that.ajaxpost('post',globalData.userInfo,{}).then((res)=>{
+                      var res =$.parseJSON(res);
+                      if(res.code==1){
+                          var param = {};
+                          if (api.systemType != 'ios'){
+                            param = {
+                              code:item.student_code,
+                              prefix:item.prifex,
+                              name:res.data.nickname,
+                              avatar:res.data.avatar,
+                              action:"edulive"
+                            }
+                          }else{
+                            param = {
+                              extra:{
+                                code:item.student_code,
+                                prefix:item.prifex,
+                                name:res.data.nickname,
+                                avatar:res.data.avatar,
+                              },
+                              name:"edulive"
+                            }
+                          }
+                          console.log(JSON.stringify(param))
+                          api.accessNative(param,function(ret,err){
+
+                          });
+                      }else{
+                        loginfo(res)
+                      }
+                    }).catch((ret)=>{
+                      loginfo(ret)
+                    })
+                  }else{
+                    this.openW('live_dtl',{info:item},true,null,false);
+                  }
+                },
+                turnHistory(){
+                  this.openW('history_frm',{},true,null,false);
+                },
+                goBanner: function(isjump,liveId){
+                    if(isjump == 1){
+                        this.openW('course-list',{course_id: liveId},true)
+                    }
+                },
+                buyFn:function(money,name,pic,id){
+                    this.openW('my_shop_info', {
+                        money,
+                        pic,
+                        name,
+                        id
+                    }, true,null,false)
+                },
+                //获取审核状态
+                getShenHeStatus() {
+                    var that = this;
+                    that.ajaxpost('post', globalData.isshenhe, {}).then((res) => {
+                        var res = $.parseJSON(res);
+                        that.shenheStaus = res.data.code;
+                        api.setPrefs({
+                            key: 'shenheStaus',
+                            value: res.data.code
+                        });
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                },
+                is_xyShow(type) {
+                    if (type == 2) {
+
+                        window.localStorage.setItem('is_xyShow', false)
+                        this.flrst_xy = false
+                    } else {
+                        window.localStorage.setItem('is_xyShow', true)
+                        this.flrst_xy = false
+                    }
+                },
+                //进入直播
+                openlive(id) {
+                    var that = this;
+                    that.ajaxpost('post', globalData.entryDirect, { house_id: id }).then((res) => {
+                        var res = $.parseJSON(res);
+                        if (res.code == 1) {
+                            that.urllive(id, res.data.username)
+                        } else {
+                            loginfo(res)
+                        }
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+
+                },
+                //直播地址
+                urllive(id, username) {
+                    var that = this
+                    that.ajaxpost('post', globalData.pullDirect, { house_id: id }).then((res) => {
+                        var res = $.parseJSON(res);
+                        if (res.code == 1) {
+                            that.openW('Inclass', { 'url': res.data.live_flv_url, 'house_id': id, 'username': username }, false)
+                        } else {
+                            that.toast(res.msg)
+                        }
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                },
+                saom() {
+                    var that = this
+                    var FNScanner = api.require('FNScanner');
+                    FNScanner.open({
+                        autorotation: true
+                    }, function (ret, err) {
+                        // alert(JSON.stringify(ret))
+                        if (ret.eventType == 'success') {
+                            var token = window.localStorage.getItem('userinfo') || ''
+                            var content = $.parseJSON(ret.content);
+                            if (content.agentQrcode) {
+                                if (token == '') {
+                                    api.openWin({
+                                      useWKWebView:true,
+                                        name: 'index',
+                                        url: 'index.html',
+                                        pageParam: { agentQrcode: content.agentQrcode },
+                                        slidBackEnabled: false
+                                    })
+                                } else {
+                                    that.toast('您已注册')
+                                }
+                            } else {
+                                that.toast('未扫描邀请码')
+                            }
+                        } else if (ret.eventType == 'fail') {
+                            that.toast('扫描失败')
+                        }
+                    });
+                },
+                showXieyBox() {
+                    this.openW('clause_win', { type: 2 }, true)
+                },
+                //打开条款盒子
+                showClauseBox() {
+
+                    this.openW('clause_win', { type: 1 }, true)
+                },
+                //课程
+                navCourse(id) {
+
+                    this.openW('course_h', { Flid: id }, true)
+                },
+                //公开课
+                navpubilc() {
+                    this.openW('public_class_win', {}, true)
+                },
+                //测试题
+                navtest_frm() {
+                    //this.openW('test_frm', { type: 1 }, true)
+                    this.openW('question_bank_h',{},true)
+                },
+                //分类更多
+                moreFl() {
+                    this.openW('course-more', {}, true)
+                },
+                //课程分类
+                bindcourseFengl() {
+                    var that = this;
+                    var data = {
+                        limit: 999
+                    }
+                    that.ajaxpost('post', globalData.getCourseCategoryAll, data).then((res) => {
+                        var res = $.parseJSON(res);
+                        that.Tablist = res.data
+
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                },
+                //公开课list
+                hotDirectList() {
+                    var that = this;
+                    that.ajaxpost('post', globalData.hotDirectList).then((res) => {
+                        var res = $.parseJSON(res);
+
+                        for (var i = 0; i < res.data.data.length; i++) {
+                            //res.data.data[i].start_time = that.formatTime(res.data.data[i].start_time)
+                            res.data.data[i].start_time = moment.unix(res.data.data[i].start_time).format('YYYY-MM-DD HH:mm:ss')
+                        }
+                        that.hotdirelist.data = res.data.data || []
+
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                },
+                //课程list
+                bindcourseList() {
+                    var that = this;
+                    var data = {
+                        page_size: 2
+                    }
+                    that.ajaxpost_noloading('post', globalData.getHomePopularCourse, data).then((res) => {
+                        var res = $.parseJSON(res);
+                        that.list.data = res.data
+
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                },
+                //天数
+                getCountDownDay() {
+                    var that = this;
+                    that.ajaxpost('post', globalData.getCountDownDay).then((res) => {
+                        var res = $.parseJSON(res);
+                        that.kectime = res.data.down_day
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                },
+                //banner
+                bindBanner() {
+                    var that = this;
+                    var data = {
+
+                        display_type: 1
+                    }
+                    that.ajaxpost('post', globalData.getHomeBanner, data).then((res) => {
+                        var res = $.parseJSON(res);
+                        api.refreshHeaderLoadDone()
+                        that.bannerimg = res.data
+                        that.$nextTick(() => {
+                            that.swoperinit()
+                        })
+
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                },
+                //打开课程
+                navCourselist(index_, index) {
+                    this.openW('course-list', { course_id: this.list.data[index_].data[index].id }, true,null,false);
+                },
+                //日历
+                bindsign() {
+                    var that = this;
+                    var thisdate = new Date()
+                    var day = thisdate.getDate()
+                    var nianf = thisdate.getFullYear();
+                    var yuef = thisdate.getMonth() + 1;
+                    //当前月第一天日期对象：
+                    var thisyuef = new Date(thisdate.setDate(1))
+                    //当前月第一天星期几:
+                    var thisxq = thisyuef.getDay();
+                    thisxq == 0 ? thisxq = 7 : thisxq
+
+
+                    var data = {
+
+                        year: nianf,
+                        month: yuef
+                    }
+                    var arr = [];
+                    var add = [];
+
+                    that.ajaxpost('post', globalData.signlist, data).then((res) => {
+                        var res = $.parseJSON(res)
+                        var resdata;
+                        if (!res.data) {
+                            return
+                        }
+                        that.timetitle = that.formatTime(res.time, true)
+                        res.data.map(function (item, index) {
+                            if (day == item.day) {
+                                if (item.sign != 1) {
+                                    that.signShow = true
+                                }
+                            }
+                            if (index <= (7 - thisxq)) {
+                                arr.push(item);
+
+                            } else {
+                                add.push(item)
+                            }
+                        })
+                        if (arr.length != 0) {
+                            resdata = add
+                            for (var i = 0; i < arr.length; i++) {//前排加入空对象
+                                if (arr.length < 7) {
+                                    arr.unshift({});
+                                    that.lsatdatalist = arr
+                                    i--;
+                                } else {
+                                    that.lsatdatalist = arr
+                                    break
+                                }
+                            }
+
+                        } else {
+                            resdata = res.data
+                        }
+                        //日历一行数组7n
+                        resdata.map(function (item, index, val) {
+                            that.datelistcurr.push(item);
+                            if ((index != 0 && (index + 1) % 7 == 0) || index == index.length - 1) {
+                                that.datelist.push(that.datelistcurr)
+                                that.datelistcurr = [];
+
+                            }
+                        })
+                        //后排加入空对象
+                        if (that.datelistcurr.length > 0) {
+                            for (var i = 0; i < that.datelistcurr.length; i++) {
+                                if (that.datelistcurr.length != 7) {
+                                    that.datelistcurr.push({})
+                                    i--;
+                                }
+                            }
+                        }
+
+
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                },
+                //签到
+                bindsignBtn() {
+                    var that = this;
+                    var data = {
+
+                    }
+                    that.ajaxpost('post', globalData.sign, data).then((res) => {
+                        var res = $.parseJSON(res)
+                        if (res.code == 0) {
+                            that.toast(res.msg)
+                        } else {
+                            // that.signNum =res.data
+                            that.datadata = res.data;
+                            that.signShow = false
+                            that.signmodel = true
+                        }
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                },
+                //关闭签到
+                bindcloseSign() {
+                    this.signShow = false
+                },
+                //swiper
+                swoperinit() {
+                    var mySwiper = new Swiper('.swiper-container', {
+                        pagination: '.swiper-pagination',
+                        //点击切换
+                        paginationClickable: true,
+                        //自动播放时间
+                        autoplay: 3000,
+                        //切换速度，即slider自动滑动开始到结束的时间（单位ms），也是触摸滑动时释放至贴合的时间。
+                        speed: 1000,
+                        //复制slide，看起来是循环的
+                        loop: true,
+                        //用户操作swiper之后，是否禁止autoplay.默认为true：停止。
+                        autoplayDisableOnInteraction: false,
+                        //拖动释放时不会输出信息，阻止click冒泡。拖动Swiper时阻止click事件。
+                        preventLinksPropagation: true
+
+                    })
+                    var transverse = new Swiper('.swiper-transverse', {
+                        freeMode: true,
+                        slidesPerView: "auto",
+                        paginationClickable: true,
+                        observer: true,
+                        observeParents: true
+                    })
+                }
+            },
+
+        })
+
+    };
+</script>
+
+</html>

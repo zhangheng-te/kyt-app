@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sign.css">
+    <link rel="stylesheet" href="../css/swiper.css">
+    <style>
+        body {
+            background-color: #F5F5F5;
+            background: #1A71D3;
+        }
+
+        [v-cloak] {
+            display: none !important;
+        }
+
+        .home_top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /*height: 10vw;*/
+            padding: 0 3vw;
+        }
+
+        .home_ss {
+            width: 3.5vw;
+            height: 3.5vw;
+            background: url(../image/select.png) 0 0 no-repeat;
+            background-size: 100% 100%;
+            margin: 0 2vw;
+
+        }
+
+        .home_top_wrap {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
+            height: 8vw;
+            margin-right: 2vw;
+            width: 100%;
+        }
+
+        .home_top_wrap input::-webkit-input-placeholder {
+            color: #fff;
+        }
+
+        .home_top_saom {
+            width: 5vw;
+            height: 5vw;
+            background: url(../image/scan.png) 0 0 no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .home_top_wrap input {
+            color: #fff;
+            font-size: 3.5vw;
+        }
+
+        .home-row-wrap img {
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="app" v-cloak>
+        <div class="home_top" id='header'>
+            <div class="home_top_wrap" @click='navCourse(-1)'>
+                <i class="home_ss"></i>
+                <input type="text" name="" placeholder='请输入搜索内容' value="" disabled>
+            </div>
+            <!-- <div class="home_top_saom" @click='saom'></div> -->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script src="../script/configUtil.js" charset="utf-8"></script>
+<script type="text/javascript" src="../script/swiper1.js"></script>
+<script type="text/javascript">
+    apiready = function () {
+      api.setStatusBarStyle({
+          style: 'dark',
+      })
+        var header = document.querySelector('#header');
+        $api.fixStatusBar(header);
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+
+                }
+            },
+            created() {
+
+            },
+            mounted: function () {
+                api.openFrame({
+                  useWKWebView:true,
+                    name: 'home',
+                    url: './home.html',
+                    rect: {
+                        x: 0,
+                        y: $('#header').height() + api.safeArea.top - 2,
+                        w: 'auto',
+                        h: api.winHeight-65-api.safeArea.bottom-$('#header').height() - api.safeArea.top
+                    }
+                });
+            },
+            methods: {
+                //课程
+                navCourse(id) {
+                    api.openWin({
+                      useWKWebView:true,
+                        name: 'course_h',
+                        url: 'widget://html/course_h.html',
+                        pageParam: {
+                            Flid: id
+                        },
+                        slidBackEnabled: true,
+                        bounces: false,
+
+                    })
+                },
+                //扫码
+                saom() {
+                    var that = this
+                    if(!that.confirmPer('camera')) return
+                    var FNScanner = api.require('FNScanner');
+                    FNScanner.open({
+                        autorotation: true
+                    }, function (ret, err) {
+                        if (ret.eventType == 'success') {
+                            var token = window.localStorage.getItem('userinfo') || ''
+                            var content = $.parseJSON(ret.content);
+                            if (content.agentQrcode) {
+                                if (token == '') {
+                                    api.openWin({
+                                      useWKWebView:true,
+                                        name: 'index',
+                                        url: 'index.html',
+                                        pageParam: { agentQrcode: content.agentQrcode },
+                                        slidBackEnabled: false
+                                    })
+                                } else {
+                                    that.toast('您已注册')
+                                }
+                            } else {
+                                that.toast('未扫描邀请码')
+                            }
+                        } else if (ret.eventType == 'fail') {
+                            that.toast('扫描失败')
+                        }
+                    });
+                }
+            }
+        })
+    };
+</script>
+
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/purchase_history.css"/>
+      <style>
+          body{
+
+          }
+
+          .menu_navs{
+            position: relative;
+          }
+          .course_area{
+            box-sizing: border-box;
+          }
+          .recharge{
+            box-sizing: border-box;
+          }
+          .data_area{
+            box-sizing: border-box;
+          }
+      </style>
+  </head>
+  <body>
+    <div id='wrap2'>
+      <div class="menu_navs" style="border-top:1px solid #f2f2f2;">
+        <div class="menu_nav" @click="toggle(index ,nav)" v-for="(nav,index) in navs" :class="{active:active==index}">
+          {{nav}}
+        </div>
+      </div>
+
+      <div class="space_border"></div>
+      <p style="text-align:center;color:#666;font-size:4vw;" v-if='consume.data&&consume.data.length==0'>暂无数据</p>
+      <div class="course_area" v-if="active == 0">
+        <div class="course_item" v-for="item in consume.data">
+          <div ><img class="course_img" :src="item.img_url" alt=""></div>
+          <div class="course_right">
+            <div class="line1 f_row_sb">
+              <div style="width:32vw; overflow: hidden;
+              white-space: nowrap;
+              text-overflow:ellipsis;">{{item.title}}</div>
+              <div class="cancel">{{item.status==-1?'订单取消':item.status==1?'待付款':item.status==2?'已支付':item.status==3?'待收货':item.status==4?'已完成':'拼团支付成功'}}</div>
+            </div>
+            <div class="line2">{{item.period}}课时</div>
+            <div class="line3">￥{{item.total}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="recharge" v-if="active == 1">
+        <div class="course_item" v-for="item in consume.data">
+          <div class="course_line1 f_row_sb" style="height:10vw;">
+            <div style="width:78vw;overflow: hidden;
+            white-space: nowrap;
+            text-overflow:ellipsis;">{{item.title}}</div>
+            <div style="color:#0264ce;">{{item.status==-1?'订单取消':item.status==1?'待付款':item.status==2?'已支付':item.status==3?'待收货':item.status==4?'已完成':'拼团支付成功'}}</div>
+          </div>
+          <div class="course_line2 f_row_sb">
+            <div>{{item.create_time}}</div>
+            <div class="line3">￥{{item.pricetotal}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="course_area" v-if="active == 2">
+          <div class="course_item" v-for="item in consume.data">
+            <div ><img class="course_img" :src="item.img_url" alt=""></div>
+            <div class="course_right">
+              <div class="line1 f_row_sb">
+                <div style="width:38vw; overflow: hidden;
+                white-space: nowrap;
+                text-overflow:ellipsis;">{{item.title}}</div>
+                <div class="cancel">￥{{item.total}}</div>
+              </div>
+              <div class="line2">收货地址：{{item.address_detail}}</div>
+              <!-- <div class="line3">收货地址：{{item.address_detail}}</div> -->
+            </div>
+          </div>
+        </div>
+      <div class="recharge" v-if="active == 3">
+        <div class="course_item" v-for="item in consume.data">
+          <div class="course_line1 f_row_sb" style="height:10vw;">
+            <div>{{item.title}}</div>
+            <div style="color:#0264ce;">{{item.status==-1?'订单取消':item.status==1?'待付款':item.status==2?'已支付':item.status==3?'待收货':item.status==4?'已完成':'拼团支付成功'}}</div>
+            <!-- <div style="color:#0264ce;">{{item.status==4?'已完成':'已取消'}}</div> -->
+          </div>
+          <div class="course_line2 f_row_sb">
+            <div>{{item.create_time}}</div>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;color:#666;font-size:4vw;">已经到底了~</p>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap2",
+          data: {
+            navs:['课程消费','试卷消费','教材消费','充值消费'],
+
+            active: 0, // 切换TABclass
+            consume:{
+              data:[]
+            },
+            page:1
+          },
+          mounted: function () {
+
+            this.consumeinfo(0)
+            this.scrolltobottom()
+          },
+          methods: {
+            //上拉
+            scrolltobottom() {
+                var that =this;
+                  api.addEventListener({
+                      name: 'scrolltobottom',
+                      extra: {
+                          threshold: 50 //距离底部距离
+                      }
+                  }, function(ret, err) {
+                      // listAjax(true);
+                      console.log(JSON.stringify(ret))
+                      that.page =that.page+1;
+                      that.consumeinfo(that.active)
+                  });
+              },
+            toggle: function (i, v) {
+              console.log(i);
+              this.active = i;
+              this.page =1
+              this.consume.data =[]
+              this.consumeinfo(i)
+            },
+            //info
+            consumeinfo(index){
+              var that =this;
+              var index =index+1
+              var data ={
+
+                type:index,
+                page:that.page
+              }
+                console.log(JSON.stringify(data))
+              that.ajaxpost('post',globalData.getConsumeRecord,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+                console.log(JSON.stringify(res))
+                if(!res.data.data){
+                  return
+                }
+                res.data.data.map(function(item){
+                  item.create_time =that.formatTime(item.create_time)
+                })
+
+                that.consume.data=that.consume.data.concat(res.data.data)
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" href="../css/style.css">
+      <style>
+          body{
+
+          }
+          #header{
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+          }
+          #header .aui-title{
+            color: #000;
+          }
+          #header .aui-icon-left{
+            color: #000
+          }
+          .clause{
+            padding:1rem;
+            margin-top: 1.2rem;
+            font-size: 1.2rem;
+          }
+          .clause .aui-btn-outlined{
+            background-color: #026fe4;
+            color: #fff;
+            margin-top: 1.5rem;
+          }
+          [v-cloak]{
+            display: none;
+          }
+      </style>
+  </head>
+  <body >
+      <div id="app" v-cloak class="clause_comment aui-content">
+        <header id="header" class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn" @click='this.closeW'>
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">评价</div>
+            <!-- <div class="aui-pull-right aui-btn">
+                <span>创建课程</span>
+            </div> -->
+        </header>
+        <div class="clause_comment_box">
+          <div class="clause_comment_b_img"><img :src="info.avatar" alt=""></div>
+          <div class="clause_comment_b_x" style="font-size:4.5vw;font-weight:550;margin-bottom:5vw;">{{info.nickname}}</div>
+          <div class="clause_comment_b_x" style="font-size:4vw;">星级评价：<i :class="item.stare?'on_comment_xx_hover':'on_comment_xx'" @click='bindstare(item.id)' v-for='item in stare'></i></div>
+          <div class="clause_comment_b_text">
+            <textarea name="name" rows="8" cols="80"  v-model='content' maxlength="100"></textarea>
+            <span>{{content.length}}/100</span>
+          </div>
+        </div>
+
+        <div class="aui-btn aui-btn-block aui-btn-outlined" @click='bindAddcomment()' style="border-radius:4.8vw;width:75vw;">确认</div>
+      </div>
+
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  setTimeout(function () {
+    if (typeof api == 'undefined') {
+        api = {
+            pageParam: {}
+        }
+        apiready();
+    }
+}, 500);
+  apiready = function () {
+    api.setStatusBarStyle({
+        style: 'dark',
+    })
+      var vm = new Vue({
+          el: '#app',
+          data: {
+              eventHub: new Vue(),
+              title: '',
+              content:'',
+              stare:[
+      					{
+      						id:1,
+      						stare:false
+      					},
+      					{
+      						id:2,
+      						stare:false
+      					},
+      					{
+      						id:3,
+      						stare:false
+      					},
+      					{
+      						id:4,
+      						stare:false
+      					},
+      					{
+      						id:5,
+      						stare:false
+      					}
+      				],
+              course_id: api.pageParam.course_id,
+              info:'',
+              branch:'',
+          },
+          mounted: function () {
+            var that =this;
+            var header = document.querySelector('#header');
+            $api.fixStatusBar(header);
+            this.userInfo()
+          },
+          methods:{
+            userInfo(){
+              var that =this
+              var data={
+
+              }
+
+              that.ajaxpost('post',globalData.userInfo,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+                 console.log(JSON.stringify(res))
+                if(res.code==1){
+                    that.info=res.data
+                }
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            bindstare(id){
+      				var that =this;
+      				that.branch=id
+      				that.stare.map((item)=>{
+      					if(item.id<=id){
+      						item.stare=true
+      					}else{
+      						item.stare=false
+      					}
+      				})
+      			},
+            //添加评论
+            bindAddcomment(){
+              var that =this;
+              var data ={
+
+                course_id:that.course_id,
+                content:that.content,
+                score:that.branch
+              }
+              if(data.content==''){
+                that.toast('请输入评论')
+                return;
+              }
+              if(data.score==''){
+                that.toast('请评分')
+                return;
+              }
+              that.ajaxpost('post',globalData.addCourseComment,data).then((res)=>{
+                var res =$.parseJSON(res);
+                if(res.code==1){
+                  // UIChatBox.hide();
+                  api.sendEvent({
+                      name: 'comment',
+                      extra: {
+                          yes: 1
+                      }
+                  });
+                  that.content ='';
+                  that.closeW()
+                }else{
+                  that.toast(res.msg)
+                }
+
+                console.log(JSON.stringify(res))
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+
+            },
+          },
+
+
+      })
+  }
+
+  </script>
+  </html>

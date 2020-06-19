@@ -18,7 +18,7 @@ nav,article,aside,details,main,header,footer,section,fieldset,figcaption,figure{
 	display: block;
 }
 img,a,button,em,del,strong,var,label,cite,small,time,mark,code,textarea{
-	display:inline-block;
+	display:inline-block ;
 }
 header,section,footer {
 	position:relative;

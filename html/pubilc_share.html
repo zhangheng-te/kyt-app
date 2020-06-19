@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/public_class.css"/>
+      <link rel="stylesheet" href="../css/swiper.css">
+      <style>
+          body{
+
+          }
+          [v-cloak]{
+      			display: none!important ;
+      		}
+
+          .swiper-transverse{
+            box-sizing: border-box;
+            overflow: hidden;
+          }
+          #header{
+            background-color: #fff;
+          }
+          #header .aui-title{
+            color: #000;
+          }
+          #header .aui-icon-left{
+            color: #000
+          }
+          #header .aui-searchbar{
+            background-color: #fff;
+          }
+          #header .aui-searchbar-input{
+            background-color: #ebeced;
+          }
+          .menu_navs{
+            position: relative;
+            display: -webkit-box;
+            overflow-x: scroll;
+          }
+      </style>
+  </head>
+  <body>
+    <div id='wrap2'>
+      <header id='header' class="aui-bar aui-bar-nav">
+          <div class="aui-pull-left aui-btn" @click='this.closeW'>
+              <span class="aui-iconfont aui-icon-left"></span>
+          </div>
+          <div class="aui-title" style="left:2rem; right: 2rem;">
+              <div class="aui-searchbar">
+                  <div class="aui-searchbar-input aui-border-radius">
+                      <i class="aui-iconfont aui-icon-search"></i>
+                      <input type="search" v-model='keyword' placeholder="请输入搜索内容" id="search-input">
+                      <div class="aui-searchbar-clear-btn">
+                          <i class="aui-iconfont aui-icon-close"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="aui-pull-right aui-btn" style="color:#000;" @click='publicList(-1)'>
+              <span>搜索</span>
+          </div>
+      </header>
+      <div class="space_border"></div>
+
+      <div class="menu_navs" style="position: relative;overflow-x: scroll;">
+        <div class="menu_nav" @click="toggle(index)" v-for="(item,index) in navs" :class="{active:active==index}">
+          {{item.category_name}}
+        </div>
+      </div>
+      <p style="text-align:center;color:#666;font-size:4vw;" v-if='courselist.data&&courselist.data.length==0'>暂无数据</p>
+      <div class="course_area2">
+        <div class="course_item2" v-for="(item,index) in courselist.data" @click='openlive(item.house_id)'>
+          <div class="course_img2"><img  :src="item.image_text[0]" alt=""><p></p><span>剩余座位：{{item.useful_seat}}个</span></div>
+          <div class="course_name">{{item.name}}</div>
+          <div class="course_time">{{item.start_time}}</div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../script/swiper1.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap2",
+          data: {
+            keyword:'',
+            courselist:{
+              data:[],
+              page:1
+            },
+            navs:[],
+            active: 0, // 切换TABclass
+          },
+          mounted: function () {
+            var header = $api.byId('header');
+            $api.fixStatusBar(header);
+            this.initFl();
+            this.$nextTick(function(){
+                // this.swoperinit()
+                this.scrolltobottom()
+            }.bind(this))
+
+          },
+          methods: {
+            //上拉
+            scrolltobottom() {
+              var that =this;
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: 50 //距离底部距离
+                    }
+                }, function(ret, err) {
+                    // listAjax(true);
+                    console.log(JSON.stringify(ret))
+                    that.courselist.page =that.courselist.page+1;
+                    that.publicList(that.active)
+                });
+            },
+            //进入直播
+            openlive(id){
+              var that =this
+
+              that.ajaxpost('post',globalData.entryDirect,{house_id:id}).then((res)=>{
+                var res =$.parseJSON(res);
+                console.log(JSON.stringify(id))
+                console.log(JSON.stringify(res))
+                if(res.code==1){
+                    that.urllive(id,res.data.username)
+                }else{
+                  loginfo(res)
+                }
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+
+            },
+            //直播地址
+            urllive(id,username){
+              var that =this
+              that.ajaxpost('post',globalData.pullDirect,{house_id:id}).then((res)=>{
+                var res =$.parseJSON(res);
+                console.log(JSON.stringify(res))
+                if(res.code==1){
+                    that.openW('Inclass',{'url':res.data.live_flv_url,'house_id':id,'username':username},false)
+                }else{
+                  that.toast(res.msg)
+                }
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            toggle: function (i) {
+              console.log(i);
+              this.active = i;
+              this.keyword =''
+              this.courselist.data =[]
+              this.courselist.page =1
+              this.publicList(i)
+            },
+            //公开课list
+            publicList(index){
+              var that =this;
+              if(index==-1){
+                that.courselist.data =[]
+                index =that.active
+              }
+              var data ={
+                category_id:parseInt(that.navs[index].category_id),
+                page:that.courselist.page,
+                limit:6,
+                name:that.keyword
+              }
+
+              that.ajaxpost('post',globalData.directList,data).then((res)=>{
+                var res =$.parseJSON(res);
+    console.log(JSON.stringify(res))
+                if(res.data.data==null){
+
+                  return
+                }
+                for (var i = 0; i < res.data.data.length; i++) {
+                  res.data.data[i].start_time=that.formatTime(res.data.data[i].start_time)
+                }
+                that.courselist.data=that.courselist.data.concat(res.data.data)
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+
+            //swiper
+            swoperinit(){
+
+                var transverse = new Swiper('.swiper-transverse', {
+                  freeMode:true,
+                  slidesPerView: "auto",
+                  paginationClickable: true,
+                  observer:true,
+                  observeParents:true
+                })
+            },
+            //分类
+            initFl(){
+              var that =this;
+                console.log(11)
+              var data ={
+                type:1
+              }
+              that.ajaxpost('post',globalData.category,data).then((res)=>{
+                var res =$.parseJSON(res);
+                console.log(JSON.stringify(res))
+                that.navs=res.data;
+                this.publicList(0)
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

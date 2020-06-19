@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/question_audition.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/test_shop.css"/>
+      <style>
+          body{
+
+          }
+
+          .dele{
+            width: 5vw;
+            height: 5vw;
+            background:  url(../image/dele.png) 0 0 no-repeat;
+            background-size: 100% 100%;
+            display: inline-block;
+            margin-right: 3vw;
+          }
+          .icon{
+            display: flex;
+            width: auto;
+            justify-content: space-between;
+          }
+          .menu_navs{
+            position: relative;
+            display: -webkit-box;
+            overflow-x: scroll;
+            -webkit-overflow-scrolling: touch;
+          }
+          .course_line1{
+            margin-top: 0vw;
+          }
+      </style>
+  </head>
+  <body>
+    <div id='wrap'>
+
+      <div class="menu_navs" style="border-top:1px solid #f2f2f2;border-bottom:3vw solid #f2f2f2;">
+        <div class="menu_nav" @click="toggle(index ,nav)" v-for="(nav,index) in navs" :class="{active:active==index}">
+          {{nav.title}}
+        </div>
+      </div>
+      <!-- <div class="empty_space"></div> -->
+      <p style="text-align:center;color:#666;font-size:4vw;" v-if='paperdata.datalist&&paperdata.datalist.length==0'>暂无数据</p>
+      <div class="course_item" v-for="(item,index) in paperdata.datalist"  @click='mavpaly(index)' >
+        <div class="course_line1 f_row_sb" >
+          <div style="widht:75vw; overflow: hidden;white-space: nowrap;text-overflow:ellipsis;">{{item.name}}</div>
+          <div style="color:#d51212;width:15vw;;text-align:center;">{{item.price}}元</div>
+        </div>
+        <div class="course_line2 f_row_sb" >
+          <div style="flex:1;"><span>类型：{{item.category_name}}</span><span style="margin-left:5vw;">教师：{{item.nickname}}</span></div>
+          <div class="icon">
+            <!-- <i class="dele" @click.stop='dele(index)'> -->
+            </i><i class="icon_del right_icon img" style="padding-right:0.2vw;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap",
+          data: {
+            navs:[],
+            active: 0, // 切换TABclass
+            userinfo:$api.getStorage('userinfo')==null?'':$api.getStorage('userinfo'),
+            teacher_id:api.pageParam.teacher_id||'',
+            paperdata:{
+              datalist:[],
+              page:1
+            },
+          },
+          mounted: function () {
+            var that =this
+            var header = document.querySelector('#header');
+            $api.fixStatusBar(header);
+            that.bindpaperFl();
+            that.$nextTick(function(){
+                  api.addEventListener({
+                      name:'paper',
+                  }, function(ret, err) {
+                      // that.setyes(JSON.stringify(ret.value.yes))
+                      // alert(JSON.stringify(ret.value));
+                      if(ret.value.yes==1){
+                        that.paperdata.page =1;
+                        that.bindpaperlist(that.active)
+                      }
+                  });
+                  that.scrolltobottom();
+            })
+          },
+          methods: {
+            //上拉
+            scrolltobottom() {
+              var that =this;
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: 50 //距离底部距离
+                    }
+                }, function(ret, err) {
+                    // listAjax(true);
+                    console.log(JSON.stringify(ret))
+                    that.paperdata.page =that.paperdata.page+1;
+                    that.bindpaperlist(that.active)
+                });
+            },
+            //删除
+            dele(index){
+              var that =this;
+              var data ={
+
+                testpaper_id:that.paperdata.datalist[index].id
+              }
+              api.confirm({
+                  title: '提示',
+                  msg: '确定删除',
+                  buttons: ['确定', '取消']
+              }, function(ret, err) {
+                  console.log(JSON.stringify(ret))
+                if(ret.buttonIndex==1){
+                  that.ajaxpost('post',globalData.delTestPaper,data).then((res)=>{
+                    console.log(JSON.stringify(res))
+                    var res =$.parseJSON(res);
+                    if(res.code==1){
+                        that.paperdata.datalist.splice(index,1);
+                    }else{
+                      that.toast(res.msg)
+                    }
+                  }).catch((ret)=>{
+                    loginfo(ret)
+                  })
+
+                }
+
+              });
+
+            },
+            mavpaly(index){
+              if(this.paperdata.datalist[index].order_id==null){
+                var data ={
+                  type:2,
+                  info_testpaper:this.paperdata.datalist[index]
+                }
+                this.openW('buy_course_frm',data,true);
+              }else{
+                this.openW('question_test_win',{testpaper_id:this.paperdata.datalist[index].id},true)
+              }
+
+            },
+            //添加试卷
+            addpaper(index){
+
+              var that =this;
+              console.log(index)
+              if(index!=undefined){
+                var data ={
+                  testpaper_id:that.paperdata.datalist[index].id
+                }
+              }else{
+                var data={}
+              }
+
+              that.openW('find_testPapercontent',data,true);
+            },
+            //试卷list
+            bindpaperlist(index){
+              var that =this;
+              if(that.paperdata.page==1){
+                that.paperdata.datalist=[];
+              }
+              var data ={
+
+                categoryid:that.navs[index].id,
+                testpaper_type:'',
+                teacher_id:that.teacher_id,
+                page:that.paperdata.page,
+                page_size:10
+              }
+              console.log(JSON.stringify(data))
+              that.ajaxpost('post',globalData.getPapersShopList,data).then((res)=>{
+                var res =$.parseJSON(res);
+                console.log(JSON.stringify(res))
+                if (res.data.data!=null) {
+                  var resdata =that.paperdata.datalist.concat(res.data.data)
+                  that.paperdata.datalist=resdata
+                }
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            //分类
+            bindpaperFl(){
+              var that =this;
+              that.ajaxpost('post',globalData.getPapersCategoryAll).then((res)=>{
+                var res =$.parseJSON(res);
+                var whole ={
+                  id:'0',
+                  title:'全部'
+                }
+                res.data.unshift(whole)
+                // console.log(JSON.stringify(res))
+                that.navs=res.data;
+                that.bindpaperlist(0);
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            toggle: function (i, v) {
+              console.log(i);
+              this.active = i;
+              this.paperdata.page=1;
+              this.bindpaperlist(i)
+            },
+          }
+        });
+      };
+  </script>
+  </html>

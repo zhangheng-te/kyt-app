@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta content="telephone=no" name="format-detection">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" href="../css/add.css">
+      <link rel="stylesheet" href="../css/vant.css">
+      <style>
+        body{
+          background: #fff;
+        }
+        #header{
+          height: 12.5vw;
+          position: fixed;
+          top:0;
+          left:0;
+        }
+        #header{
+          background-color: #fff;
+          border-bottom: 1px solid #eee;
+        }
+        #header .aui-title{
+          color: #000;
+        }
+        #header .aui-icon-left{
+          color: #000
+        }
+        .card{
+          height: 25vw;
+        }
+        .card_right{
+          width: 87vw;
+          height: 25vw;
+          padding: 4vw;
+          box-sizing: border-box;
+        }
+        .money_input{
+          height: 25vw;
+        }
+        .main{
+          min-height: 100vh;
+          background-color: #f6f6f6;
+          box-sizing: border-box;
+        }
+        .bcw{
+          background-color: #ffffff;
+        }
+        .bcw .van-field__body input{
+          font-size:10vw;
+        }
+      </style>
+  </head>
+  <body>
+      <div id="app">
+        <header id="header" class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn" @click='this.closeW'>
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">提现</div>
+            <div class="aui-pull-right aui-btn">
+                <span></span>
+            </div>
+        </header>
+        <div id="main" class="main">
+          <div style="height:12.5vw;"></div>
+          <div style="height:4vw;" class="b_l"></div>
+          <van-cell-group>
+            <van-field required v-model="name" placeholder="请输入姓名" label="姓名"/>
+          </van-cell-group>
+          <van-cell-group>
+            <van-field required v-model="account" placeholder="请输入支付宝账号" label="支付宝账号"/>
+          </van-cell-group>
+          <div class="fcc">
+            <van-button style="width:92vw;margin-top:5vw;" type="info" @click="saveAccount">保存账号</van-button>
+          </div>
+          <div style="height:4vw;" class="b_l"></div>
+          <div class="pad_b bcw">
+            <div class="color6" style="padding-top:3vw;font-size:3.8vw;">提现金额</div>
+            <div class="f_c" style="font-size:10vw;margin-top:8vw;">
+              <div>¥</div>
+              <van-field type="number" style="font-size:10vw;margin-left:2vw;" type="text" v-model="amount"></div>
+          </div>
+        <div class="color6 bcw" style="font-size:3.8vw;padding:2vw 4vw;border-top:1px solid #eeeeee;">
+          可用余额{{money}}元
+        </div>
+        <van-button style="width:92vw;margin:5vw 0 0 4vw;" type="info" @click="save">确认提现</van-button>
+        </div>
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script type="text/javascript" src="../script/util.js"></script>
+  <script type="text/javascript" src="../script/vant.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script src="../script/util.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var header = document.querySelector('#header');
+        var main = document.querySelector('#main');
+        $api.fixStatusBar(header);
+        $api.fixStatusBar(main);
+        var vm = new Vue({
+            el: '#app',
+            data: {
+              card:{},
+              amount:'',
+              money:'',
+              name:'',
+              account:''
+            },
+            mounted: function () {
+              var that = this;
+              this.initData();
+              this.money = api.pageParam.money;
+              this.rate = api.pageParam.rate;
+              api.addEventListener({
+      					name: 'card_choose'
+      				}, function (ret, err) {
+                that.card = ret.value;
+      				});
+            },
+            methods:{
+              saveAccount(){
+                var that = this;
+                var param = {
+                  zfbcard:this.account,
+                  zfbname:this.name,
+                }
+                if(param.zfbname==''){
+                  that.toast('请输入姓名')
+                  return
+                }
+                if(param.zfbcard==''){
+                  that.toast('请输入账号')
+                  return
+                }
+                that.ajaxpost('post', globalData.saveUserZfb, param).then((res) => {
+                  var res = $.parseJSON(res);
+                  if(res.code==1){
+                    that.toast('保存成功')
+                  }
+                }).catch((ret) => {
+                  loginfo(ret)
+                })
+              },
+              txBefore(money,func){
+                if(!money){
+                  this.toast('请输入提现金额')
+                  return
+                }
+                money = (money * this.rate / 100).toFixed(2)
+                this.$dialog.confirm({
+                  title: '提示',
+                  message: '手续费'+ this.rate + '%(' + money +')元，是否提现？',
+                }).then(function(){
+                  func();
+                }).catch(function(){
+
+                });
+              },
+              save(){
+                var that =this;
+                var data ={
+                  name:that.name,
+                  bank_id:1,
+                  card:that.account,
+                  amount:that.amount
+                }
+                if(data.amount < 500){
+                  that.toast('提现金额需大于等于500')
+                  return
+                }
+                this.txBefore(data.amount,function(){
+                  that.ajaxpost('post',globalData.xuey_tx,data).then((res)=>{
+                    var res =$.parseJSON(res);
+                      console.log(JSON.stringify(res))
+                    if(res.code==1){
+                      api.sendEvent({
+                          name: 'root_data',
+                          extra: '刷新'
+                      });
+                     that.toast('提交成功，等待平台审核')
+                     setTimeout(function(){
+                      that.closeW()
+                     },2000)
+                    }
+                  }).catch((ret)=>{
+                    loginfo(ret)
+                  })
+                });
+              },
+              chooseCard(){
+                this.openW('card_list',{type:1},true,null,false);
+              },
+              initData(){
+                var that = this;
+                var param = {
+
+                }
+                that.ajaxpost('post', globalData.getUserZfb, param).then((res) => {
+                  var res = $.parseJSON(res);
+                  if(res.data.zfbcard){
+                    that.account = res.data.zfbcard;
+                  }
+                  if(res.data.zfbname){
+                    that.name = res.data.zfbname;
+                  }
+                }).catch((ret) => {
+                  loginfo(ret)
+                })
+              }
+            }
+        })
+      };
+  </script>
+  </html>

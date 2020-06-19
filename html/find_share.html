@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <title>title</title>
+        <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+        <link rel="stylesheet" href="../css/aui.css">
+        <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/study_share.css"/>
+        <style>
+            body{
+
+            }
+
+            .share_item{
+               padding: 3vw 3.5vw 4vw 3.5vw;
+               margin: 3vw 3.5vw 4vw 3.5vw;
+            }
+            [v-cloak]{
+              display: none;
+            }
+            #wrap2{
+              overflow: hidden;
+            }
+        </style>
+
+    </head>
+    <body>
+
+      <div id="wrap2"  v-cloak>
+
+        <div class="share_item" v-for="(item,index) in share.data" @click='navreply(index)'>
+          <div class="share_line1">
+            <div class="line1_img"><img :src="item.avatar" alt=""></div>
+            <div class="line1_name">{{item.username}}</div>
+          </div>
+          <div class="share_line2">{{item.content}}</div>
+          <div class="share_line3">
+            <div class="line3_img" v-for="(items,index) in item.picture_text"><img :src="items" alt=""></div>
+            <!-- <div class="add_img f_middle"><div class="icon"><i class="icon_del add_icon img"></i></div></div> -->
+          </div>
+          <div class="share_line4">
+            <div class="line4_time"><span>{{item.create_time_text}}</span></div>
+            <div class="icon" ><i class="icon_del info_icon img"></i></div>
+          </div>
+          <div class="share_line5" v-show='item.evaluate_list'>
+            <div class="chat_item" v-for='active in item.evaluate_list'><span class="chat_title">{{active.from_name}}：</span>{{active.content}}</div>
+          </div>
+        </div>
+        <!-- <div id='footer' class="f_row_sb">
+          <input type="text" v-model="comment">
+          <div style="color:#005faf;">发送</div>
+        </div> -->
+      </div>
+    </body>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script src="../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../script/vue.js"></script>
+    <script src="../script/configUtil.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        apiready = function(){
+          api.setStatusBarStyle({
+              style: 'dark',
+          })
+          var vm = new Vue({
+            el: "#wrap2",
+            data: {
+              comment:'',
+
+              share:{
+                data:[],
+                page:1
+              }
+            },
+            mounted: function () {
+              var header = document.querySelector('#header');
+              var that =this;
+              $api.fixStatusBar(header);
+              that.chareInfo();
+              that.$nextTick(function(){
+                    api.addEventListener({
+                        name:'find_share',
+                    }, function(ret, err) {
+                        // that.setyes(JSON.stringify(ret.value.yes))
+                        // alert(JSON.stringify(ret.value));
+                        if(ret.value.yes==1){
+                          that.chareInfo(true);
+                        }
+                    });
+                    api.addEventListener({
+                        name:'find_close',
+                    }, function(ret, err) {
+                        // that.setyes(JSON.stringify(ret.value.yes))
+                        // alert(JSON.stringify(ret.value));
+                        that.chareInfo(true);
+                    });
+                  that.scrolltobottom()
+              })
+
+            },
+            methods: {
+              //上拉
+              scrolltobottom() {
+                var that =this;
+                  api.addEventListener({
+                      name: 'scrolltobottom',
+                      extra: {
+                          threshold: 50 //距离底部距离
+                      }
+                  }, function(ret, err) {
+                      // listAjax(true);
+                      console.log(JSON.stringify(ret))
+                      that.share.page =that.share.page+1;
+                      that.chareInfo()
+                  });
+              },
+
+              //详情
+              navreply(index){
+                var that =this;
+                var data ={
+                  comment_id:that.share.data[index].comment_id
+                }
+                that.openW('find_shareReply',data,true)
+              },
+              //学习分享
+              chareInfo(calldata){
+                var that =this;
+                var data ={
+                  page:that.share.page,
+                  limit:5
+                }
+                if(calldata){that.share.data=[];that.share.page=1;};
+                that.ajaxpost('post',globalData.shareList,data).then((res)=>{
+                  var res =$.parseJSON(res);
+                  if(res.data.data!=null){
+                      that.share.data =that.share.data.concat(res.data.data)
+                  }
+
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+
+            }
+          });
+        };
+    </script>
+    </html>

@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<title>课程列表</title>
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" href="../css/aui.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/add.css">
+	<link rel="stylesheet" href="../css/vant.css">
+	<style>
+		body {}
+
+		[v-cloak] {
+			display: none !important;
+		}
+
+
+		.couse_topic_example li {
+			padding-bottom: 2.2vw;
+		}
+
+		.mask_grop_show {
+			width: 80vw;
+			height: 80vw;
+			top: 50%;
+			margin-top: -40vw;
+			background-color: #fff;
+			left: 50%;
+			transform: translateX(-50%);
+			overflow-y: scroll;
+			border-radius: 4px;
+			position: fixed;
+			z-index: 99;
+		}
+
+		.mask {
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			background: #000;
+			opacity: 0.4;
+			overflow: hidden;
+			z-index: 98;
+			color: #fff;
+		}
+
+		.course_s_title i {
+			font-size: 3.5vw
+		}
+		#header{
+			background-color: #fff;
+		}
+		#header .aui-title{
+			color: #000;
+		}
+		#header .aui-icon-left{
+			color: #000
+		}
+		#header .aui-pull-right span{
+			width: 5vw;
+			height: 5vw;
+			background:  url(../image/addcourse.png) 0 0 no-repeat;
+			background-size: 100% 100%;
+			margin-left: 2vw;
+		}
+		#header{
+			height: 12.5vw;
+			position: fixed;
+			top:0;
+			left:0;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app" v-cloak class="course_list aui-content" v-cloak>
+		<header id="header" class="aui-bar aui-bar-nav">
+				<div class="aui-pull-left aui-btn" @click='back'>
+						<span class="aui-iconfont aui-icon-left"></span>
+				</div>
+				<div class="aui-title">课程</div>
+		</header>
+		<div  id="main" class="main">
+			<div style="height:12.5vw;"></div>
+		<div class="course_list_viedo">
+			<img :src="infodata&&infodata.pictures_arr[0].path" v-if='!videoUrl' alt="">
+			<!-- <video :src="videoUrl" autoplay v-else controls>
+
+			</video> -->
+		</div>
+		<div class="course_list_tab">
+			<ul>
+				<li v-for='item,index in Courselist' @click='tabCourse(index)'>
+					<span v-bind:class="CourseindexTab==index?'oncurrent':''" v-if='item.name'>{{item.name}}</span>
+				</li>
+			</ul>
+		</div>
+		<div class="line"></div>
+		<div class="course_boxcentent">
+			<!-- 简介 -->
+			<div class="course_simple" v-show='CourseindexTab==0'>
+				<div class="course_simple_tip">
+					<div class="course_s_title"><span
+							class="span_line">{{infodata.title}}</span><i>{{infodata.member_price>0?'':'会员免费'}}</i>
+					</div>
+					<p class="course_s_centent" ref="elememt" style="color:#4D4D4D;">
+						{{infodata.content}}
+						<span @click='handleFold' v-if='showfold' style="color:#0379fb;">{{fold==true?'详情':'收起'}}</span>
+					</p>
+
+					<div class="course_s_tipInfo">
+						<div class="course_s_box"><span
+								style="font-size:3.8vw;color:#4D4D4D;">{{infodata.period}}课时</span>
+							<div class="clause_s_score"><i class="on_xx" v-for='item in infodata.avg_score'></i></div>
+						</div>
+						<div class="course_s_box"><span
+								style="font-size:3.8vw;color:#4D4D4D;">{{infodata.buy_count}}购买人次</span><time
+								style="font-size:3.2vw;color:#4D4D4D;">{{infodata.createtime}}</time></div>
+					</div>
+					<div class="course_s_tipbottom">
+						<div class="course_tipbox">
+							<div class="course_b_img" @click='navaddcomment'>
+								<img src="../image/zan.png" alt="">
+							</div>
+							<span>评论</span>
+						</div>
+						<div class="course_tipbox">
+							<div class="course_b_img" @click='Collec'>
+								<img :src="infodata.is_colle==1?'../image/shuc-hover.png':'../image/shuc.png'" alt="">
+							</div>
+							<span>收藏</span>
+						</div>
+
+						<div class="course_tipbox">
+							<div class="course_b_img" @click='bindyaoqing'>
+								<img src="../image/fx.png" alt="">
+							</div>
+							<span>分享</span>
+						</div>
+					</div>
+				</div>
+				<div class="course_group" v-if='infodata.is_groupon==1'>
+					<div class="course_group_t">
+						<h4>{{group.total||0}}人在拼团</h4>
+						<div v-if='group.data&&group.data.length!=0'>
+							<p @click='grop_show=true'>更多</p><i class="i_arrow"></i>
+						</div>
+					</div>
+					<p style="text-align:center;color:#666;font-size:4vw;margin-top: 2vw;"
+						v-if='group.data&&group.data.length==0'>暂无数据</p>
+					<ul class="course_group_contet">
+						<li v-for='(item,index) in group.data' v-if='index<5'>
+							<div class="couse_group_img">
+								<img :src="item.avatar" alt="">
+								<span>{{item.username}}</span>
+							</div>
+							<div class="couse_group_box">
+								<p>还差{{item.over_plus}}人拼成</p>
+								<span>剩余：{{item.times}}</span>
+							</div>
+							<div class="course_group_button" @click='navapply(index,1)'>
+								去拼单
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="mask" :style="grop_show?'display:block':'display:none'" @click='grop_show=false'></div>
+				<div class="mask_grop_show" :style="grop_show?'display:block':'display:none'">
+					<ul class="course_group_contet">
+						<li v-for='(item,index) in group.data'>
+							<div class="couse_group_img">
+								<img :src="item.avatar" alt="">
+								<span>{{item.username}}</span>
+							</div>
+							<div class="couse_group_box">
+								<p>还差{{item.over_plus}}人拼成</p>
+								<span>剩余：{{item.times}}</span>
+							</div>
+							<div class="course_group_button" @click='navapply(index,1)'>
+								去拼单
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="course_Advertisement" @click='navCoupon'>
+					<img src="../image/Advertisement.png" alt="">
+				</div>
+				<div class="course_outline">
+					<h4 class="course_o_title">
+						<span class="span_line">课程大纲</span>
+					</h4>
+					<p style="text-align:center;color:#666;font-size:4vw;" v-if='outlinedata&&outlinedata.length==0'>
+						暂无数据</p>
+					<ul class="course_o_list">
+						<li v-for='(item,index) in outlinedata'>
+							<div class="f_c">
+								<p>{{index+1}}{{item.title}}</p>
+								<p class="color9" style="font-size:3vw;margin-left:3vw;" v-if="item.time > 0">观看至{{item.time_f}}</p>
+							</div>
+							<div>
+								<span @click="downVideo(item.file_url)" style="border:none;" v-if="item.is_download==1">下载</span>
+								<span @click='bindplay(item,index,item.is_download)'>{{activeUrl===index?'正在播放':'播放视频'}}</span>
+							</div>
+						</li>
+					</ul>
+					<p style="text-align:center;color:#666;font-size:4vw;" v-if='outlinedata&&outlinedata.length!=0'>
+						已经到底了~</p>
+				</div>
+				<div class="course_buy" v-if='infodata.is_show_buy==0'>
+					<span v-show='shenheStaus == 0'>
+						<span v-if='infodata.is_groupon==1'>拼团:<i style="color: red;">￥{{infodata.groupon_money}}&nbsp;/&nbsp;</i></span>
+						<span style="font-size:3vw;">{{infodata.is_vip?'会员价':'原价:'}}<i style="color: red;">￥{{infodata.is_vip?infodata.member_price:infodata.price}}</i></span>
+					</span>
+					<span v-show='shenheStaus == 1'></span>
+
+					<div class="course_buy_join">
+						<span @click='navapply(null,1)' v-if='infodata.is_groupon==1'>拼团</span>
+						<span @click='navapply(null,2)' :style="infodata.is_groupon==0?'border-radius:5vw':''">{{shenheStaus == 0?'购买':'获取'}}</span>
+					</div>
+				</div>
+			</div>
+			<!-- //题目 -->
+			<div class="course_topic" v-show='CourseindexTab==1'>
+				<div class="couse_topic_test">
+					<p>当前课程预测正确率</p>
+					<div class="couse_topic_wrap">
+						<span>{{Fs.accuracy_rate||0}}<i>%</i></span>
+					</div>
+					<div class="couse_topic_got" @click='navtestTopic(3)'>
+						<span>开始测试</span>
+					</div>
+					<div class="couse_topic_b" style="font-size:3.3vw;" @click='navtopicDetails'>
+						历史错题<i class="i_arrow"></i>
+					</div>
+				</div>
+				<div class="line"></div>
+				<div class="couse_topic_example">
+					<h3>课程题库</h3>
+					<p style="text-align:center;color:#666;font-size:4vw;" v-if='Topic&&Topic.length==0'>暂无数据</p>
+					<ul>
+						<li v-for='item,index in Topic'>
+							<div class="couse_topic_t">
+								{{index+1}}.{{item.stem}}
+							</div>
+							<div v-bind:class="item.question_list.length>4?'':'couse_topic_x' ">
+								<p v-for='items in item.question_list' v-bind:class="items.is_answer?'oncolor':''"
+									style="font-size:3.6vw;color:#333333;">
+									{{items.option}}:{{items.title}}
+								</p>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 评价 -->
+			<div class="course_comment" v-show='CourseindexTab==2'>
+				<div class="course_comment_wrap">
+					<h3>
+						<span class="span_line">学员评价 <p>（{{commentdata.total==''?0:commentdata.total}}）</p></span>
+						<p> <i class="on_xx" v-for='item in commentdata.avg_score'></i></p>
+
+					</h3>
+					<p v-if='commentdata.total==""' style="text-align:center;color:#666;margin-top:2vw;">暂无评论</p>
+					<ul>
+						<li v-for='item in commentdata.data'>
+							<div class="course_comment_t">
+								<div class="course_comment_img">
+									<img :src="item.user_img" alt="">
+									<span>{{item.nickname}}</span>
+								</div>
+								<div class="course_comment_time">
+									<p>{{item.create_time}}</p>
+									<div>
+										<i v-for='index in item.score' class="on_xx"></i>
+									</div>
+								</div>
+							</div>
+							<p class="course_comment_word">
+								{{item.content}}
+							</p>
+						</li>
+					</ul>
+				</div>
+				<div class="course_comment_Reply" @click='navaddcomment'>
+					<input type="text" readonly='false' placeholder='说点什么...'>
+					<span>发送</span>
+				</div>
+			</div>
+			<!-- 资料 -->
+			<div class="course_data" v-show='CourseindexTab==3'>
+				<div class="course_data_Handout">
+					<h3>
+						<span class="span_line">讲义</span>
+					</h3>
+					<p style="text-align:center;color:#666;font-size:4vw;" v-if='data.Handout&&data.Handout.length==0'>
+						暂无数据</p>
+					<ul>
+						<li v-for='item,index in data.Handout'>
+							<div class="course_data_h_title" style="width: 90%;">
+								{{index+1}}.{{item.title}}
+							</div>
+							<span class="course_data_h_upload" @click='openwrod(index)' v-if='item.progress==0'></span>
+							<span class="course_data_h_right" @click='openwrod(index)'
+								v-if='item.progress!=0'>{{item.progress==100?'打开讲义':item.progress!=0?'下载：'+item.progress+'%':''}}</span>
+						</li>
+
+					</ul>
+				</div>
+				<div class="line"></div>
+				<div class="course_data_Paper">
+					<h3 style="margin-top:1.2vw;">
+						<span class="span_line">推荐试卷</span>
+					</h3>
+					<p style="text-align:center;color:#666;font-size:4vw;"
+						v-if='data.D_paperdata&&data.D_paperdata.length==0'>暂无数据</p>
+
+					<div class="course_data_Paper_wrap" v-for='item,index in data.D_paperdata'
+						@click='navInfoTopic(item.id)'>
+						<div class="course_data_p_t">
+							<p>{{item.name}}</p>
+							<span>{{item.price}}元</span>
+						</div>
+						<div class="course_data_p_c">
+							<div class="course-data_p_type">
+								<span>类型：{{item.category_name}}</span>
+								<span>教师：{{item.nickname}}</span>
+							</div>
+							<div class="course_data_i"><i class="i_arrow"></i></div>
+						</div>
+					</div>
+
+				</div>
+				<div class="line"></div>
+
+				<div class="course_data_hotData">
+					<h3>
+						<span class="span_line">推荐资料</span>
+					</h3>
+					<p style="text-align:center;color:#666;font-size:4vw;" v-if='data.D_data&&data.D_data.length==0'>
+						暂无数据</p>
+					<ul>
+						<li class="course_data_listWrap" v-for='item,index in data.D_data' @click='mavpaly(index)'>
+							<div class="course_data_liImg">
+								<img :src="item.path" alt="">
+							</div>
+							<div class="course_data_libox">
+								<h5>
+									<span>{{item.title}}</span>
+									<i>￥{{item.price}}</i>
+								</h5>
+								<p>{{item.content}}</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 教师 -->
+			<div class="course_Teacher" v-show='CourseindexTab==4'>
+				<div class="course_Teacher_info">
+					<div class="course_Teacher_head">
+						<div class="course_Teacher_ibox">
+							<img :src="teacher.avatar" alt="">
+						</div>
+						<div class="course_Teacher_wraphead">
+							<div class="course_Teacher_t">
+								<h3>{{teacher.nickname}}<p> <i class="on_xx" v-for='num in teacher.level'></i></p>
+								</h3>
+								<div style="display: flex;align-items: center;font-size:3.2vw;color:#999999;">
+									粉丝:<span>{{teacher.follow_num}}</span> <i class="course_Teacher_t_follow"
+										:style='teacher.text==1?"background-color: #017be3;color:#fff;":""'
+										@click='follow'>{{teacher.text==1?'已关注':'关注'}}</i></div>
+							</div>
+							<p class="course_Teacher_sign">{{teacher.signature}}</p>
+						</div>
+					</div>
+					<div class="course_Teacher_content">
+						<div class="course_Teacher_c_box" @click='navCourse'>
+							<i style="width:6.5vw;height:6.5vw;"></i>
+							<span>他的课程 <span class="span1">（{{teacher.course_num}}个）</span></span>
+						</div>
+						<div class="course_Teacher_c_line"></div>
+						<div class="course_Teacher_c_box" @click='navMytopic'>
+							<i style="width:6.5vw;height:6.5vw;"></></i>
+							<span>他的试卷 <span class="span1">（{{teacher.paper_num}}个）</span></span>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div>
+				<div class="course_Teacher_dynamic">
+					<h3 style="margin-top:1.5vw;margin-bottom:1.5vw;">
+						<span class="span_line">他的学习分享</span>
+					</h3>
+					<p style="text-align:center;color:#666;font-size:4vw;" v-if='share.data&&share.data.length==0'>暂无数据
+					</p>
+					<ul>
+						<li v-for='(item,index) in share.data' @click='navshare(index)'>
+							<div class="course_Teacher_d_head">
+								<img :src="item.avatar" alt="">
+								<span>{{item.username}}</span>
+								<p> <i class="on_xx" v-for='num in item.level'></i></p>
+
+							</div>
+							<p class="course_Teacher_d_content">{{item.content}}</p>
+							<div class="course_Teacher_d_img">
+								<img :src="items" v-for='items in item.picture_text' alt="">
+							</div>
+							<div class="course_Teacher_d_time">
+								<div style="font-size:3.1vw;">
+									{{item.create_time}}
+								</div>
+								<i></i>
+							</div>
+							<!-- <div class="course_Tracher_d_Reply">
+                  <p><span>学员木子李：</span>了解了！谢谢刘老师对这个问题的讲解。</p>
+                </div> -->
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script src="../script/configUtil.js" charset="utf-8"></script>
+<script src="../script/util.js" charset="utf-8"></script>
+<script type="text/javascript" src="../script/vant.min.js"></script>
+<script type="text/javascript">
+	setTimeout(function () {
+		if (typeof api == 'undefined') {
+			api = {
+				pageParam: {}
+			}
+			apiready();
+		}
+	}, 500);
+	apiready = function () {
+		api.setStatusBarStyle({
+				style: 'dark',
+		})
+		var header = document.querySelector('#header');
+		var main = document.querySelector('#main');
+		$api.fixStatusBar(header);
+		$api.fixStatusBar(main);
+		var moviePlayer = api.require('moviePlayer');
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				eventHub: new Vue(),
+				title: '',
+				course_id: api.pageParam.course_id,
+				CourseindexTab: 0,
+				showfold: false,
+				grop_show: false,
+				context: '',
+				Courselist: [
+					{
+						name: '简介'
+					},
+					{
+						name: '题目'
+					},
+					{
+						name: '评价'
+					},
+					{
+						name: '资料'
+					},
+					{
+						name: '教师'
+					}
+				],
+				infodata: '',//课程详情
+				fold: true,
+				group: {//拼团
+					data: [],
+					total: ''
+				},
+				outlinedata: [],//大纲
+				commentdata: {//评论
+					total: '',
+					data: [],
+					page: 1
+				},
+				data: {//资料
+					Handout: [],
+					D_paperdata: [],
+					D_data: []
+				},
+				share: {//分享
+					data: []
+				},
+				videoUrl: '',
+				activeUrl: null,
+				Fs: '',//分类
+				Topic: [],
+				teacher: '',//老师
+				shenheStaus: 0,
+				is_download:'',
+				full:false,
+				percent:'0',
+				timer:null
+			},
+			mounted: function () {
+
+				var that = this
+
+				api.getPrefs({
+					key: 'shenheStaus'
+				}, function (ret, err) {
+					that.shenheStaus = ret.value;
+				});
+				that.$nextTick(function () {
+					api.addEventListener({
+						name: 'comment',
+					}, function (ret, err) {
+						if (ret.value.yes == 1) {
+
+							that.bindOutlinecomment()
+
+						}
+					});
+
+				}.bind(this))
+				this.bindinfo(function (res) {
+					console.log(JSON.stringify(res))
+
+					this.infodata = res.data;
+
+					that.context = res.data.content;
+					res.data.content = that.beautySub(res.data.content, 25)
+					res.data.avg_score = parseInt(res.data.avg_score)
+					res.data.createtime = this.formatTime(res.data.createtime)
+					this.grouplist();
+					this.bindOutlineList();
+
+					if (this.infodata.testpaper_id != 0) {
+						this.initTopic();
+						this.initTopicFs();
+					}
+
+					this.bindOutlinecomment()
+					this.bindteacher();
+					this.bindshare();
+
+				}.bind(this));
+				this.bindOutlineHandout();
+				this.bindOutlineD_paperdata();
+				this.bindOutlineH_data();
+
+
+				api.addEventListener({
+					name : 'keyback'
+				}, function(ret, err) {
+							if(that.full){
+								that.full = false;
+								that.addHistory(null,function(){
+									that.activeUrl = null;
+								});
+								moviePlayer.close();
+								window.clearInterval(that.timer);
+								api.setScreenOrientation({
+		                orientation: 'portrait_up'
+		            });
+							}else{
+								if(that.activeUrl!=null){
+									that.addHistory(null,function(){
+										that.closeW()
+									});
+								}else{
+									that.closeW()
+								}
+							}
+				});
+
+			},
+			methods: {
+				addHistory:function(a,func){
+					var that = this;
+					if(that.activeUrl!=null){
+						moviePlayer.getCurrentPosition(function(ret){
+								var seconds = ret.position;
+								var param = {
+									chapter_id:that.outlinedata[that.activeUrl].id,
+									time:seconds
+								}
+								that.ajaxpost_noloading('post',globalData.addUserChapter,param).then((res)=>{
+									var res = $.parseJSON(res);
+									if(res.code==1){
+										that.bindOutlineList();
+										if(func){
+											func();
+										}
+									}
+								}).catch((ret)=>{
+									loginfo(ret)
+								})
+						});
+					}
+				},
+				downVideo(url){
+					if(!confirmPer('storage')){
+						return;
+					}
+					var that = this;
+					const toast = vant.Toast.loading({
+						duration: 0, // 持续展示 toast
+						forbidClick: true,
+						message: `正在下载(0%)`
+					});
+					api.download({
+							url: url,
+							report: true,
+							cache: true,
+							allowResume: true
+					}, function(ret, err) {
+							console.log(JSON.stringify(ret))
+							if (ret.state == 1) {
+									//下载成功，保存到相册
+									api.saveMediaToAlbum({
+											path: ret.savePath
+									}, function(ret, err) {
+											if (ret && ret.status) {
+												vant.Toast.clear();
+												vant.Toast({
+													message: '保存成功',
+													forbidClick: true,
+													duration:1000
+												});
+											} else {
+												vant.Toast.clear();
+												vant.Toast({
+													message: '保存失败',
+													forbidClick: true,
+													duration:1000
+												});
+											}
+									});
+							}else{
+								toast.message = `正在下载(${ret.progress}%)`;
+							}
+					});
+
+					return
+					var arr = url.split('/');
+					var that = this;
+					if (api.systemType == 'ios'){
+						var downloadManager = api.require('downloadManager');
+						vant.Toast.loading({
+							duration: 0, // 持续展示 toast
+							forbidClick: true,
+							message: '正在下载...'
+						});
+						downloadManager.enqueue({
+								url: url,
+								savePath: 'fs://' + arr[arr.length-1],
+								cache: false,
+								allowResume: true,
+								title: '',
+								networkTypes: 'all'
+						}, function(ret, err) {
+								if (ret) {
+									vant.Toast.clear();
+									vant.Toast.loading({
+										message: '下载成功，正在打开...',
+										forbidClick: true,
+										duration:1000
+									});
+									setTimeout(function(){
+										downloadManager.openDownloadedFile({
+											id: ret.id
+										}, function(ret, err) {
+											if (ret.status) {
+
+											} else {
+												console.log(JSON.stringify(err))
+												vant.Toast.clear();
+												vant.Toast({
+													message: '打开文件失败',
+													forbidClick: true,
+													duration:1500
+												});
+											}
+										});
+									},1000)
+								}
+						});
+					}else{
+						var that = this;
+						vant.Toast.loading({
+							message: '开始下载...',
+							forbidClick: true,
+							duration:1000
+						});
+						api.download({
+								url: url,
+								report: true,
+								cache: true,
+								allowResume: true
+						}, function(ret, err) {
+								console.log(JSON.stringify(ret))
+								console.log(JSON.stringify(err))
+								if (ret.state == 1) {
+										// vant.Toast.clear();
+										// vant.Toast({
+										// 	message: '下载失败',
+										// 	forbidClick: true,
+										// 	duration:1500
+										// });
+										//下载成功，保存到相册
+										api.saveMediaToAlbum({
+												path: ret.savePath
+										}, function(ret, err) {
+												if (ret && ret.status) {
+													vant.Toast.clear();
+													vant.Toast({
+														message: '下载成功',
+														forbidClick: true,
+														duration:1500
+													});
+												} else {
+													vant.Toast.clear();
+													vant.Toast({
+														message: '保存失败',
+														forbidClick: true,
+														duration:1500
+													});
+												}
+										});
+								}
+						});
+					}
+				},
+				back(){
+					var that = this
+					if(that.full){
+						that.full = false;
+						that.addHistory(null,function(){
+							that.activeUrl = null;
+						});
+						moviePlayer.close();
+						window.clearInterval(that.timer);
+						api.setScreenOrientation({
+								orientation: 'portrait_up'
+						});
+					}else{
+						console.log(that.activeUrl)
+						if(that.activeUrl!=null){
+							console.log('222')
+							that.addHistory(null,function(){
+								that.closeW()
+							});
+						}else{
+							console.log('333')
+							that.closeW()
+						}
+					}
+				},
+				beautySub(str, len) {
+					var that = this
+					var reg = /[\u4e00-\u9fa5]/g,    //专业匹配中文
+						slice = str.substring(0, len),
+						chineseCharNum = (~~(slice.match(reg) && slice.match(reg).length)),
+						realen = slice.length * 2 - chineseCharNum;
+					if (realen < str.length) {
+						that.showfold = true
+					}
+					return str.substr(0, realen) + (realen < str.length ? "..." : "");
+				},
+				//播放
+				bindplay(item, index,is_download) {
+					var that = this
+					if(is_download==1){
+						that.is_download = "";
+					}else{
+						that.is_download = "nodownload";
+					}
+					if (this.infodata.is_show_buy == 0) {
+						this.toast('请购买课程');
+						return
+					}
+					//this.videoUrl = url
+					//todo
+
+					var x = 0;
+					var y= $(window).width()*0.125 + api.safeArea.top;
+					var w = $(window).width();
+					var h = $(window).width()*0.75;
+
+					if(that.activeUrl!=null){
+						moviePlayer.replay({
+						    title:item.title ,
+						    path : item.file_url
+						});
+						if(item.time > 0){
+							moviePlayer.seekTo({
+									position:item.time
+							});
+						}
+					}else{
+						moviePlayer.open({
+											rect:{
+												x: x,
+												y: y,
+												w: w,
+												h: h
+											},
+											texts:{
+													 title: item.title    //（可选项）字符串类型；顶部标题文字
+											},
+											autorotation:false,
+											styles:{
+												head:{
+													bg: 'rgba(0,0,0,0.5)',
+													height: 30,
+													y:0,
+													title:{
+														size:15,
+														color:'#fff',
+														width:200,
+														leftMargin:10
+													},
+													backSize: 20,
+													// backImg:'widget://image/back.png',
+													customButtons:[{
+														w:30,
+														h:30,
+														rightMagin:10,
+														img:'widget://image/image/collect.png',
+														imgSelected:'fs://image/collectSelected.png',
+													}]
+												},
+												foot:{
+													bg: 'rgba(0,0,0,0.5)',
+													height: 44,
+													palyBtn:{
+														size: 20,
+														playImg:'widget://image/play.png',
+														pauseImg:'widget://image/pause.png',
+														marginLeft:5
+													},
+													currentTimeLabel:{
+														textSize:14,
+														textColor:"#FFF",
+														textWidth: 43,
+														marginLeft:5
+													},
+													seekBar:{
+														sliderImg:'widget://image/circle.png',
+														sliderW : 20,
+														sliderH : 20,
+														progressColor: '#696969',
+														progressSelected: '#76EE00',
+														marginLeft:10,
+														marginRight:10
+													},
+													totalTimeLabel:{
+														textSize:14,
+														textColor:"#FFF",
+														textWidth: 43,
+														marginRight:5
+													},
+													fullscreenBtn:{
+														size:20,
+														// verticalImg:'../image/full.pngg',
+														// horizontalImg:'../image/full_n.png',
+													}
+												}
+											},
+											 path:item.file_url,
+											 autoPlay: true
+											},function(ret, err){
+														if(ret){
+																console.log(JSON.stringify(ret));
+																var moviePlayer = api.require('moviePlayer');
+																moviePlayer.addEventListener(function(ret){
+																		if(ret){
+
+																			console.log(JSON.stringify(ret));
+																			// if(item.time > 0){
+																			// 	moviePlayer.seekTo({
+																			// 	    position:item.time
+																			// 	});
+																			// }
+																			if(ret.eventType=='prepared'){
+																				if(item.time > 0){
+																					moviePlayer.seekTo({
+																							position:item.time
+																					});
+																				}
+																				that.timer = setInterval(function(){
+																					 that.addHistory();
+																				},10000)
+																			}
+																			if(ret.eventType=='back'){
+																				that.full = false;
+																				// that.addHistory(null,function(){
+																				// 	that.activeUrl = null;
+																				// });
+																				// moviePlayer.close();
+																				// window.clearInterval(that.timer);
+																				// api.setScreenOrientation({
+																				// 		orientation: 'portrait_up'
+																				// });
+																			}
+																			if(ret.eventType == 'landscape'){
+																					that.full = true;
+																			}
+																			if(ret.eventType == 'portrait'){
+																					that.full = false;
+																			}
+																		}
+																});
+														} else {
+																console.log(JSON.stringify(err));
+														}
+											});
+					}
+
+
+					this.activeUrl = index
+
+					this.ajaxpost('post', globalData.addCourseOutlineLog, { cid: that.outlinedata[index].id }).then((res) => {
+
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				navInfoTopic(id) {
+					this.openW('question_test_win', { testpaper_id: id }, true)
+				},
+				//购买
+				navapply(index, type) {
+					var that = this
+					var data = {
+						course_id: that.course_id,
+						type: type,
+						team_id: index == null ? '' : that.group.data[index].team_id,
+						infodata: that.infodata
+					}
+					this.openW('buy_course_frm', data, true)
+				},
+				//邀请
+				bindyaoqing() {
+
+					var sharedModule = api.require('shareAction');
+					var phonetype = api.systemType;
+					if (phonetype == 'android') {
+						// sharedModule.share({
+						//       text: '下载地址',
+						//       type: 'image',
+						//       images:['fs://image/find_banner.png'],
+						//
+						//   });
+						sharedModule.share({
+							text: '下载地址',
+							type: 'url',
+							path: 'http://www.kytapp.com/home/yaoyue/download',
+
+						});
+					} else {
+						sharedModule.share({
+							text: '下载地址',
+							type: 'url',
+							path: 'http://www.kytapp.com/home/yaoyue/download',
+							thumbnail: 'widget://image/108.png',
+						});
+					}
+
+				},
+				//下载打开讲义
+				openwrod(index) {
+					var that = this;
+					var docInteraction = api.require('docInteraction');
+					if (that.data.Handout[index].progress == 100) {
+
+						this.ajaxpost('post', globalData.addCourseOutlineLog, { cid: that.data.Handout[index].id }).then((res) => {
+
+
+						}).catch((ret) => {
+							loginfo(ret)
+						})
+						docInteraction.open({
+							path: that.data.Handout[index].savePath
+						}, function (ret, err) {
+							if (err) {
+								console.log(JSON.stringify(err));
+							} else {
+								console.log(JSON.stringify(ret));
+							}
+						});
+
+					} else {
+						//下载
+						api.download({
+							url: that.data.Handout[index].file_url,
+							savePath: '',
+							report: true,
+							cache: true,
+							allowResume: true
+						}, function (ret, err) {
+							that.data.Handout[index].progress = ret.percent
+							// api.showProgress({
+							//     title: '努力加载中...',
+							//     text: ret.progress,
+							//     modal: true
+							// });
+
+							console.log(JSON.stringify('下载——————————' + ret))
+							if (ret.state == 1) {
+								//   api.hideProgress();
+								that.data.Handout[index].savePath = ret.savePath
+							} else {
+
+							}
+						});
+					}
+
+				},
+				//展开
+				handleFold() {
+					this.fold = !this.fold;
+					console.log(this.fold)
+					if (this.fold) {
+						this.infodata.content = this.beautySub(this.context, 25)
+
+
+					} else {
+
+						this.infodata.content = this.context
+
+					}
+				},
+				navtopicDetails() {
+					this.openW('error_details_win', { title: this.infodata.title, testpaper_id: this.infodata.testpaper_id }, true)
+				},
+				//测试
+				navtestTopic(type) {
+
+					if (this.infodata.testpaper_id == 0 || this.Topic.length == 0) {
+						this.toast('暂无题目')
+						return
+					}
+					this.openW('test_frm', { type: type, testpaper_id: this.infodata.testpaper_id }, true)
+				},
+				//分享评价
+				navshare(index) {
+					var data = {
+						comment_id: this.share.data[index].comment_id
+					}
+					this.openW('find_shareReply', data, true)
+				},
+				//试卷
+				navMytopic() {
+					var data = {
+						teacher_id: this.infodata.teacherid,
+					}
+					this.openW('find_testPaper_win', data, true)
+				},
+				//老师课程
+				navCourse() {
+					var data = {
+						teacher_id: this.infodata.teacherid
+					}
+					this.openW('course_h', data, true)
+				},
+				//关注
+				follow() {
+					var that = this;
+					console.log(11)
+					var data = {
+
+						teacher_id: that.infodata.teacherid
+					}
+					if (that.teacher.text == 1) {
+						that.teacher.follow_num = parseInt(that.teacher.follow_num) - 1
+						that.teacher.text = 0;
+					} else {
+						that.teacher.follow_num = parseInt(that.teacher.follow_num) + 1
+						that.teacher.text = 1;
+					}
+					that.ajaxpost('post', globalData.follow, data).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						if (res.code == 1) {
+							that.toast(res.msg)
+						}
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//学习分享
+				bindshare() {
+					var that = this;
+					console.log(11)
+					var data = {
+
+						uid: that.infodata.teacherid
+					}
+					that.ajaxpost('post', globalData.shareList, data).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+
+						res.data.data.map((item) => {
+							item.create_time = that.formatTime(item.create_time)
+							if (item.level) {
+								item.level = parseInt(item.level)
+							}
+						})
+						that.share.data = res.data.data;
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//老师
+				bindteacher() {
+					var that = this;
+					console.log(11)
+					var data = {
+
+						teacher_id: that.infodata.teacherid
+					}
+
+					that.ajaxpost('post', globalData.teacherFollow, data).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						if (res.code == 1) {
+							res.data.level = parseInt(res.data.level)
+							that.teacher = res.data;
+						} else {
+
+							loginfo(res)
+						}
+
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//课程资料-讲义
+				bindOutlineHandout() {
+					var that = this;
+					console.log(11)
+					var data = {
+
+						course_id: that.course_id
+					}
+
+					that.ajaxpost('post', globalData.getCourseHandout, data).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						res.data.map((item) => {
+							item.progress = 0
+							item.savePath = ''
+						})
+						that.data.Handout = res.data;
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//课程资料-试卷
+				bindOutlineD_paperdata() {
+					var that = this;
+					console.log(11)
+					var data = {
+						course_id: that.course_id
+					}
+
+					that.ajaxpost('post', globalData.getCoursePaperList, data).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						if (res.code == 1 && res.data) {
+							that.data.D_paperdata = res.data;
+						}
+
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//课程资料-资料教材
+				bindOutlineH_data() {
+					var that = this;
+					console.log(11)
+					var data = {
+						course_id: that.course_id
+					}
+
+					that.ajaxpost('post', globalData.getCourseBookList, data).then((res) => {
+						var res = $.parseJSON(res);
+						// console.log(JSON.stringify(res))
+
+						if (res.code == 1 && res.data) {
+							that.data.D_data = res.data;
+						}
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//题目
+				initTopic() {
+					var that = this;
+					var data = {
+
+						is_option: 1,
+						testpaper_id: that.infodata.testpaper_id
+					}
+					console.log(JSON.stringify(data))
+					that.ajaxpost('post', globalData.getPaperQuestionList, data).then((res) => {
+
+						var res = $.parseJSON(res);
+						if (!res.data.data) {
+							return
+						}
+						console.log(JSON.stringify(res))
+						that.Topic = res.data.data
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//预测分
+				initTopicFs() {
+					var that = this;
+					var data = {
+
+						type: 3,
+						testpaper_id: that.infodata.testpaper_id
+					}
+					that.ajaxpost('post', globalData.getLastTestAccuracy, data).then((res) => {
+
+						var res = $.parseJSON(res);
+						res.data.accuracy_rate = parseInt(res.data.accuracy_rate)
+						console.log(JSON.stringify(res))
+						that.Fs = res.data
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//课程大纲列表
+				bindOutlineList() {
+					var that = this;
+					console.log(11)
+					var data = {
+						//
+						course_id: that.course_id
+					}
+
+					that.ajaxpost_noloading('post', globalData.getCourseOutline, data).then((res) => {
+						var res = $.parseJSON(res);
+
+						res.data.map((item) => {
+							item.time_f = formatSeconds(item.time/1000)
+							item.isplay = false
+						})
+
+						console.log(JSON.stringify(res))
+						that.outlinedata = res.data;
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//评论
+				navaddcomment() {
+					if (this.infodata.is_show_buy == 0) {
+						this.toast('请购买后评价')
+						return
+					}
+					this.openW('course-comment', { course_id: this.course_id }, true)
+				},
+				//课程评论
+				bindOutlinecomment() {
+					var that = this;
+					var data = {
+
+						course_id: that.course_id,
+						page: 1,
+						page_size: 10
+					}
+
+					that.ajaxpost('post', globalData.getCourseCommentList, data).then((res) => {
+
+						var res = $.parseJSON(res);
+
+						res.data.data.map(function (item, index) {
+							item.score = parseInt(item.score)
+							item.create_time = that.formatTime(item.create_time)
+						})
+						that.commentdata.total = parseInt(res.data.total);
+						that.commentdata.avg_score = parseInt(res.data.avg_score);
+						that.commentdata.data = res.data.data;
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//劵
+				navCoupon() {
+					var that = this;
+					var data = {
+						title: '优惠券区',
+						type: 2
+					}
+					that.openW('coupon_win', data, true);
+				},
+				//拼团
+				grouplist() {
+					var that = this;
+					var data = {
+						type: 1,
+
+						goods_id: that.course_id,
+					}
+					console.log(JSON.stringify(data))
+					that.ajaxpost('post', globalData.groupList, data).then((res) => {
+
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						if (res.data != null) {
+							that.group.total = res.data.length
+							setInterval(() => {
+								for (var variable in res.data) {
+									var Deadline = parseInt(res.data[variable].finish_time) * 1000;
+									var presentTime = new Date().getTime();
+									var rightTime = Deadline - presentTime;
+									if (rightTime > 0) {
+										var dd = Math.floor(rightTime / 1000 / 60 / 60 / 24);
+										var hh = Math.floor((rightTime / 1000 / 60 / 60) % 24);
+										var mm = Math.floor((rightTime / 1000 / 60) % 60);
+										var ss = Math.floor((rightTime / 1000) % 60);
+										res.data[variable].times = dd + ':' + hh + ':' + mm + ':' + ss;
+									} else {
+										res.data[variable].times = "已截止"
+
+									}
+								}
+								that.group.data = res.data;
+
+							}, 1000)
+
+							console.log(JSON.stringify(that.group.data))
+						}
+
+
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//收藏
+				Collec() {
+					var that = this;
+					var msg;
+					var data = {
+
+						course_id: that.course_id,
+						status: that.infodata.is_colle == 1 ? 2 : 1
+					}
+					if (data.status == 2) {
+						msg = '取消收藏'
+						that.infodata.is_colle = 2;
+					} else {
+						msg = '收藏成功'
+						that.infodata.is_colle = 1;
+					}
+					console.log(JSON.stringify(data))
+					that.ajaxpost('post', globalData.courseCollec, data).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						if (res.code == 1) {
+							that.toast(msg)
+						}
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//详情
+				bindinfo(Callback) {
+					var that = this;
+					var data = {
+						course_id: that.course_id,
+
+					}
+
+					that.ajaxpost('post', globalData.getCourseInfo, data).then((res) => {
+
+						var res = $.parseJSON(res);
+
+						Callback(res)
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+
+				mavpaly(index) {
+					var data = {
+						type: 2,
+						info_jiaoc: this.data.D_data[index]
+					}
+					this.openW('buy_course_frm', data, true);
+				},
+				//课程tab
+				tabCourse(index) {
+					this.CourseindexTab = index
+
+					if (index == 0) {
+						this.bindOutlineList();
+					}
+					if (index == 1) {
+						if (this.infodata.testpaper_id != 0) {
+							this.initTopic();
+							this.initTopicFs();
+						}
+					}
+					if (index == 2) {
+						this.bindOutlinecomment()
+					}
+					if (index == 3) {
+						this.bindOutlineHandout();
+						this.bindOutlineD_paperdata();
+						this.bindOutlineH_data();
+
+					}
+					if (index == 4) {
+						this.bindteacher()
+						this.bindshare()
+					}
+				},
+
+			},
+
+
+		})
+	}
+</script>
+
+</html>
