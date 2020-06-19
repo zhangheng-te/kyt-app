@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>上课</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <!-- <link rel="stylesheet" href="../css/style.css"> -->
+      <style>
+        html,body{
+          background: transparent;
+        }
+
+          #header .aui-title{
+            color: #000;
+          }
+          #header .aui-icon-left{
+            color: #000
+          }
+          #header .aui-pull-right span{
+            color: blue;
+          }
+
+      </style>
+  </head>
+  <body>
+      <div id="app" >
+        <!-- <div class="inclass">
+
+        </div> -->
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                url:api.pageParam.url,
+                alivcLivePlayer:api.require('alivcLivePlayer'),
+                house_id:api.pageParam.house_id,
+                username:api.pageParam.username,
+            },
+            mounted: function(){
+              var that =this
+
+              console.log(that.url)
+              console.log(api.winWidth)
+
+              that.$nextTick(function(){
+                api.addEventListener({
+                    name:'keyback'
+                },function(ret,err){
+                  console.log(JSON.stringify(ret))
+                  that.closeW()
+                  api.setScreenOrientation({
+                      orientation: 'portrait_up'
+                  });
+                });
+              })
+              api.setScreenOrientation({
+                  orientation: 'landscape_left'
+              });
+
+              that.alivcLivePlayer.initPlayer({
+                rect:{
+                  x: 0,  //（可选项）数字类型；模块左上角的 x 坐标（相对于所属的 Window 或 Frame）；默认值：0
+                  y: 0, //（可选项）数字类型；模块左上角的 y 坐标（相对于所属的 Window 或 Frame）；默认值：0
+                  w:api.winHeight,  //(可选项)数字类型;模块宽度（相对于所属的 Window 或 Frame;默认300
+                  h:api.winWidth//(可选项)数字类型;模块高度（相对于所属的 Window 或 Frame;默认300
+                },
+                fixedOn : api.frameName
+              },function(ret){
+                  console.log('初始化成功')
+                  if(ret.status){
+
+                    if(api.systemType!='ios'){
+                      that.Preview(2)
+                    }
+                  }else{
+                    that.toast('初始化失败')
+                  }
+              })
+              if(api.systemType=='ios'){
+
+                 that.Preview(1)
+               }
+
+            },
+            methods:{
+              Preview(type){//准备播放
+                var that =this
+                var params={
+                  url:that.url
+                }
+                if(type==2){
+                  this.alivcLivePlayer.prepareAndPlay(params,function(ret){
+                    console.log(JSON.stringify(ret))
+
+                      if(ret.status){
+
+                            that.play()
+
+                      }
+
+                  })
+
+                }else{
+                  this.alivcLivePlayer.prepareToPlay(params,function(ret){
+                    console.log(JSON.stringify(ret))
+
+                      if(ret.status){
+
+                            that.play()
+
+
+                      }
+
+                  })
+                }
+
+              },
+              play(){//播放
+                var that =this
+                that.alivcLivePlayer.play()
+                setTimeout(function(){
+                  that.openFrame('inclass_box',{house_id:that.house_id,username:that.username})
+                },500)
+                that.addevent();
+                that.errorlive()
+              },
+              addevent(){//播放器监听事件
+                var that =this
+                this.alivcLivePlayer.addEventListener(function(ret){
+                  console.log(JSON.stringify(ret))
+                  if(ret.eventType=='completed'){
+                    that.alivcLivePlayer.destroy();
+                    that.toast('直播已结束')
+                    setTimeout(function(){
+
+                      api.setScreenOrientation({
+                          orientation: 'portrait_up'
+                      });
+                      that.closeTo('root')
+
+                    },2000)
+                  }
+                });
+              },
+              errorlive(){
+                var that =this
+                this.alivcLivePlayer.setOnErrorListener(function(ret){
+
+                      if(!ret){
+                        that.toast('暂无直播')
+
+                        setTimeout(function(){
+                          api.setScreenOrientation({
+                              orientation: 'portrait_up'
+                          });
+                          that.closeTo('root')
+                        },1000)
+                      }
+                      if(ret.code==4008){
+                        that.toast(ret.msg)
+                      }
+                      if(ret.code==4019){
+                        that.toast('暂无直播')
+
+                        setTimeout(function(){
+                          api.setScreenOrientation({
+                              orientation: 'portrait_up'
+                          });
+                          that.closeTo('root')
+                        },1000)
+                      }
+                  });
+              }
+            },
+
+        })
+      };
+  </script>
+  </html>

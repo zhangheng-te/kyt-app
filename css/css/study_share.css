@@ -1,0 +1,180 @@
+#wrap2{
+  min-height: 100vh;
+  background-color: #f2f4f5;
+
+  box-sizing: border-box;
+}
+
+.share_item{
+  padding:4vw 3.5vw 4vw 3.5vw;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  /*margin-bottom: 3vw;*/
+  border-radius: 2vw;
+  box-shadow: 0px 0px 5px #e5e5e5;
+}
+
+.share_line1{
+  height: 13vw;
+  display: flex;
+  align-items: center;
+}
+
+.line1_img img{
+  width:11vw;
+  height: 11vw;
+  border-radius: 50%;
+}
+
+.line1_name{
+  font-size: 4.5vw;
+  margin-left: 2.5vw;
+  font-weight: bold;
+  font-weight: 550;
+}
+
+.share_line2{
+  font-size: 3.8vw;
+  /* line-height: 6vw; */
+  /*padding: 2vw;*/
+  padding: 1vw 0vw 1vw 0vw;
+  box-sizing: border-box;
+}
+
+
+.share_line3{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  
+
+}
+
+.line3_img img{
+  width: 27vw;
+  height: 19vw;
+  margin-right: 1vw;
+  padding-top: 1vw;
+  box-sizing: border-box;
+}
+
+
+.share_line4{
+  font-size: 3.2vw;
+  /*height: 7vw;*/
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #666666;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+}
+
+.icon{
+    width: 5.5vw;
+    height: 5.5vw;
+}
+
+.icon_del{
+  background-size:5.5vw 5.5vw;
+  width: 5.5vw;
+  height: 5.5vw;
+  display: inline-block;
+}
+
+
+.share_line5{
+  padding: 3vw 2.5vw 3vw 2.5vw;
+  box-sizing: border-box;
+  background-color: #f2f4f5;
+}
+
+.chat_item{
+  font-size: 3.6vw;
+  color: #666666;
+  white-space:normal;
+  word-break:break-all;
+  word-wrap:break-word;
+  border-radius: 1vw;
+}
+
+.chat_title{
+  color: #005faf;
+  white-space: nowrap;
+}
+
+.chat_text{
+  color: #666666;
+  white-space:normal;
+  word-break:break-all;
+  word-wrap:break-word;
+}
+
+.chat_area{
+  padding-bottom: 4vw;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.chat_return{
+  height: 8vw;
+  font-size: 4.5vw;
+  border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  align-items: flex-start;
+}
+
+.chat_line1{
+  margin-top: 4vw;
+  display: flex;
+}
+
+.chat_line1_r{
+  height: 11vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 2.5vw;
+  box-sizing: border-box;
+}
+
+.chat_name{
+  font-size: 4vw;
+}
+
+.chat_time{
+  font-size: 3.6vw;
+  color: #999999;
+}
+
+.chat_line2{
+  padding-left: 13.5vw;
+  box-sizing: border-box;
+}
+
+.chat_text{
+  padding: 3.5vw 0 0 0;
+  box-sizing: border-box;
+  font-size: 4.2vw;
+}
+
+#footer{
+  height: 13vw;
+  width: 100vw;
+  padding: 0 3.5vw 0 3.5vw;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  z-index: 5;
+  opacity: 1.0;
+  background-color: #ffffff;
+  font-size: 4vw;
+  left: 0;
+}
+
+#footer input{
+  height: 9vw;
+  background-color: #f2f4f5;
+  width:80vw;
+  border-radius: 4.5vw;
+}

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>上课</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <!-- <link rel="stylesheet" href="../css/style.css"> -->
+      <script>
+
+        var browser = {
+                versions: function () {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return { //移动终端浏览器版本信息
+                  ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                  android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+                  iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                  iPad: u.indexOf('iPad') > -1, //是否iPad
+                };
+                }(),
+            };
+            if (browser.versions.iPhone || browser.versions.iPad || browser.versions.ios) {
+                document.write('<link rel="stylesheet" type="text/css" href="../css/inclass_ios.css"/>');
+            }
+            if (browser.versions.android) {
+              document.write('<link rel="stylesheet" type="text/css" href="../css/inclass_anz.css"/>');
+            }
+      </script>
+      <style>
+          html,body{
+          background: transparent;
+          }
+          #header{
+            background: transparent;
+          }
+          #header .aui-title{
+            color: #000;
+          }
+          #header .aui-icon-left{
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.4) !important;
+          }
+          #header .aui-pull-right span{
+            color: blue;
+          }
+          #app{
+              box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box
+          }
+
+      </style>
+  </head>
+  <body style="position: relative;">
+      <div id="app" >
+        <header id="header" class="aui-bar aui-bar-nav" >
+            <div class="aui-pull-left aui-btn" @click='close'>
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <!-- <div class="aui-title">直播</div> -->
+            <div class="aui-pull-right aui-btn">
+                <span>{{callinTime}}</span>
+            </div>
+        </header>
+
+        <div v-show='showcomment' class="comment" style="z-index: 1002;" @click.stop=''>
+          <div @click='showcomment=false' class="comment_left" >
+              <img style="width: 8px;height: 14px;" src="../image/lh_arrowright.png"  alt="">
+          </div>
+          <div class="comment-box">
+              <div class="comment-top" style="margin-right: 10px;overflow-y: scroll;height: 80vh">
+                  <div style="margin-bottom: 10px; " v-for='item in msgdata'>
+                      <div  style="display: flex;justify-content: space-between;align-items: center;font-size: 12px;">
+                          <!-- <div style="display: flex;align-items: center;"> -->
+                              <!-- <img style="width: 20px;height: 20px;border-radius: 50%;" src="" alt=""> -->
+                              <div style="margin-left: 4px;">{{item.name}}</div>
+                          <!-- </div> -->
+                          <!-- <div></div> -->
+                      </div>
+                      <div  v-if='!item.type'  style="margin-left: 24px;margin-top: 5px;font-size:14px;word-break: break-all;">{{item.msg}}</div>
+                      <div v-if='item.type' style="margin-left: 24px;margin-top: 5px;font-size:14px;word-break: break-all;">{{item.name}}赠送<span style="color:red">{{item.msg}}</span></div>
+                  </div>
+
+              </div>
+              <div class="comment-bottom">
+                  <input type="text" style="font-size: 3vw;" v-model='liveComment'>
+                  <div @click='send'>发送</div>
+              </div>
+          </div>
+        </div>
+        <div class="nocomment"  v-if='!showcomment' style="z-index: 99999;" @click='showcomment=true'>
+            <img src="../image/arrow_left_black.png"  alt="" >
+        </div>
+        <div class="gift" v-show='!showGiftBox' style="z-index: 99999;" @click.stop='showGiftBox=true'>
+            <img src="../image/liwu_icon.png" alt="">
+        </div>
+
+        <div class="gift-box" v-show='showGiftBox' style="z-index: 99999;" @click.stop='showGiftBox=false'>
+            <div class="gift-list" @click.stop=''>
+                <div v-for='(item, index) in giftList.data' :class='index == giftIndex?"on":""' @click='giftIndex =index'>
+                    <img :src="item.picture_text" alt="">
+                    <div class="aui-ellipsis-1 " style="margin-top:1vh; ">{{item.name}}</div>
+                    <div>{{item.price}}元</div>
+                </div>
+            </div>
+            <div class="gift-box_ban" >
+                <p  class="gift-box_ban_p1"  @click='sendGift'>发送</p>
+                <p class="gift-box_ban_p2"  >{{mony}}余额</p>
+            </div>
+        </div>
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script type="text/javascript" src="../script/socket.io.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                userinfo:$api.getStorage('userinfo')==null?'':$api.getStorage('userinfo'),
+                hig:$api.dom('header') ? $api.dom('header').offsetHeight : 0,
+                timer:null,
+                house_id:api.pageParam.house_id,
+                username:api.pageParam.username,
+                callinTime:'',
+                liveComment:'',
+                msgdata:[],
+                socket:io('http://39.107.96.194:8585'),
+                showcomment:false,
+                showGiftBox:false,
+                giftIndex:0,
+                giftList:{
+                  data:[]
+                },
+                mony:''
+            },
+            mounted: function () {
+              var that =this
+              var header = document.querySelector('#header');
+              $api.fixStatusBar(header);
+
+              console.log(JSON.stringify(that.userinfo) );
+
+              this.start(true)
+              that.gift()
+              that.initmony()
+              that.newsinit();
+              that.newsroot();
+              that.joins();
+            },
+            methods:{
+
+              close(){
+                api.setScreenOrientation({
+                    orientation: 'portrait_up'
+                });
+
+                this.closeTo('root')
+                this.socket.emit('leave');
+              },
+              joins(){
+                var that =this
+                that.socket.on('connect', function () {
+                    that.socket.emit('join', that.house_id,that.username);
+                });
+              },
+              send(){
+                var that =this
+                console.log('发送')
+                that.socket.send(that.liveComment);
+                that.liveComment=''
+              },
+              newsinit(){// 监听消息
+                var that =this
+                that.socket.on('msg', function (userName, msg) {
+                  console.log(JSON.stringify(userName))
+                  console.log(JSON.stringify(msg))
+                  that.msgdata.push({'name':userName,'msg':msg})
+                });
+
+                //监听推荐商品消息
+                that.socket.on('goods',function(username,msgs){
+                   console.log(msgs);
+                   that.msgdata.push({'name':username,'msg':msgs,'type':1})
+                });
+              },
+              newsroot(){// 监听系统消息
+                var that =this
+                that.socket.on('sys', function (sysMsg, users) {
+                    console.log(sysMsg)
+                    console.log(users)
+                });
+
+              },
+              sendGift(){//发送礼物
+                var that =this;
+                var data ={
+                  goods_id:that.giftList.data[that.giftIndex].id,
+                  house_id:that.house_id
+                }
+                  console.log(JSON.stringify(data))
+                that.ajaxpost('post',globalData.gift,data).then((res)=>{
+                  var res =$.parseJSON(res);
+                  if(res.code){
+                    that.socket.emit('send_goods',that.username,that.giftList.data[that.giftIndex].name);
+                    that.toast('赠送成功')
+                    that.initmony()
+                  }else{
+                    that.toast('余额不足')
+                  }
+                  console.log(JSON.stringify(res))
+
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+              gift(){//礼物list
+                var that =this;
+                that.ajaxpost('post',globalData.goods).then((res)=>{
+                  var res =$.parseJSON(res);
+                  if(res.code==1){
+                    that.giftList.data =res.data
+                  }
+                  console.log(JSON.stringify(res))
+
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+              //余额
+              initmony(){
+                var that =this;
+                  console.log(11)
+                var data ={
+
+                }
+                that.ajaxpost('post',globalData.getUserBalance,data).then((res)=>{
+                  var res =$.parseJSON(res);
+                  that.mony =res.data;
+                  console.log(JSON.stringify(res))
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+
+              },
+              start (bolean) {//计时
+                  let _this = this
+                  let hour, minute, second
+                  hour = minute = second = 0
+                  if (bolean === true) {
+                    _this.timer = setInterval(function () {
+                      if (second >= 0) {
+                        second = second + 1
+                      }
+                      if (second >= 60) {
+                        second = 0
+                        minute = minute + 1
+                      }
+                      if (minute >= 60) {
+                        minute = 0
+                        hour = hour + 1
+                      }
+                      _this.callinTime = hour + ':' + minute + ':' + second
+
+                    }, 1000)
+                  } else {
+                    clearInterval(_this.timer)
+                  }
+                }
+
+            },
+
+        })
+      };
+  </script>
+  </html>

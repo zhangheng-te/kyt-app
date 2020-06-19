@@ -1,0 +1,29 @@
+#wrap2{
+  min-height: 100vh;
+  background-color: #f2f4f5;
+}
+
+.news_area{
+  width: 93vw;
+  margin: 2.5vw 3.5vw 0 3.5vw;
+
+}
+
+.news_img{
+}
+.news_img img{
+  width: 100%;
+  height: 41vw;
+  border-radius: 2vw 2vw 0 0;
+
+}
+.news_title{
+  width: 100%;
+  height: 15vw;
+  background-color: #ffffff;
+  border-radius:  0 0 2vw 2vw;
+  line-height: 15vw;
+  padding-left: 2.5vw;
+  box-sizing: border-box;
+  font-size: 4.5vw;
+}

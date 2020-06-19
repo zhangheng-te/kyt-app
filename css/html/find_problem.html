@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/common_question.css"/>
+      <style>
+          body{
+
+          }
+          .answer_area p{
+            word-break:break-all;
+          }
+          .answer_area a{
+            word-break:break-all;
+          }
+
+      </style>
+  </head>
+  <body>
+    <div id="wrap2">
+
+      <div class="border_space"></div>
+      <p style="text-align:center;color:#666;font-size:4vw;" v-if='questions&&questions.length==0'>暂无数据</p>
+      <div class="question_items" @click="toggle(index,item)" v-for="(item,index) in questions">
+        <div class="question_area f_row_sb">
+          <div class="question f_middle"><div class="index f_middle">{{index+1}}</div><div>{{item.quesion}}</div></div>
+          <div class="icon" v-if="active != index"><i class="icon_del down_icon img"></i></div>
+          <div class="icon" v-if="active == index"><i class="icon_del top_icon img"></i></div>
+        </div>
+        <div class="answer_area" v-html='item.answer' v-if="active == index">
+
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap2",
+          data: {
+            active:-1,
+            school_id:api.pageParam.school_id||'',
+            questions:[]
+          },
+          mounted: function () {
+            var header = document.querySelector('#header');
+            $api.fixStatusBar(header);
+            this.initInfo()
+          },
+          methods: {
+            toggle: function (i,v) {
+              console.log(i);
+              if(this.active==i){
+                this.active = -1;
+              }else{
+                this.active = i;
+              }
+            },
+            //常见
+            initInfo(){
+              var that =this;
+              var data ={
+                school_id:that.school_id
+              }
+              that.ajaxpost('post',globalData.problemList,data).then((res)=>{
+                var res =$.parseJSON(res);
+                console.log(JSON.stringify(res))
+                that.questions=res.data;
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/dredge_vip.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/test_shop.css" />
+      <link rel="stylesheet" type="text/css" href="../css/buy_course.css" />
+      <link rel="stylesheet" type="text/css" href="../css/add.css" />
+      <style>
+            #header {
+                background-color: #fff;
+            }
+
+            #header .aui-title {
+                color: #000;
+            }
+
+            #header .aui-icon-left {
+                color: #000
+            }
+
+            img {
+                height: 100%;
+                width: 100%;
+            }
+
+            .course_item {
+                border-bottom: 1px solid #f2f2f2;
+                padding: 2vw 3.5vw 2vw 3.5vw;
+                box-sizing: border-box;
+            }
+
+            .f_row_sb {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .course_line2 {
+                font-size: 3.6vw;
+                height: 7vw;
+                color: #999999;
+            }
+
+            .course_line2 {
+                font-size: 3.6vw;
+                height: 7vw;
+                color: #999999;
+            }
+
+            .tit {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .vip_item1{
+              height: 13vw;
+              width: 92vw;
+              border: 1px solid #eeeeee;
+              border-radius: 1.5vw;
+              font-size: 4.2vw;
+              margin-bottom: 2.5vw;
+              box-sizing: border-box;
+            }
+            .active{
+              border: 1px solid blue;
+              color: blue;
+            }
+
+      </style>
+  </head>
+  <body>
+    <div id='wrap2'>
+
+      <!-- <div class="space_border"></div>
+      <div class="top_area">
+        <div class="card">
+          <div class="top_img"></div>
+          <div class="top_line2 f_row_sb" style="margin-top:2.5vw;">
+            <div style="color:#ff9400;" ><span v-if='vip_expire_time' style="color:#666; margin-left:5vw;">{{vip_expire_time}}到期</span></div>
+            <div class="buy_btn" @click='navapply'>立刻购买</div>
+          </div>
+        </div>
+      </div>
+      <div class="space_border"></div> -->
+      <div class="pad_b" style="margin-top:2.5vw;">
+        <div class="vip_item1 fsbc pad_b" @click="itemChoose(3)" :class="{active:vipprice_choose==3}">
+          <div class="f_c">
+            <div>考研通3年VIP会员</div>
+            <img style="width:7vw;height:7vw;margin-left:2vw;" class="fit" src="../image/tj.png"/>
+          </div>
+          <div class="colorr">¥{{vipprice.money_three}}</div>
+        </div>
+        <div class="vip_item1 fsbc pad_b" @click="itemChoose(2)" :class="{active:vipprice_choose==2}">
+          <div>考研通2年VIP会员</div>
+          <div class="colorr">¥{{vipprice.money_two}}</div>
+        </div>
+        <div class="vip_item1 fsbc pad_b" @click="itemChoose(1)" :class="{active:vipprice_choose==1}">
+          <div>考研通1年VIP会员</div>
+          <div class="colorr">¥{{vipprice.money_one}}</div>
+        </div>
+      </div>
+      <div class="line3">
+          <div class="line3_item f_row_sb">
+              <div>支付方式</div>
+              <div></div>
+          </div>
+          <div class="line3_item f_row_sb" v-show='shenheStaus == 0'>
+              <div class="f_middle">
+                  <div class="weixin_icon"></div>
+                  <div style="margin-left:5vw;">微信</div>
+              </div>
+              <input class="aui-radio" value="3" v-model='pay_type' type="radio" name="radio">
+          </div>
+          <div class="line3_item f_row_sb" v-show='shenheStaus == 0'>
+              <div class="f_middle">
+                  <div class="zhifubao_icon"></div>
+                  <div style="margin-left:5vw;">支付宝</div>
+              </div>
+              <input class="aui-radio" value="2" v-model='pay_type' type="radio" name="radio">
+          </div>
+          <div class="line3_item f_row_sb">
+              <div class="f_middle">
+                  <div class="yue_icon"></div>
+                  <div style="margin-left:5vw;">余额：{{mony}}元</div>
+              </div>
+              <input class="aui-radio" value="1" v-model='pay_type' type="radio" name="radio">
+          </div>
+      </div>
+
+      <div class="vip_area" style="margin-top:3vw;">
+        <div class="vip_line1">
+          <div class="blue_icon"></div>
+          <div>会员特权</div>
+        </div>
+        <div class="vip_line2">
+          <div class="vip_item">
+            <div class="icon1" style="margin-bottom:1.5vw;"></div>
+            <div>会员提现</div>
+          </div>
+          <div class="vip_item">
+            <div class="icon2" style="margin-bottom:1.5vw;"></div>
+            <div>短视频</div>
+          </div>
+          <div class="vip_item">
+            <div class="icon3" style="margin-bottom:1.5vw;"></div>
+            <div>会员专属课程</div>
+          </div>
+          <div class="vip_item">
+            <div class="icon4" style="margin-bottom:1.5vw;"></div>
+            <div>会员消费折扣</div>
+          </div>
+        </div>
+        <div class="vip_line3 f_middle">
+          <div class="out_line"><div class="in_line"></div></div>
+        </div>
+        <div class="vip_table">
+          <div class="vip_title f_middle">
+            <div class="table_item f_middle">特权</div>
+            <div class="table_item f_middle">非会员用户</div>
+            <div class="table_item f_middle">会员用户</div>
+          </div>
+          <div class="vip_title f_middle">
+            <div class="table_item f_middle color3" style="color:#000000">VIP尊贵标识</div>
+            <div class="table_item f_middle" style="color:#999999">无</div>
+            <div class="table_item f_middle" style="color:#000000">有</div>
+          </div>
+          <div class="table_line f_middle">
+            <div class="table_item f_middle" style="color:#000000">会员免费课程</div>
+            <div class="table_item f_middle" style="color:#999999">无</div>
+            <div class="table_item f_middle" style="color:#000000">有</div>
+          </div>
+          <div class="table_line f_middle">
+            <div class="table_item f_middle" style="color:#000000">会员价课程</div>
+            <div class="table_item f_middle" style="color:#999999">无</div>
+            <div class="table_item f_middle" style="color:#000000">有</div>
+          </div>
+          <div class="table_line f_middle">
+            <div class="table_item f_middle" style="color:#000000">会员专属课程</div>
+            <div class="table_item f_middle" style="color:#999999">无</div>
+            <div class="table_item f_middle" style="color:#000000">有</div>
+          </div>
+          <div class="table_line f_middle">
+            <div class="table_item f_middle" style="color:#000000">提现</div>
+            <div class="table_item f_middle" style="color:#999999">无</div>
+            <div class="table_item f_middle" style="color:#000000">有</div>
+          </div>
+          <div class="table_line f_middle">
+            <div class="table_item f_middle" style="color:#000000">学员奖学金计划</div>
+            <div class="table_item f_middle" style="color:#999999">无</div>
+            <div class="table_item f_middle" style="color:#000000">有</div>
+          </div>
+        </div>
+      </div>
+      <div style="height:15vw;"></div>
+      <div id='footer' class="f_row_sb" style="background-color:#ffffff">
+          <div v-if='vipprice!="" && shenheStaus == 0'>
+              <span v-if='vipprice_choose > 0'>实付：</span>
+              <span style="color:#d51212;" v-if='vipprice_choose==1'>￥{{vipprice.money_one}}</span>
+              <span style="color:#d51212;" v-if='vipprice_choose==2'>￥{{vipprice.money_two}}</span>
+              <span style="color:#d51212;" v-if='vipprice_choose==3'>￥{{vipprice.money_three}}</span>
+          </div>
+          <div class="confirm_btn f_middle" @click="saveOrder">确认付款</div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>``
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap2",
+          data: {
+              vip:'',
+              vip_expire_time:'',
+              infodata: api.pageParam.infodata || '',//商品
+              info_testpaper: api.pageParam.info_testpaper || '',//试卷
+              info_jiaoc: api.pageParam.info_jiaoc || '',//教材
+              course_id: api.pageParam.course_id || '',//课程id
+              vipprice: api.pageParam.vipprice || '',//会员
+              is_vip: api.pageParam.is_vip || '',
+              address: {},//地址
+              mony: '',
+              couponname: '',
+              type: 2,//类型
+              pay_type: '3',//支付方式
+              team_id: api.pageParam.team_id,//拼团/或发起拼团
+              coupon_id: '',//优惠券ID
+              price: '',//
+              member_price: '',
+              groupon_money: '',
+              shenheStaus: 0,
+              vipprice_choose:3
+          },
+          mounted: function () {
+            var header = document.querySelector('#header');
+            $api.fixStatusBar(header);
+            this.vipmoney();
+            var that = this;
+            api.addEventListener({
+                name: 'initData'
+            }, function(ret, err){
+              that.vipmoney();
+            });
+            api.addEventListener({
+    						name: 'buybuy'
+    				}, function(ret, err){
+    						that.vipmoney();
+    				});
+            this.initmony();
+          },
+          methods: {
+            //订单
+            saveOrder() {
+                var that = this;
+                if(this.vipprice_choose<0){
+                  this.toast('请选择会员套餐');
+                  return
+                }
+                var data
+                if (that.type == 1) {//是否团购
+                    data = {
+                        goods_id: that.infodata.id,
+                        pay_type: that.pay_type,
+                        team_id: that.team_id,
+                        coupon_id: that.coupon_id
+                    }
+                } else if (that.type == 3) {
+                    data = {
+                        order_id: that.info_jiaoc.id,
+                        pay_type: that.pay_type,
+                    }
+                } else {
+                    data = {
+                        order_type: that.infodata != '' ? 1 : that.info_jiaoc != '' ? 3 : that.vipprice != '' ? 5 : 2,
+                        goods_id: that.infodata != '' ? that.infodata.id : that.info_jiaoc != '' ? that.info_jiaoc.id : that.vipprice != '' ? '' : that.info_testpaper.id,
+                        year: that.vipprice_choose,
+                        num: that.vipprice_choose,
+                        pay_type: that.pay_type,
+                        addres_id: that.address.address_id || '',//地址
+                        money: '',//充值金额
+                        is_confirm: 1,
+                        coupon_id: that.coupon_id,
+                    }
+                }
+
+                if (data.pay_type == '') {
+                    that.toast('请选择支付方式')
+                    return;
+                }
+                if (data.order_type == 3) {
+                    if (data.addres_id == '') {
+                        that.toast('请选择收货地址')
+                        return
+                    }
+                }
+                if (data.pay_type == 1) {
+                    var msg = this.shenheStaus == 0?'确定用余额支付？':'确定立刻获取课程？'
+                    api.confirm({
+                        title: '提示',
+                        msg: msg,
+                        buttons: ['确定', '取消']
+                    }, function (ret, err) {
+                        if (ret.buttonIndex == 1) {
+                            that.ajaxpost('post', that.type == 1 ? globalData.addGroup : that.type == 3 ? globalData.continuePay : globalData.createorder, data).then((res) => {
+                                var res = $.parseJSON(res);
+                                if (res.code == 1) {
+                                    api.alert({
+                                        title: '提示',
+                                        msg: '购买成功',
+                                    }, function (ret, err) {
+                                        api.sendEvent({
+                                            name: 'buybuy',
+                                            extra: '刷新'
+                                        });
+                                        if (ret.buttonIndex == 1) {
+                                          api.sendEvent({
+                                              name: 'buybuy',
+                                              extra: '刷新'
+                                          });
+                                            // if(that.type==2){
+                                            //   that.toast('购买成功')
+                                            //   setTimeout(function(){
+                                            //     var data1 ={
+                                            //       type:1,
+                                            //       Flid:-1,
+                                            //       from:true
+                                            //     }
+                                            //     that.openW('course_h_add',data1,true)
+                                            //   },1000)
+                                            //   return
+                                            // }
+                                            if (that.info_jiaoc != '') {
+                                                if (that.type == 3) {
+                                                  api.sendEvent({
+                                                      name: 'buybuy',
+                                                      extra: '刷新'
+                                                  });
+                                                    api.sendEvent({
+                                                        name: 'my_order_paly',
+                                                        extra: '购买成功'
+                                                    });
+                                                    that.closeW()
+                                                } else {
+                                                  api.sendEvent({
+                                                      name: 'buybuy',
+                                                      extra: '刷新'
+                                                  });
+                                                  api.closeWin();
+                                                }
+
+                                            } else {
+                                              api.sendEvent({
+                                                  name: 'buybuy',
+                                                  extra: '刷新'
+                                              });
+                                              api.closeWin();
+                                            }
+
+                                        }
+                                    });
+
+                                } else {
+                                    that.toast(res.msg)
+                                }
+
+                            }).catch((ret) => {
+                                loginfo(ret)
+                            })
+                        }
+                    });
+                }
+                if (data.pay_type == 2) {
+                    that.ajaxpost('post', that.type == 1 ? globalData.addGroup : that.type == 3 ? globalData.continuePay : globalData.createorder, data).then((res) => {
+                        var res = $.parseJSON(res);
+                        if (res.code == 1) {
+                            if (that.is_vip) {
+                                api.confirm({
+                                    title: '提示',
+                                    msg: '您已经是会员，是否继续购买？',
+                                    buttons: ['确定', '取消']
+                                }, function (ret, err) {
+                                    if (ret.buttonIndex == 1) {
+                                        if (res.data.is_pay == 1) {
+                                          api.sendEvent({
+                                              name: 'buybuy',
+                                              extra: '刷新'
+                                          });
+                                          api.closeWin();
+                                        } else {
+                                            that.paly(1, res)
+                                        }
+                                    }
+                                });
+
+                            } else {
+                                if (res.data.is_pay == 1) {
+                                  api.sendEvent({
+                                      name: 'buybuy',
+                                      extra: '刷新'
+                                  });
+                                  api.closeWin();
+                                } else {
+                                    that.paly(1, res)
+                                }
+                            }
+                        }
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
+                }
+                if (data.pay_type == 3) {
+                    that.ajaxpost('post', that.type == 1 ? globalData.addGroup : that.type == 3 ? globalData.continuePay : globalData.createorder, data).then((res) => {
+                        var res = $.parseJSON(res);
+                        if (res.code == 1) {
+                            if (that.is_vip) {
+                                api.confirm({
+                                    title: '提示',
+                                    msg: '您已经是会员，是否继续购买？',
+                                    buttons: ['确定', '取消']
+                                }, function (ret, err) {
+                                    if (ret.buttonIndex == 1) {
+                                        if (res.data.is_pay == 1) {
+                                          api.sendEvent({
+                                              name: 'buybuy',
+                                              extra: '刷新'
+                                          });
+                                          api.closeWin();
+                                        } else {
+                                            that.paly(2, res)
+                                        }
+                                    }
+                                });
+
+                            } else {
+                                if (res.data.is_pay == 1) {
+                                  api.sendEvent({
+                                      name: 'buybuy',
+                                      extra: '刷新'
+                                  });
+                                  api.closeWin();
+                                } else {
+                                    that.paly(2, res)
+                                }
+                            }
+
+                        }
+                    }).catch((ret) => {
+
+                        loginfo(ret)
+                    })
+                }
+
+            },
+            paly(status, res) {
+                var that = this
+                var aliPayPlus = api.require('aliPayPlus');
+                if (status == 1) {
+                  var param = {
+                    out_trade_no:res.data.order_sn,
+                    subject:that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that.info_testpaper != '' ? '试卷' : 'vip会员',
+                    total_amount:res.data.total_fee,
+                    body:that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that.info_testpaper != '' ? '试卷' : 'vip会员',
+                  }
+                  that.ajaxpost('post', globalData.zfbpay, param).then((res) => {
+        						var res = $.parseJSON(res)
+        						if (res.code == 1) {
+                      var aliPayPlus = api.require('aliPayPlus');
+                      console.log('111')
+                      console.log(res.data.payinfo)
+                      aliPayPlus.payOrder({
+                          orderInfo: res.data.payinfo
+                      }, function(codeinfo, err) {
+                        if (codeinfo.statusCode == 9000) {
+                            that.toast('支付成功')
+                            setTimeout(function () {
+                                if (that.info_jiaoc != '') {
+                                    if (that.type == 3) {
+                                      api.sendEvent({
+                                          name: 'buybuy',
+                                          extra: '刷新'
+                                      });
+                                        api.sendEvent({
+                                            name: 'my_order_paly',
+                                            extra: '购买成功'
+                                        });
+                                        that.closeW()
+                                    } else {
+                                      api.sendEvent({
+                                          name: 'buybuy',
+                                          extra: '刷新'
+                                      });
+                                      api.closeWin();
+                                    }
+
+                                } else {
+                                  api.sendEvent({
+                                      name: 'buybuy',
+                                      extra: '刷新'
+                                  });
+                                  api.closeWin();
+                                }
+                            }, 2000)
+
+                        } else if (codeinfo.statusCode == 4000) {
+                            that.toast('系统异常')
+                        } else if (codeinfo.statusCode == 4003) {
+                            that.toast('该用户绑定的支付宝账户被冻结或不允许支付')
+                        } else if (codeinfo.statusCode == 4006) {
+                            that.toast('订单支付失败')
+                        } else if (codeinfo.statusCode == 6001) {
+                            that.toast('取消支付')
+                        }
+                      });
+        						}
+        					}).catch((ret) => {
+        						loginfo(ret)
+        					})
+                } else {
+                    var wxPayPlus = api.require('wxPayPlus');
+                    var param = {
+                      out_trade_no:res.data.order_sn,
+                      subject:that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that.info_testpaper != '' ? '试卷' : 'vip会员',
+                      total_amount:res.data.total_fee,
+                      body:that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that.info_testpaper != '' ? '试卷' : 'vip会员'
+                    }
+                    that.ajaxpost('post', globalData.studentwxpay, param).then((res) => {
+          						var res = $.parseJSON(res)
+                      var pay_param = {
+                        apiKey: res.data.payinfo.appid,
+                        orderId: res.data.payinfo.prepay_id,
+                        mchId: res.data.payinfo.mch_id,
+                        nonceStr: res.data.payinfo.nonce_str,
+                        timeStamp: res.time,
+                        package: 'Sign=WXPay',
+                        sign: res.data.payinfo.sign
+                      }
+                      // var pay_param = {
+                      //   apiKey: res.data.payinfo.appid,
+                      //   orderId: res.data.payinfo.prepayid,
+                      //   mchId: res.data.payinfo.partnerid,
+                      //   nonceStr: res.data.payinfo.noncestr,
+                      //   timeStamp: res.data.payinfo.timestamp,
+                      //   package: 'Sign=WXPay',
+                      //   sign: res.data.payinfo.sign
+                      // }
+                      console.log('---------------------------')
+                      console.log(JSON.stringify(pay_param))
+                      console.log('---------------------------')
+          						if (res.code == 1) {
+                        wxPayPlus.payOrder(pay_param, function(ret, err) {
+                          console.log(JSON.stringify(ret))
+                          console.log(JSON.stringify(err))
+                          if (ret.status) {
+                              //支付成功
+                              that.toast('支付成功')
+                              setTimeout(function () {
+                                  if (that.info_jiaoc != '') {
+                                      if (that.type == 3) {
+                                        api.sendEvent({
+                                            name: 'buybuy',
+                                            extra: '刷新'
+                                        });
+                                          api.sendEvent({
+                                              name: 'my_order_paly',
+                                              extra: '购买成功'
+                                          });
+                                          that.closeW()
+                                      } else {
+                                        api.sendEvent({
+                                            name: 'buybuy',
+                                            extra: '刷新'
+                                        });
+                                        api.closeWin();
+                                      }
+
+                                  } else {
+                                    api.sendEvent({
+                                        name: 'buybuy',
+                                        extra: '刷新'
+                                    });
+                                    api.closeWin();
+                                  }
+                              }, 2000)
+                          } else {
+                            console.log(JSON.stringify(err))
+                            that.toast(err.code);
+                          }
+                        });
+          						}
+          					}).catch((ret) => {
+          						loginfo(ret)
+          					})
+
+                }
+            },
+            initmony() {
+                var that = this;
+                console.log(11)
+                var data = {
+
+                }
+                that.ajaxpost('post', globalData.getUserBalance, data).then((res) => {
+                    var res = $.parseJSON(res);
+
+                    if (res.code == 1) {
+                        that.mony = res.data;
+                    }
+
+
+                    console.log(JSON.stringify(res))
+                }).catch((ret) => {
+                    loginfo(ret)
+                })
+
+            },
+            itemChoose(choose){
+              this.vipprice_choose = choose;
+            },
+            //购买
+            navapply(){
+              var that =this
+
+              var data ={
+                type:2,
+                vipprice:that.vip,
+                is_vip:that.vip_expire_time,
+              }
+              this.openW('buy_course_frm_v',data,true)
+            },
+            //vip
+            vipmoney(){
+              var that =this
+              that.ajaxpost('post',globalData.getBuyMemberMoney,{isTeacher:0}).then((res)=>{
+                var res =$.parseJSON(res);
+                that.vip =res.data;
+                that.vipprice = res.data;
+                       console.log(JSON.stringify(res))
+                if(res.data.vip_expire_time){
+                    that.vip_expire_time = that.formatTime(res.data.vip_expire_time,true)
+                    that.is_vip = that.formatTime(res.data.vip_expire_time,true);
+                }
+
+
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

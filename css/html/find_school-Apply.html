@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/application_process.css"/>
+      <style>
+          body{
+
+          }
+
+      </style>
+  </head>
+  <body>
+    <div id="wrap2">
+
+      <div class="space_border"></div>
+      <div class="item">
+          <div class="title">报考条件：</div>
+          <div class="text personality-filter"  @click="addComment($event)" v-html='initdata.apply_requirement'></div>
+
+        </div>
+        <div class="item">
+          <div class="title">申请入读：</div>
+          <div class="text personality-filter" v-html='initdata.apply_reading'></div>
+
+        </div>
+        <div class="item">
+          <div class="title">申请轮次：</div>
+          <div class="text personality-filter" v-html='initdata.apply_turn'></div>
+
+        </div>
+        <div class="item">
+          <div class="title">申请及面试流程：</div>
+          <div class="text personality-filter" v-html='initdata.apply_produce'></div>
+
+        </div>
+        <div class="item">
+          <div class="title">说明：</div>
+          <div class="text">如流程内容中包含网址，请使用浏览器输入该网址进行报名查看</div>
+
+        </div>
+    </div>
+  </body>
+
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap2",
+          data: {
+              initdata:'',
+              school_id:api.pageParam.school_id||'',
+          },
+          mounted: function () {
+            var header = document.querySelector('#header');
+            $api.fixStatusBar(header);
+            this.initinfo()
+            this.$nextTick().then(() => {
+              $(".personality-filter").on("click", "a", function(e){
+                return false
+              });
+            })
+          },
+          methods: {
+
+            addComment:function (event) {
+              console.log(JSON.stringify(event.target))
+
+              // if(event.target.nodeName === 'BUTTON'){
+            	// // 获取触发事件对象的属性
+            	// alert("a");
+              // }
+            },
+            //流程
+            initinfo(){
+              var that =this;
+              var data ={
+                school_id:that.school_id,
+
+              }
+              that.ajaxpost('post',globalData.applyInfo,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+                  console.log(JSON.stringify(res))
+                that.initdata=res.data
+
+
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

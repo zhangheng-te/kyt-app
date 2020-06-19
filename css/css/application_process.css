@@ -1,0 +1,15 @@
+.title{
+  font-size: 4.5vw;
+  color: #1c79f5;
+  padding: 3.5vw;
+  box-sizing: border-box;
+}
+
+.text{
+  padding: 0 3.5vw 0 3.5vw;
+  box-sizing: border-box;
+  margin-bottom: 3vw;
+  font-size: 4vw;
+  color: #666666;
+  line-height: 4.5vw;
+}

@@ -1,0 +1,140 @@
+#wrap2{
+  height: 100vh;
+  background-color: #f2f4f5;
+}
+
+.course_area{
+  width: 100vw;
+  padding: 0 3.5vw 0 3.5vw;
+  box-sizing: border-box;
+}
+.course_area .course_item{
+  width: 93vw;
+  padding: 5vw 4vw 5vw 4vw;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 2vw;
+  box-shadow: 0 0 5px #e5e5e5;
+  display: flex;
+  margin-bottom: 3vw;
+}
+.course_area .course_img{
+  width: 32vw;
+  height: 21vw;
+  background-color: #f2f2f2;
+  border-radius: 1.5vw;
+}
+
+.course_area .course_right{
+  width: 54vw;
+  height: 21vw;
+  padding: 0.5vw 0 0.5vw 2.5vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+}
+
+.course_area .line1{
+  font-size: 4.2vw;
+  position: relative;
+}
+
+.course_area .cancel{
+  color: #0264ce;
+  font-size: 3.6vw;
+  position: absolute;
+  right: 0;
+  /*top: -2vw;*/
+}
+
+.course_area .line2{
+  font-size: 3.8vw;
+  color: #666666;
+}
+
+.course_area .line3{
+  font-size: 3.6vw;
+  color: #d51212;
+}
+
+.recharge .course_item{
+  border-bottom: 1px solid #f2f2f2;
+  padding: 2vw 3.5vw 4vw 3.5vw;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.recharge .course_line1{
+  font-size: 4vw;
+  height: 7vw;
+
+}
+
+ .recharge .course_line2{
+  font-size: 3.6vw;
+  height: 5vw;
+  color: #999999;
+}
+
+
+.data_area{
+  width: 100vw;
+  padding: 0 3.5vw 0 3.5vw;
+  box-sizing: border-box;
+}
+
+.data_area .course_item{
+  width: 93vw;
+  padding: 5vw 4vw 5vw 4vw;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 2vw;
+  box-shadow: 0 0 5px #e5e5e5;
+  display: flex;
+  margin-bottom: 3vw;
+}
+
+.data_area .course_img{
+  width: 32vw;
+  height: 25vw;
+  background-color: #f2f2f2;
+  border-radius: 1.5vw;
+}
+
+.data_area .course_right{
+  width: 54vw;
+  height: 25vw;
+  padding: 0.5vw 0 0.5vw 2.5vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+}
+
+.data_area .line1{
+  font-size: 4.2vw;
+  position: relative;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+}
+
+.data_area .cancel{
+  color: #0264ce;
+  font-size: 3.6vw;
+}
+
+.data_area .line2{
+  font-size: 3.8vw;
+  color: #999999;
+}
+
+.data_area .line3{
+  font-size: 3.6vw;
+  color: #666666;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  word-break:break-all;
+  overflow:hidden;
+}

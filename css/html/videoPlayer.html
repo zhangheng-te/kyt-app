@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" href="../css/add.css">
+      <link rel="stylesheet" href="../css/vant.css">
+      <style>
+        body{
+          background-color: #fff;
+        }
+        [v-cloak] {
+          display:none !important;
+        }
+      </style>
+  </head>
+  <body>
+      <div id="app">
+        <header id="header" class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn" @click='this.closeW'>
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">videoPlayer</div>
+            <div class="aui-pull-right aui-btn">
+                <span style="font-size:3.3vw;color: #0265d0;" @click="openVideo(rect1)">初始化</span>
+            </div>
+        </header>
+        <div id="main" class="main" style="margin-top:12.5vw;">
+
+        </div>
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script type="text/javascript" src="../script/util.js"></script>
+  <script type="text/javascript" src="../script/vant.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var videoPlayer = api.require('videoPlayer');
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var header = document.querySelector('#header');
+        var main = document.querySelector('#main');
+        $api.fixStatusBar(header);
+        $api.fixStatusBar(main);
+        var vm = new Vue({
+            el: '#app',
+            data: {
+              is_playing:true,
+              rect1:{
+      					full:false,
+                rect:{
+                  x : 0,
+        					y : $(window).width()*0.125 + api.safeArea.top,
+        					w : $(window).width(),
+        					h : $(window).width()*0.75
+                }
+      				},
+      				rect2:{
+                full:true,
+                rect:{
+                  x : 0,
+        					y : 0,
+        					w : $(window).height(),
+        					h : $(window).width()
+                }
+      				},
+              full:false,
+              duration:''
+            },
+            mounted: function () {
+              var that = this;
+              api.addEventListener({
+                name : 'keyback'
+              }, function(ret, err) {
+                that.videoChange(1);
+              });
+              api.addEventListener({
+                  name:'swipeleft'
+              }, function(ret, err){
+                 that.videoChange(1);
+              });
+              api.addEventListener({
+                  name:'swiperight'
+              }, function(ret, err){
+                 that.videoChange(1);
+              });
+              this.openVideo(this.rect1);
+
+
+              api.addEventListener({
+                name : 'videoControl'
+              }, function(ret, err) {
+                //console.log(JSON.stringify(ret))
+                if(ret.value.eventType == 'start'){
+                  this.is_playing = true;
+                  videoPlayer.start();
+                }
+                if(ret.value.eventType == 'pause'){
+                  this.is_playing = false;
+                  videoPlayer.pause();
+                }
+                if(ret.value.eventType == 'landscape'){
+                  that.videoChange(2)
+                }
+                if(ret.value.eventType == 'portrait'){
+                  that.videoChange(1)
+                }
+                if(ret.value.eventType == 'back'){
+                  api.closeFrame({
+                      name: 'videoControl'
+                  });
+                  videoPlayer.close();
+                }
+                if(ret.value.eventType == 'seekTo'){
+                  videoPlayer.seekTo({
+                      seconds: ret.value.seconds
+                  });
+                }
+             });
+            },
+            methods:{
+              videoChange(type){
+                var that = this;
+                api.closeFrame({
+                    name: 'videoControl'
+                });
+                if(type==1){
+                  api.setScreenOrientation({
+                      orientation: 'portrait_up'
+                  });
+                  that.openControl(that.rect1)
+                  videoPlayer.setRect({
+                      rect: that.rect1.rect,
+                      fullscreen: false
+                  });
+                }else{
+                  api.setScreenOrientation({
+                      orientation: 'landscape_left'
+                  });
+                  that.openControl(that.rect2)
+                  videoPlayer.setRect({
+                         rect: that.rect2.rect,
+                         fullscreen: true
+                  });
+                }
+              },
+              openControl(rect){
+                var that = this;
+                api.openFrame({
+                  useWKWebView:true,
+                  name: 'videoControl',
+                  url: './videoControl.html',
+                  rect: rect.rect,
+                  bgColor:"rgba(0,0,0,0)",
+                  pageParam: {
+                      is_playing:that.is_playing,
+                      full:rect.full,
+                      title:'顶部文字',
+                      duration:that.duration
+                  },
+                  bgColor: 'rgba(0,0,0,0)',
+                  vScrollBarEnabled: true,
+                  hScrollBarEnabled: true,
+                  bounces:false
+                });
+              },
+              openVideo(rect){
+                var that = this;
+                this.openControl(rect);
+                videoPlayer.open({
+                    rect:rect.rect,
+                    path: 'http://www.kytapp.com/Uploads/Download/2020-03-20/5e741ad225694.mp4',
+                    scalingMode:'scaleToFill',
+                    autoPlay:that.is_playing
+                }, function(ret, err) {
+                    if (ret.status) {
+                        console.log(JSON.stringify(ret));
+                        that.duration = ret.duration;
+                        api.sendEvent({
+                            name: 'videoPlayer',
+                            extra: {
+                              eventType:'play',
+                              duration:ret.duration,
+                            }
+                        });
+                        videoPlayer.addEventListener({
+                            name: 'play'
+                        }, function(ret, err) {
+                            if (ret) {
+                                //console.log(JSON.stringify(ret));
+                                if(ret.eventType != 'playing'){
+                                  console.log(JSON.stringify(ret))
+                                }
+                                if(ret.eventType=='playing'){
+                                  api.sendEvent({
+                                      name: 'videoPlayer',
+                                      extra: {
+                                        eventType:'playing',
+                                        current:ret.current
+                                      }
+                                  });
+                                }
+                            } else {
+                                console.log(JSON.stringify(err));
+                            }
+                        });
+                    } else {
+                        console.log(JSON.stringify(err));
+                    }
+                });
+              }
+            }
+        })
+      };
+  </script>
+  </html>

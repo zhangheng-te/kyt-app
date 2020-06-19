@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" href="../css/add.css">
+      <link rel="stylesheet" href="../css/vant.css">
+      <style>
+        body{
+          background: #fff;
+        }
+        #header{
+          height: 12.5vw;
+          position: fixed;
+          top:0;
+          left:0;
+        }
+        #header{
+          background-color: #fff;
+          border-bottom: 1px solid #eee;
+        }
+        #header .aui-title{
+          color: #000;
+        }
+        #header .aui-icon-left{
+          color: #000
+        }
+      </style>
+  </head>
+  <body>
+      <div id="app">
+        <header id="header" class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn" @click='this.closeW'>
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title" v-if="info">{{info.title}}</div>
+            <div class="aui-pull-right aui-btn">
+                <span></span>
+            </div>
+        </header>
+        <div id="main" class="main pad_b">
+          <div style="height:15.5vw;"></div>
+          <p v-if="info" v-html='info.content'></p>
+        </div>
+
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script type="text/javascript" src="../script/util.js"></script>
+  <script type="text/javascript" src="../script/vant.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script src="../script/util.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var header = document.querySelector('#header');
+        var main = document.querySelector('#main');
+        $api.fixStatusBar(header);
+        $api.fixStatusBar(main);
+        var vm = new Vue({
+            el: '#app',
+            data: {
+              info:''
+            },
+            mounted: function () {
+                this.info = api.pageParam;
+                console.log(JSON.stringify(this.info))
+            },
+            methods:{
+              initData(){
+
+              }
+            }
+        })
+      };
+  </script>
+  </html>

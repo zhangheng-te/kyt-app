@@ -1,0 +1,139 @@
+#wrap2{
+  min-height: 100vh;
+  background-color: #f2f4f5;
+}
+
+.down_icon{
+  width: 3vw;
+  height: 3vw;
+  background: url(../icon/down.png) no-repeat;
+  background-size:100% 100%;
+  margin-left: 0.3vw;
+}
+
+.icon{
+    width: 5vw;
+    height: 5vw;
+    overflow: hidden;
+}
+
+.icon_del{
+  background-size:5vw 5vw;
+  width: 5vw;
+  height: 5vw;
+  display: inline-block;
+}
+
+.img{
+    position: relative;
+    left: -5vw;
+    border-right: 5vw solid transparent;
+    -webkit-filter:drop-shadow(5vw 0 #000000);
+    filter:drop-shadow(5vw 0 #000000);
+}
+
+.menu_nav{
+  display: flex;
+  /*width: 23vw;*/
+
+  align-items: center;
+}
+
+.school_area{
+  width: 93vw;
+  /* height: 32vw; */
+  margin: 3vw 3.5vw 3vw 3.5vw;
+  display: flex;
+  padding: 4vw 3.5vw 4vw 4vw;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 2vw;
+  box-shadow: 0 0 5px #e5e5e5;
+}
+
+.school_img{
+  width: 33vw;
+  height: 24vw;
+  background-color: #f2f2f2;
+  border-radius: 1.5vw;
+}
+
+.school_right{
+  width: 53vw;
+  padding-left: 2vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.school_line1{
+  width: 100%;
+
+
+  align-items: flex-end;
+}
+
+.diamond{
+    width: 2.5vw;
+    height: 2.5vw;
+    background: url(../icon/diamond.png) no-repeat;
+    background-size:2.5vw 2.5vw;
+}
+
+.school_line2{
+  width: 100%;
+  display: flex;
+}
+
+.line2_item{
+  font-size: 3.8vw;
+  margin-right: 2.5vw;
+}
+
+.school_line3{
+   width: 100%;
+   font-size:3.6vw;
+   color: #666666;
+   white-space:nowrap;
+   text-overflow:ellipsis;
+   word-break:break-all;
+   overflow:hidden;
+}
+
+.line4_items{
+  height: 4.5vw;
+  line-height: 4.5vw;
+  padding: 0.5vw ;
+  box-sizing: border-box;
+  font-size: 2.2vw;
+  border-radius: 3px;
+  margin-right: 1vw;
+
+}
+
+.line4_items1{
+  color: #4D76C9;
+  background-color: #edf3ff;
+}
+
+.line4_items1:nth-child(2){
+  color: #4DC9BF;
+  background-color: #E5FFFD;
+}
+
+.line4_items1:nth-child(3){
+  color: #C94D4D;
+  background-color: #FFEDED;
+}
+
+
+.line4_items2{
+  color: #4dc9bf;
+  background-color: #e5fffd;
+}
+
+.line4_items3{
+  color: #cd5c5c;
+  background-color: #ffeded;
+}

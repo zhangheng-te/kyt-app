@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>院校指南</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/add.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/school_guide.css"/>
+      <style>
+          body{
+
+          }
+          #header{
+            background-color: #fff;
+          }
+          #header .aui-title{
+            color: #000;
+          }
+          #header .aui-icon-left{
+            color: #000
+          }
+          .menu_navs{
+            padding:  0 3.5vw;
+            position: relative;
+
+          }
+
+          .school_img img{
+            width: 100%;
+            height: 100%;
+          }
+          .menu_nav select{
+            font-size:3vw;
+          }
+          .menu_nav{
+            width: 100%;
+            flex: 1;
+          }
+          .mask{
+            width:100%;
+            height:100%;
+            position:fixed;
+            top:0;
+            left:0;
+            background:#000;
+            opacity:0.4;
+            overflow:hidden;
+            z-index:98;
+            color:#fff;
+          }
+          .mask_grop_show{
+            width: 50vw;
+
+            top: 50%;
+
+            background-color: #fff;
+            left: 50%;
+            transform:translateY(-50%);
+            margin-left: -25vw;
+            overflow-y:scroll;
+            border-radius: 4px;
+            position: fixed;
+            z-index: 99;
+          }
+          .menu_typeitem{
+            display: flex;
+            padding: 2vw;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .menu_type_bat{
+            text-align:center;font-size: 3.5vw;
+            background-color: #1f8dfe;
+            padding: 1vw 2vw;
+            width: 10vw;
+            border-radius: 4px;
+            color: #fff;
+            margin: 2vw 0;
+          }
+          #header{
+            height: 12.5vw;
+            position: fixed;
+            top:0;
+            left:0;
+          }
+          .aui-searchbar-input input::-webkit-input-placeholder {
+      			color: #666;
+      		}
+          #header {
+      			background-color: #fff;
+      		}
+
+      		#header .aui-title {
+      			color: #000;
+      		}
+
+      		#header .aui-icon-left {
+      			color: #000
+      		}
+
+      		#header .aui-searchbar {
+      			background-color: #fff;
+      		}
+
+      		#header .aui-searchbar-input {
+      			background-color: #f1f4fb;
+      		}
+          .aui-searchbar-input input::-webkit-input-placeholder {
+      			color: #666;
+      		}
+
+      		#header .aui-title .aui-icon-search {
+      			font-size: 0.8rem;
+      		}
+
+      		#header .aui-searchbar-input {
+      			border-radius: 100px;
+      		}
+          #search-input::-webkit-input-placeholder { /* WebKit browsers 适配谷歌 */
+              color: #979ba6;
+          }
+          #search-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 适配火狐 */
+              color: #979ba6;
+          }
+          #search-input::-moz-placeholder { /* Mozilla Firefox 19+ 适配火狐 */
+              color: #979ba6;
+          }
+          #search-input:-ms-input-placeholder { /* Internet Explorer 10+  适配ie*/
+              color: #979ba6;
+          }
+      </style>
+  </head>
+  <body>
+    <div id='wrap2'>
+      <header id="header" class="aui-bar aui-bar-nav" v-cloak>
+  			<div class="aui-title" style="width:87vw;left:2vw;">
+  				<div class="aui-searchbar">
+  					<div class="aui-searchbar-input aui-border-radius">
+  						<i class="aui-iconfont aui-icon-search"></i>
+              <!-- <form target="frameFile" id="search_from" style="position:relative;"> -->
+    						<input id="aaaaaaaaaa" @focus='inoutFocus' type="search" v-model="keyword" placeholder="请输入搜索内容" id="search-input">
+                <!-- <iframe name='frameFile' class="hide"></iframe>
+              </form> -->
+  						<div class="aui-searchbar-clear-btn">
+  							<i class="aui-iconfont aui-icon-close"></i>
+  						</div>
+  					</div>
+  				</div>
+  			</div>
+  			<div v-if="!search" class="aui-pull-right aui-btn" style="color:#9a9ea1;font-size:4vw;" @click='searchConfirm()'>
+  				<span>搜索</span>
+  			</div>
+        <div v-if="search" class="aui-pull-right aui-btn" style="color:#9a9ea1;font-size:4vw;" @click='cancelSearch()'>
+  				<span>取消</span>
+  			</div>
+      </header>
+      <div id="main" class="main" v-cloak>
+        <div id="mao" style="height:12.5vw;"></div>
+      <div class="find_banner">
+        <img src="../image/find_banner.png" alt="">
+      </div>
+      <div class="menu_navs" style="border-top:1px solid #f2f2f2;" style="position:absolute;bottom:0;" v-cloak>
+        <div class="menu_nav">
+
+          <select v-model='TabFengl.provinceid' @change='changeschool(-1,1)'>
+              <option v-for='item in TabFengl.province' v-bind:disabled="item.disabled" v-bind:value="item.id">{{item.name}}</option>
+          </select>
+          <div class="down_icon"></div>
+        </div>
+        <div class="menu_nav">
+          <select v-model='TabFengl.cityid' @change='changeschool(-1)'>
+              <option v-for='item in TabFengl.city' v-bind:disabled="item.disabled" v-bind:value="item.area_id">{{item.area_name}}</option>
+              <option :value="TabFengl.cityid" disabled='true' v-if="TabFengl.city.length==0">城市</option>
+          </select>
+          <div class="down_icon"></div>
+        </div>
+        <div class="menu_nav">
+          <!-- <select v-model='TabFengl.Typeid' @change='changeschool(-1)'>
+              <option v-for='item in TabFengl.Type' v-bind:disabled="item.disabled" v-bind:value="item.value">{{item.name}}</option>
+          </select> -->
+          <div @click.stop='is_type=true' style="width: 100%;font-size: 3vw;">性质</div>
+
+          <div class="down_icon" ></div>
+        </div>
+        <div class="menu_nav">
+            <!-- <select v-model='TabFengl.Typeid' @change='changeschool(-1)'>
+                <option v-for='item in TabFengl.Type' v-bind:disabled="item.disabled" v-bind:value="item.value">{{item.name}}</option>
+            </select> -->
+            <div @click.stop='is_zy=true' style="width: 100%;font-size: 3vw;">专业</div>
+
+            <div class="down_icon" ></div>
+          </div>
+      </div>
+      <div class="mask" :style="is_type||is_zy?'display:block':'display:none'" @click='is_type=false;is_zy=false'></div>
+      <div class="mask_grop_show" :style="is_type?'display:block':'display:none'" v-cloak>
+        <div v-for='item in TabFengl.Type' class="menu_typeitem"><h4>{{item.name}}</h4><input  v-model='TabFengl.Typeid' :value="item.value" type="checkbox"></div>
+        <div class="fcc">
+          <div class="menu_type_bat" style="margin-right:4vw;" @click='is_type=false;is_zy=false'>取消</div>
+          <div class="menu_type_bat" @click='changeschool(-1)'>确定</div>
+        </div>
+      </div>
+      <div class="mask_grop_show" :style="is_zy?'display:block':'display:none'" v-cloak>
+          <div v-for='item in TabFengl.Type_zy' class="menu_typeitem"><h4>{{item.name}}</h4><input  v-model='TabFengl.Type_zyid' :value="item.value" type="checkbox"></div>
+          <div class="fcc">
+            <div class="menu_type_bat" style="margin-right:4vw;" @click='is_type=false;is_zy=false'>取消</div>
+            <div class="menu_type_bat" @click='changeschool(-1)'>确定</div>
+          </div>
+      </div>
+      <p style="text-align:center;color:rgb(15, 15, 15);font-size:4vw;" v-if='schooldata&&schooldata.length==0'>暂无数据</p>
+      <div class="school_area" v-for="item,index in schooldata" @click='navschoolDetails(index)' v-cloak>
+        <div class="school_img"><img :src="item.school_logo_text || item.school_picture_text" alt=""></div>
+        <div class="school_right">
+          <div class="school_line1 f_row_sb">
+            <div style="font-size:4vw; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 70%;">{{item.school_name}}</div>
+            <div style="font-size:3.5vw;color:#666666;">{{item.school_area_text}}</div>
+          </div>
+          <div class="school_line2">
+            <div class="line2_item f_middle" v-for="items in item.school_system_text">
+              <div class="diamond"></div>
+              <div style="font-size:3.8vw;" >{{items}}</div>
+            </div>
+          </div>
+          <div class="school_line3" >{{item.major}}</div>
+          <div class="school_line2" style="display:flex;flex-wrap:wrap;">
+            <div class="line4_items line4_items1 f_middle"  style="font-size:2.2vw;margin-top:1vw;" v-for='titem in item.school_type_text' v-if="titem != '其他'">{{titem}}</div>
+            <div class="line4_items f_middle"  style="font-size:2.2vw;background-color:#f6f6f6;color:#999;margin-top:1vw;" v-for='titem in item.school_type_text' v-if="titem == '其他'">{{titem}}</div>
+          </div>
+
+        </div>
+      </div>
+          <p style="text-align:center;color:#666;font-size:4vw;" v-if='schooldata&&schooldata.length!=0'>已经到底了~</p>
+    </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  setTimeout(function () {
+    if (typeof api == 'undefined') {
+        api = {
+            pageParam: {}
+        }
+        apiready();
+    }
+}, 500);
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var header = document.querySelector('#header');
+        var main = document.querySelector('#main');
+        $api.fixStatusBar(header);
+        $api.fixStatusBar(main);
+        var vm = new Vue({
+          el: "#wrap2",
+          data: {
+            navs:['省份','市','性质'],
+            TabFengl:{
+              provinceid:'',
+              city:[],
+              cityid:'',
+              Systemid:'',
+              Typeid:[],
+              province:[],
+              System:[],
+              Type:[],
+              Type_zy:[],
+              Type_zyid:[],
+              page:1,
+
+            },
+            schooldata:[],
+            is_type:false,
+            is_zy:false,
+            keyword:'',
+            keyword_c:'',
+            search:false
+          },
+          mounted: function () {
+            var that = this;
+            this.bindprovinceFl();
+            this.bindSystemFl();
+            this.bindTypeFl();
+            this.bindType_zy()
+            this.changeschool();
+            this.scrolltobottom()
+            // document.getElementById('search_from').onsubmit = function(){
+            //   //that.confirm(null);
+            //   that.searchConfirm();
+            //   // document.activeElement.blur();
+            // };
+            $(window).on('scroll',function(){
+              var input = document.getElementById("aaaaaaaaaa");
+              input.blur();
+            })
+          },
+          methods: {
+            inoutFocus(){
+              //document.querySelector('#header').scrollIntoView(true);
+            },
+            cancelSearch(){
+              this.schooldata = [];
+              this.search = false;
+              this.keyword = '';
+              this.keyword_c = '';
+              this.changeschool();
+            },
+            searchConfirm(){
+              this.schooldata = [];
+              this.search = true;
+              this.keyword_c = this.keyword;
+              this.changeschool(-1,null,this.keyword);
+            },
+            //上拉
+            scrolltobottom() {
+              var that =this;
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: 50 //距离底部距离
+                    }
+                }, function(ret, err) {
+                    // listAjax(true);
+                    that.TabFengl.page =that.TabFengl.page+1;
+                    that.changeschool()
+                });
+            },
+            //关闭
+            closew(){
+              this.closeW()
+
+            },
+
+            //详情
+            navschoolDetails(index){
+              var that =this;
+              var data ={
+                    school_id:that.schooldata[index].school_id
+              }
+              that.openW('find_school_details',data,true);
+            },
+            //学院list
+            changeschool(id,type,keyword){
+              var that =this;
+              this.is_type=false
+              this.is_zy=false
+              if(id==-1){
+                that.schooldata=[]
+                that.TabFengl.page =1
+              }
+              if(type){
+                if(that.TabFengl.provinceid!=0){
+                  that.bindcityFl()
+                }else{
+                  that.TabFengl.cityid =-1
+                  that.TabFengl.city=[]
+                }
+              }
+              console.log(JSON.stringify(that.TabFengl.Type_zyid))
+              var data ={
+                school_area:that.TabFengl.provinceid==-1?'':that.TabFengl.provinceid,
+                school_system:that.TabFengl.Systemid==-1?'':that.TabFengl.Systemid,
+                school_type:that.TabFengl.Typeid.length==0?'':that.TabFengl.Typeid,
+                school_city:that.TabFengl.cityid==-1?'':that.TabFengl.cityid,
+                school_zy:that.TabFengl.Type_zyid.length==0?'':that.TabFengl.Type_zyid,
+                page:that.TabFengl.page,
+                limit:5
+              }
+              if(this.search){
+                data.keyword = this.keyword_c;
+              }
+              that.ajaxpost_noloading('post',globalData.schoolList,data).then((res)=>{
+                var res =$.parseJSON(res);
+                if(!res.data.data){
+                  return
+                }
+                that.schooldata=that.schooldata.concat(res.data.data)
+                // that.bindlist(0);
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            //省份
+            bindprovinceFl(){
+              var that =this;
+              var data ={
+                school:1
+              }
+
+              that.ajaxpost('post',globalData.provinceList,data).then((res)=>{
+                var res =$.parseJSON(res);
+                var whole={
+                  name:'全国',
+                  disabled:false,
+                  id:'0'
+                }
+                res.data.unshift(whole);
+                that.TabFengl.province=res.data
+                that.TabFengl.provinceid='0';
+                // that.bindlist(0);
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            //市份
+            bindcityFl(status){
+              var that =this;
+              var data ={
+                province:that.TabFengl.provinceid
+              }
+              that.ajaxpost('post',globalData.area,data).then((res)=>{
+                var res =$.parseJSON(res);
+                var whole={
+                  area_name:'全部',
+                  disabled:false,
+                  id:'0'
+                }
+
+                res.data.unshift(whole);
+                // res.data.unshift(whole);
+                that.TabFengl.city=res.data
+
+                that.TabFengl.cityid='0';
+
+                // that.bindlist(0);
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            //学制
+            bindSystemFl(){
+              var that =this;
+              var data ={
+                school:1
+              }
+              that.ajaxpost('post',globalData.schoolSystem,data).then((res)=>{
+                var res =$.parseJSON(res);
+                var whole={
+                  name:'学制',
+                  disabled:true,
+                  value:'-1'
+                }
+
+                res.data.unshift(whole);
+                that.TabFengl.System=res.data
+                that.TabFengl.Systemid='-1';
+                // that.bindlist(0);
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            //性质
+            bindTypeFl(){
+              var that =this;
+              var data ={
+                school:1
+              }
+              that.ajaxpost('post',globalData.schoolType,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+
+
+                that.TabFengl.Type=res.data
+
+                // that.bindlist(0);s
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+             //专业
+             bindType_zy(){
+              var that =this;
+              var data ={
+
+              }
+              that.ajaxpost('post',globalData.school_zy,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+
+
+
+                that.TabFengl.Type_zy=res.data
+
+                // that.bindlist(0);s
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

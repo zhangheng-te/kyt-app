@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我的</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" href="../css/add.css">
+      <link rel="stylesheet" href="../css/style2.css">
+      <style>
+          body,html{
+            height: auto;
+          }
+          #app{
+            overflow: hidden;
+          }
+          .my{
+              overflow: hidden;;
+          }
+          .my_btn_tuic{
+            margin-top: 4vw;
+          }
+          .my_btn_tuic div{
+            text-align: center;
+            width: 50vw;
+          	height: 10.67vw;
+          	background-image: linear-gradient(0deg,
+          		#0163ce 0%,
+          		#1f8dfe 100%);
+          	border-radius: 5.33vw;
+          	border: solid 0.13vw #f5f5f5;
+            color: #fff;
+            line-height: 10.67vw;
+            margin: auto;
+          }
+          .my_sign_bnt{
+            font-size: 3.5vw;
+            background-color: #169bd5;
+            padding: 1.5vw 7vw;
+            border-radius: 4px;
+            color: #fff;
+          }
+          .fiexd_xx{
+            text-align: center;
+          }
+          /*.my #header {
+              background-color: #0094FA;
+          }*/
+
+          #header .aui-title {
+              color: #000;
+          }
+
+          #header .aui-icon-left {
+              color: #000
+          }
+          #header{
+            height: 12.5vw;
+            position: fixed;
+            top:0;
+            left:0;
+            background-color: #0094FA;
+          }
+      </style>
+  </head>
+  <body>
+      <div id="app" v-cloak>
+        <header id="header" class="aui-bar aui-bar-nav">
+            <div style="color: #fff" class="aui-pull-left aui-btn" @click='closelogo("是否注销账号")'>
+                <span>注销</span>
+            </div>
+            <div class="aui-pull-right aui-btn" @click='bindmsg'>
+                <span class="my-newsico" style="position:relative;">
+                  <span v-if="weidu" style="width:2vw;height:2vw;border-radius:50%;background-color:red;position:absolute;right:-1vw;top:-1vw;"></span>
+                </span>
+            </div>
+        </header>
+        <div id="main" class="main">
+          <div style="height:12.5vw;"></div>
+        <div class="my">
+
+          <div class="my_bg">
+            <!-- <header id="header" class="aui-bar aui-bar-nav">
+                <div class="aui-pull-left aui-btn" @click='closelogo("是否注销账号")'>
+                  <span>注销</span>
+                </div>
+                <div class="aui-pull-right aui-btn" @click='bindmsg'>
+                  <span class="my-newsico"></span>
+                </div>
+            </header> -->
+            <div class="my_head">
+              <div class="my_headimg">
+                <img v-if='info' :src="info.avatar" @click='imgsetup' alt="">
+              </div>
+              <div class="my_name">
+                <span @click="turnOutput"  style="font-size:3vw;font-weight: normal;color: #4D76C9;background-color: #edf3ff;padding: 0 0.5vw;border-radius: 0.5vw; ">积分：{{info.score}}</span>
+                <div class="fcc" style="font-weight: bold; text-align: center;" v-if='info'>{{info.nickname}}
+                  <img style="width:6vw;height:6vw;margin-left:1vw;" v-if='viptype' class="fit" src="../image/vip.png"/>
+                  <!-- <i style="width:4.5vw;height:3.5vw;" v-if='viptype'></i> -->
+                </div>
+
+                <div style="font-size:3.3vw;color:#999;" v-if='viptype'>会员到期时间{{viptype}}</div>
+
+                <div class="fiexd_xx" v-if="info.level==1">
+                  <span class="on_xx2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==2">
+                  <span class="on_xx"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==3">
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==4">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==5">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==6">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==7">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==8">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==9">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==10">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==11">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==12">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==13">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==14">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==15">
+                  <span class="on_h1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==16">
+                  <span class="on_h1"></span>
+                  <span class="on_h1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==17">
+                  <span class="on_h1"></span>
+                  <span class="on_h1"></span>
+                  <span class="on_h1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==18">
+                  <span class="on_h2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==19">
+                  <span class="on_h2"></span>
+                  <span class="on_h2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==20">
+                  <span class="on_h2"></span>
+                  <span class="on_h2"></span>
+                  <span class="on_h2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==21">
+                  <span class="on_h3"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==22">
+                  <span class="on_h3"></span>
+                  <span class="on_h3"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==23">
+                  <span class="on_h3"></span>
+                  <span class="on_h3"></span>
+                  <span class="on_h3"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==24">
+                  <span class="on_h4"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==25">
+                  <span class="on_h4"></span>
+                  <span class="on_h4"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==26">
+                  <span class="on_h4"></span>
+                  <span class="on_h4"></span>
+                  <span class="on_h4"></span>
+                </div>
+              </div>
+              <div class="my_sign fd_c" >
+                <!-- <span style="color: #57cbd9;font-size:3.6vw;padding-bottom:1vw;" @click="turnRZ" v-if='info'>{{status}}</span> -->
+                <span style="color: #4D76C9;background-color: #edf3ff;padding: 0 0.5vw;font-size: 3.3vw;border-radius: 0.5vw;margin-bottom:1vw;" @click="turnRZ" v-if='info'>{{status}}</span>
+                <div @click='navSign' class="my_sign_bnt fcc">签到</div>
+              </div>
+              <ul  class="my_order">
+                <li @click='navCourse(-1)'>
+                  <i></i>
+                  <p>我的课程</p>
+                </li>
+                <li @click='naverrTopic'>
+                  <i></i>
+                  <p>我的题库</p>
+                </li>
+                <li @click='bindteacher'>
+                  <i></i>
+                  <p>关注老师</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="my_acconut">
+            <div class="my_account_wrap" @click='bindacconut'>
+              <h3><span class="span_line">我的账户</span></h3>
+              <h5 class="oncolor999">￥{{money}}<span></span> <i class="i_arrow"></i>   </h5>
+            </div>
+          </div>
+          <div class="my_acconut" style="margin-top:1.5vw;">
+            <div class="my_account_wrap" @click='turnHistory'>
+              <h3><span class="span_line">观看历史</span></h3>
+              <h5 class="oncolor999"><span></span> <i class="i_arrow"></i>   </h5>
+            </div>
+          </div>
+          <div class="my_acconut" style="margin-top:1.5vw;">
+            <div class="my_account_wrap" @click='turnFav'>
+              <h3><span class="span_line">我的收藏</span></h3>
+              <h5 class="oncolor999"><span></span> <i class="i_arrow"></i>   </h5>
+            </div>
+          </div>
+          <!-- <div class="my_acconut" style="margin-top:1.5vw;">
+            <div class="my_account_wrap" @click='turnCards'>
+              <h3><span class="span_line">银行卡</span></h3>
+              <h5 class="oncolor999"><span></span> <i class="i_arrow"></i>   </h5>
+            </div>
+          </div> -->
+          <div class="my_more">
+            <h3><span class="span_line">更多服务</span></h3>
+            <div class="my_m_wrap " v-if="isshenhe==0">
+              <div class="my_m_row my_m_p1" @click='bindorder'>
+                <i></i>
+                <p>资料订单</p>
+              </div>
+              <div class="my_m_row my_m_p1" @click='bindvip'>
+                <i></i>
+                <p>会员开通</p>
+              </div>
+              <div class="my_m_row my_m_p1" @click='bindcoupon_win'>
+                <i></i>
+                <p>优惠劵区</p>
+              </div>
+            </div>
+            <div class="my_m_wrap ">
+              <div class="my_m_row my_m_p2" @click='bindyaoqing'>
+                <i></i>
+                <p>邀约学员</p>
+              </div>
+              <div class="my_m_row my_m_p2"@click='bindxiaof' >
+                <i></i>
+                <p>消费管理</p>
+              </div>
+              <div class="my_m_row my_m_p2"@click='kefu' >
+                <i></i>
+                <p>客服咨询</p>
+              </div>
+            </div>
+            <div class="my_m_wrap ">
+              <div class="my_m_row my_m_p3"@click='bindmy_opinion' >
+                <i></i>
+                <p>意见反馈</p>
+              </div>
+              <div class="my_m_row my_m_p3" @click='bindabout' >
+                <i></i>
+                <p>我是教师</p>
+              </div>
+              <div class="my_m_row my_m_p3" @click='bindquestion'>
+                <i></i>
+                <p>帮助中心</p>
+              </div>
+            </div>
+            <div class=" my_m_wrap ">
+              <div class="my_m_row my_m_p4" @click='bindaddress'>
+                <i></i>
+                <p>地址管理</p>
+              </div>
+              <!-- <div class="my_m_row my_m_p4" @click='onmoble'>
+                <i></i>
+                <p>热线电话</p>
+              </div> -->
+              <div class="my_m_row my_m_p4" @click='turnCards'>
+                <i></i>
+                <p>银行卡</p>
+              </div>
+              <div class="my_m_row my_m_p4" @click='navSetup' >
+                <i></i>
+                <p>设置</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="my_btn_tuic">
+            <div   style="" @click='closelogo("是否退出登录")'>退出</div>
+          </div>
+          <!-- <div class="mask" v-show="mask" ></div>
+          <div v-bind:class="mask?'bottom_window_hover':''" class="bottom_window" >
+
+            <div class="my_Showmask">
+              <div class="my_s_row">
+                <img src="../image/my-weix.png" alt="">
+                <p>微信</p>
+              </div>
+              <div class="my_s_row">
+                <img src="../image/my-pengy.png" alt="">
+                <p>朋友圈</p>
+              </div>
+              <div class="my_s_row">
+                <img src="../image/my-qq.png" alt="">
+                <p>QQ</p>
+              </div>
+              <div class="my_s_row">
+                <img src="../image/my-weib.png" alt="">
+                <p>新浪微博</p>
+              </div>
+            </div>
+            <div class="my_s_close" @click='bindClosemask'>取消</div>
+          </div> -->
+        </div>
+        </div>
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script type="text/javascript" src="../script/moment.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script src="../script/util.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    apiready = function(){
+      api.setStatusBarStyle({
+          style: 'dark',
+      })
+      var header = document.querySelector('#header');
+      var main = document.querySelector('#main');
+      $api.fixStatusBar(header);
+      $api.fixStatusBar(main);
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                token:window.localStorage.getItem('userinfo')||'',
+                money:'',
+                title: '',
+                mask:false,
+                info:'',
+                viptype:false,
+                status:'实名认证',
+                weidu:false,
+                isshenhe:-1
+            },
+            mounted: function () {
+                var that =this
+                var header = document.querySelector('#header');
+                $api.fixStatusBar(header);
+                //创建美洽
+                var mq = api.require('meiQia');
+                //配置初始化美洽需要的appkey
+                var param = {
+                    appkey: "f4790d20eeef104610bede0a459f61de"
+                };
+                //初始化美洽
+                mq.initMeiQia(param, function(ret, err) {
+                    if (ret) {
+                        //初始化成功
+                        // alert(JSON.stringify(ret));
+                    } else {
+                        //初始化失败
+                        // alert(JSON.stringify(err));
+                    }
+                })
+                this.userInfo();
+                this.$nextTick(()=>{
+                  api.addEventListener({
+                      name: 'my_setup'
+                  }, function(ret, err){
+                    that.userInfo();
+                  });
+
+                })
+
+                api.addEventListener({
+                    name:'my_to_home'
+                }, function(ret, err){
+
+                    api.setFrameGroupIndex({
+                      name: "group",
+                      index: 0,
+                      scroll: false,
+                      reload: false
+                  });
+
+                });
+
+                api.addEventListener({
+                    name: 'root_data'
+                }, function(ret, err){
+                    that.userInfo()
+                    that.accoutinfo()
+                    that.uservip();
+                    that.initData();
+                });
+                api.addEventListener({
+        						name: 'buybuy'
+        				}, function(ret, err){
+        						that.uservip();
+        				});
+                that.userInfo()
+                that.accoutinfo()
+                that.uservip();
+                that.initData();
+                that.getWeidu();
+                api.addEventListener({
+        						name: 'getWeidu'
+        				}, function(ret, err){
+        					  that.getWeidu();
+        				});
+                this.getIsshenhe();
+            },
+            methods:{
+              getIsshenhe(){
+                var that =this;
+                that.ajaxpost('post',globalData.isshenhe,{}).then((res)=>{
+                  var res =$.parseJSON(res);
+                  api.refreshHeaderLoadDone()
+                  if(res.code==1){
+                    that.isshenhe = res.data.status;
+                  }
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+              getWeidu(){
+                var that = this;
+                that.ajaxpost_noloading('post',globalData.checkNoReadMessage,{}).then((res)=>{
+                  var res =$.parseJSON(res);
+                  if(res.data.count > 0){
+                    that.weidu = true
+                  }
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+              turnCards(){
+                this.openW('card_list',{},true,null,false);
+              },
+              turnFav(){
+                this.openW('video_fav',{},true,null,false);
+              },
+              turnHistory(){
+                this.openW('history_frm',{},true,null,false);
+              },
+              turnOutput(){
+                this.openW('output_win',{},true);
+              },
+              //退出登录
+              closelogo(title) {
+                  var that = this
+                  api.confirm({
+                      title: '提示',
+                      msg: title,
+                      buttons: ['确定', '取消']
+                  }, function (ret, err) {
+                      if (ret.buttonIndex == 1) {
+
+                          that.ajaxpost('post', globalData.loginout, {}).then((res) => {
+                              var res = $.parseJSON(res);
+
+                              if (res.code == 1) {
+                                  console.log(JSON.stringify(res))
+
+                                  window.localStorage.removeItem('userinfo')
+                                  window.localStorage.removeItem('mobile')
+                                  api.openWin({
+                                    useWKWebView:true,
+                                      name: 'index',
+                                      url: 'index.html',
+                                      pageParam: '',
+                                      slidBackEnabled: false
+                                  })
+
+                              } else if (res.code == 0) {
+                                  that.toast(res.msg)
+                              }
+
+                          }).catch((ret) => {
+                              loginfo(ret)
+                          })
+
+                      }
+                  });
+
+
+              },
+              initData(){
+                var that = this;
+                var param = {
+                  applytype:1
+                }
+                that.ajaxpost_noloading('post',globalData.getMemberApplyStatus,param).then((res)=>{
+                  var res =$.parseJSON(res);
+                  if(res.code==1){
+                    if(res.data.status==1){
+                      that.status = '已实名'
+                    }else{
+      								that.status = '实名认证'
+      							}
+                  }
+
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+                bindmsg(){
+
+                  this.openW('my_msg_win',{},true)
+                },
+               //头像
+               imgsetup(){
+                var that =this;
+
+                that.uploadfirst(function(res){
+                  if(res.code==1){
+                      that.toast(res.msg)
+                      that.info.avatar =res.data.user_image
+                  }else{
+                    loginfo(res)
+                  }
+                },globalData.uploadAvatar,'pic',{imges:'上传头像'})
+              },
+              //info
+              accoutinfo(){
+                var that =this;
+                var data ={
+
+                }
+                that.ajaxpost_noloading('post',globalData.getUserBalance,data).then((res)=>{
+
+                  var res =$.parseJSON(res);
+                    console.log(JSON.stringify(res))
+                  if(res.code==1){
+                      that.money=res.data
+                  }
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+
+              //退出登录
+              closelogo(title){
+                var that =this
+                api.confirm({
+                    title: '提示',
+                    msg: title,
+                    buttons: ['确定', '取消']
+                }, function(ret, err){
+                    if(ret.buttonIndex==1){
+
+                      that.ajaxpost('post',globalData.loginout,{}).then((res)=>{
+                        var res =$.parseJSON(res);
+
+                        if(res.code==1){
+                            console.log(JSON.stringify(res))
+
+                          window.localStorage.removeItem('userinfo')
+                          window.localStorage.removeItem('mobile')
+                          api.openWin({
+                            useWKWebView:true,
+                              name: 'index',
+                              url: 'index.html',
+                              pageParam: '',
+                              slidBackEnabled:false
+                          })
+
+                        }else if(res.code==0){
+                          that.toast(res.msg)
+                        }
+
+                      }).catch((ret)=>{
+                        loginfo(ret)
+                      })
+
+                    }
+                });
+
+
+              },
+              uservip(){
+                var that =this
+                var data={
+
+                }
+                that.ajaxpost_noloading('post',globalData.getMemberIsVip,data).then((res)=>{
+
+                  var res =$.parseJSON(res);
+                   console.log(JSON.stringify(res))
+                   if(res.code==1){
+                    that.viptype =moment.unix(res.data.is_vip).format('YYYY-MM-DD');
+                   }
+
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+              userInfo(){
+                var that =this
+                var data={
+
+                }
+                that.ajaxpost_noloading('post',globalData.userInfo,data).then((res)=>{
+                  var res =$.parseJSON(res);
+                   console.log(JSON.stringify(res))
+                   window.localStorage.setItem('mobile',res.data.mobile)
+                  getLevel(res.data.score,function(level){
+                    res.data.level = level;
+                    that.info=res.data
+                  })
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+              //老师
+              bindteacher(){
+                var that =this;
+                that.openW('my_attention_teacher_win',{},true);
+              },
+
+              //邀请
+              bindyaoqing(){
+                // this.mask=true;
+                // var sharedModule = api.require('shareAction');
+                // var phonetype = api.systemType;
+                // if(phonetype=='android'){
+                //   sharedModule.share({
+                //         text: '邀请码：123',
+                //         type: 'url',
+                //         path:'http://www.baidu.com',
+                //
+                //     });
+                // }else{
+                //   sharedModule.share({
+                //         text: '邀请码：123',
+                //         type: 'url',
+                //         path:'http://www.baidu.com',
+                //
+                //     });
+                // }
+                  this.openW('my_yaoq_h',{},true);
+                // api.actionSheet({
+                //     title: '底部弹出框测试',
+                //     cancelTitle: '这里是取消按钮',
+                //     destructiveTitle: '红色警告按钮',
+                //     buttons: ['1', '2', '3']
+                // }, function(ret, err) {
+                //     // var index = ret.buttonIndex;
+                //     console.log(JSON.stringify(ret))
+                // });
+              },
+              //错题
+              naverrTopic(){
+                this.openW('question_bank_h',{},true)
+              },
+              //课程
+              navCourse(id){
+                var data ={
+                  type:1,
+                  Flid:id
+                }
+                this.openW('course_h',data,true)
+              },
+              //签到
+              navSign(){
+                  this.openW('my_signin_win',{},true)
+              },
+              //设置
+              navSetup(){
+                this.openW('my_setup_h',{},true)
+              },
+              //订单
+              bindorder(){
+                var that =this;
+                that.openW('my_order_win',{},true);
+              },
+              //优惠劵
+              bindcoupon_win(){
+                var that =this;
+                var data ={
+                  title:'优惠券区',
+                  type:2
+                }
+                that.openW('coupon_win',data,true);
+              },
+              turnRZ(){
+                this.openW('add_attestation',{},true);
+              },
+              //会员
+              bindvip(){
+                var that =this;
+                that.openW('dredge_vip_win',{},true);
+              },
+              //消费管理
+              bindxiaof(){
+                var that =this;
+                that.openW('purchase_history_win',{},true);
+              },
+              onmoble(){
+                api.call({
+                    type: 'tel_prompt',
+                    number: '400-928-6877'
+                });
+              },
+              //客服
+              kefu(){
+                var mq = api.require('meiQia');
+                //设置title以及按钮颜色
+                var titleColor = {
+                  color: "#000000"
+                };
+                mq.setTitleColor(titleColor);
+
+                mq.show({showAvatar:false});
+              },
+              //账户
+              bindacconut(){
+                var that =this;
+                that.openW('my_account',{},true);
+              },
+              //关于我们
+              bindabout(){
+                var that =this;
+                that.openW('my_about',{},true);
+              },
+              //积分商城
+              bindmy_amass(){
+                var that =this;
+                that.openW('my_amass',{},true);
+              },
+              //意见
+              bindmy_opinion(){
+                var that =this;
+                that.openW('my_opinion_h',{},true);
+              },
+              //常见
+              bindquestion(){
+                var that =this;
+                that.openW('my_problem',{},true);
+              },
+              //地址
+              bindaddress(){
+                var that =this;
+                that.openW('my_address_win',{},true);
+              },
+              //关闭弹出框
+              bindClosemask:function(){
+                this.mask=false;
+
+              },
+
+            },
+
+
+        })
+
+  };
+  </script>
+  </html>

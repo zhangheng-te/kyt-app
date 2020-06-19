@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/question_audition.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/test_shop.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/add.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/error_record.css"/>
+      <style>
+          body{
+
+          }
+          .menu_navs{
+            position: relative;
+          }
+
+      </style>
+  </head>
+  <body>
+    <div id='wrap'>
+      <!-- <div class="menu_navs" style="border-top:1px solid #f2f2f2;">
+        <div class="menu_nav"  @click="toggle(index ,nav)" v-for="(nav,index) in navs" :class="{active:active==index}">
+          {{nav}}
+        </div>
+      </div> -->
+      <div class="color9 pad_b" style="display: flex;justify-content: center;font-size:4vw;align-items: center;height:8vw;">做题总数{{nums.sum}}　错题总数{{nums.error_num}}　正确率{{nums.correct}}%</div>
+      <div class="space_border"></div>
+      <p style="text-align:center;color:#666;font-size:4vw;margin-top: 4vw;" v-if='Topic.data&&Topic.data.length==0'>暂无数据</p>
+      <div class="course_item" v-for="(item,index) in Topic.data" @click='navtopicDetails(item)'>
+        <div class="course_line1 f_row_sb" style="height:10vw;">
+          <div>{{item.name}}</div>
+          <div class="icon"><i class="icon_del right_icon img"></i></div>
+        </div>
+        <div class="course_line2 f_row_sb">
+          <div>测试正确率：{{item.accuracy||0}}%</div>
+          <div>{{item.error_num}}/{{item.itemCount}}</div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap",
+          data: {
+            navs:['课程题库','历年真题','模拟试卷'],
+            active: 0, // 切换TABclass
+            userinfo:$api.getStorage('userinfo')==null?'':$api.getStorage('userinfo'),
+            Topic:{
+              data:[],
+              page:1,
+            },
+            nums:''
+          },
+          mounted: function () {
+            var header = document.querySelector('#header');
+            $api.fixStatusBar(header);
+            this.initTopic(1);
+          },
+          methods: {
+            toggle: function (i, v) {
+              console.log(i);
+              this.active = i;
+              this.Topic.data=[]
+              this.initTopic(this.active+1);
+            },
+            navtopicDetails(item){
+              //this.openW('error_details_win',{title:this.Topic.data[index].name,testpaper_id:this.Topic.data[index].id},true)
+              if(item.is_special==0){
+                this.openW('error_details_win', { title: item.name, testpaper_id: item.id}, true)
+              }else{
+                this.openW('question_test_win_add', { title: item.name, testpaper_id: item.id,from:'1'}, true)
+              }
+            },
+            //错题
+            initTopic(type){
+              var that =this;
+              var data ={
+
+                //testpaper_type:type,
+                page:that.Topic.page
+              }
+              that.ajaxpost('post',globalData.getMyPaperInfo,{}).then((res)=>{
+                var res =$.parseJSON(res);
+                that.nums = res.data;
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+              that.ajaxpost('post',globalData.getWrongQuestionPaperList,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+
+                console.log(JSON.stringify(res))
+                if(res.code==1&&res.data.data){
+                    that.Topic.data=res.data.data
+                }
+
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

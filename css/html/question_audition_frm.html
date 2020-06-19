@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/question_audition.css"/>
+      <style>
+          body{
+
+          }
+          .menu_navs{
+            position: relative;
+          }
+
+      </style>
+  </head>
+  <body>
+    <div id="wrap">
+
+
+      <!-- <div class="score_area">
+        <div class="score_line1">模拟测试正确率</div>
+        <div class="score_line2 f_middle"><div><span style="font-size:12vw;">{{Fs.accuracy_rate}}</span>%</div></div>
+        <div class="score_line3 f_middle" @click='navtestTopic(2)'>开始模拟测试</div>
+        <div class="score_line4" @click='naverrTopic'>历史错题&nbsp;&nbsp;></div>
+      </div> -->
+      <div class="menu_navs">
+        <!-- <div class="menu_nav" @click="toggle(index ,nav)" v-for="(nav,index) in navs" :class="{active:active==index}">
+          {{nav}}
+        </div> -->
+        <div class="menu_nav" @click="toggle(1 ,'历年真题')" :class="{active:active==1}">历年真题</div>
+        <div class="menu_nav" @click="toggle(0 ,'历年真题')" :class="{active:active==0}">模拟试卷</div>
+        <div class="menu_nav" @click="toggle(2 ,'历年真题')" :class="{active:active==2}">课程题库</div>
+      </div>
+
+      <p style="text-align:center;color:#666;font-size:4vw;margin-top:2vw;" v-if='TopicList.data&&TopicList.data.length==0'>暂无数据</p>
+      <div class="course_qb">
+        <div class="course_item" v-for="(item,index) in TopicList.data" @click='navInfoTopic(item.id)'>
+          <div class="course_line1 f_row_sb">
+            <div>{{item.name}}</div>
+            <div class="icon"><i class="icon_del right_icon img"></i></div>
+          </div>
+          <div class="course_line2 f_row_sb">
+            <div>测试正确率：{{item.accuracy}}%</div>
+            <div>{{item.error_num}}/{{item.itemCount}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+          el: "#wrap",
+          data: {
+            navs:['模拟试卷','历年真题','课程题库'],
+            active: 1, // 切换TABclass
+            category_id:api.pageParam.category_id||'',//分类id
+            title:api.pageParam.title,
+
+            TopicList:{
+              data:[],
+              page:1
+            },
+            Fs:''
+          },
+          mounted: function () {
+
+            this.initTopicFs();
+            this.initTopicList(2);
+            this.scrolltobottom()
+          },
+          methods: {
+
+            //上拉
+            scrolltobottom() {
+              var that =this;
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: 50 //距离底部距离
+                    }
+                }, function(ret, err) {
+                    // listAjax(true);
+                    console.log(JSON.stringify(ret))
+                    that.TopicList.page =that.TopicList.page+1;
+                    that.initTopicList(that.active+1)
+                });
+            },
+            naverrTopic(){
+              this.openW('error_record_win',{},true)
+            },
+            navInfoTopic(id){
+              this.openW('question_test_win',{testpaper_id:id},true)
+            },
+            //测试
+            navtestTopic(type,id){
+              console.log(type,id)
+
+              this.openW('test_frm_h',{category_id:this.category_id,type:type,testpaper_id:id||''},true)
+            },
+            toggle: function (i, v) {
+              console.log(i);
+              this.active = i;
+              this.TopicList.page=1
+              this.initTopicList(this.active+1)
+
+            },
+            //预测分
+            initTopicFs(){
+              var that =this;
+              var data ={
+
+                type:2,
+                category_id:that.category_id
+              }
+              that.ajaxpost('post',globalData.getLastTestAccuracy,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+                res.data.accuracy_rate =parseInt(res.data.accuracy_rate)
+                console.log(JSON.stringify(res))
+                that.Fs=res.data
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+            //测试试卷
+            initTopicList(type){
+              var that =this;
+              if(that.TopicList.page==1){
+                that.TopicList.data =[]
+              }
+              var data ={
+
+                categoryid:that.category_id,
+                testpaper_type:type,
+                page:that.TopicList.page,
+              }
+              console.log(JSON.stringify(data))
+              that.ajaxpost('post',globalData.getMyPaperList,data).then((res)=>{
+
+                var res =$.parseJSON(res);
+                console.log(JSON.stringify(res))
+                if(!res.data.data){
+                  return
+                }
+                res.data.data.map((item)=>{
+                  item.accuracy =parseInt(item.accuracy)
+                })
+                that.TopicList.data=that.TopicList.data.concat(res.data.data)
+
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

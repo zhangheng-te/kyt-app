@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/coupon.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/add.css"/>
+      <link rel="stylesheet" href="../css/vant.css">
+      <style>
+          body{
+
+          }
+          [v-cloak]{
+            display: none!important ;
+          }
+          #header{
+            background-color: #fff;
+          }
+          #header .aui-title{
+            color: #000;
+          }
+          #header .aui-icon-left{
+            color: #000
+          }
+          #header .aui-pull-right span{
+            width: 5vw;
+            height: 5vw;
+            background:  url(../image/addcourse.png) 0 0 no-repeat;
+            background-size: 100% 100%;
+            margin-left: 2vw;
+          }
+          #header{
+            height: 12.5vw;
+            position: fixed;
+            top:0;
+            left:0;
+          }
+          .output_line{
+        		padding: 2vw 0;
+        	}
+        	.bb{
+        		border-bottom: 1px solid #eeeeee;
+        	}
+          .play_btn{
+            border: 1px solid #0265d0;
+            border-radius: 5vw;
+            width: 18vw;
+            height: 6vw;
+            font-size: 3vw;
+            line-height: 6vw;
+            text-align: center;
+            color: #0265d0;
+          }
+          .play_btn1{
+            font-size: 3vw;
+            line-height: 6vw;
+            text-align: center;
+            color: #0265d0;
+            margin-left: 3vw;
+          }
+          .video_item{
+            width: 30.6vw;
+            height: 30.6vw;
+            border: 1px solid #ffffff;
+            box-sizing: border-box;
+            position: relative;
+          }
+          .videos{
+            display: flex;
+            flex-wrap: wrap;
+          }
+          .video_main{
+            width: 30.6vw;
+            height: 30.6vw;
+            position: absolute;
+            left: 0;
+            top: 0;
+          }
+          .play0_icon{
+            width: 10vw;
+            height: 10vw;
+            position: absolute;
+            top: 2vw;
+            right: 2vw;
+          }
+          .x1_icon{
+            width: 5vw;
+            height: 5vw;
+          }
+      </style>
+  </head>
+  <body>
+    <div id='wrap2' class="pad_b" style="background-color:#ffffff">
+      <header id="header" class="aui-bar aui-bar-nav">
+          <div class="aui-pull-left aui-btn" @click='back'>
+              <span class="aui-iconfont aui-icon-left"></span>
+          </div>
+          <div class="aui-title">收藏</div>
+          <div class="aui-pull-right aui-btn">
+          </div>
+      </header>
+      <div id="main" class="main">
+        <div style="height:12.5vw;"></div>
+        <div style="height:75vw;" v-if="play"></div>
+        <div class="videos">
+          <div @click="bindplay(item,index)" class="video_item" v-for="(item,index) in list" :key="index">
+            <img style="width:100%;height:100%;" class="fill" :src="item.pic"/>
+            <div class="video_main">
+              <img class="fill play0_icon" src="../image/play0.png"/>
+              <div class="f_c" style="position:absolute;bottom:2vw;left:2vw;">
+                <img class="fit x1_icon" src="../icon/x1.png"/>
+                <div style="font-size:3.3vw;margin-left:2vw;">{{item.fa_num}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script src="../script/util.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../script/vant.min.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var header = document.querySelector('#header');
+        var main = document.querySelector('#main');
+        $api.fixStatusBar(header);
+        $api.fixStatusBar(main);
+        var moviePlayer = api.require('moviePlayer');
+        var vm = new Vue({
+          el: "#wrap2",
+          data: {
+            page:1,
+            list:[],
+            active:null,
+            full:false,
+    				percent:'0',
+    				timer:null,
+            play:false,
+            flag:false
+          },
+          mounted: function () {
+
+            this.initdata();
+            this.scrolltobottom()
+            var that = this;
+            if (api.systemType != 'ios'){
+    					that.flag = true;
+    				}
+            api.addEventListener({
+    						name: 'video_time'
+    				}, function(ret, err){
+    						moviePlayer.seekTo({
+    								position:ret.value
+    						});
+    						moviePlayer.play();
+    				});
+          },
+          methods: {
+            back(){
+              api.closeWin();
+            },
+            scrolltobottom() {
+              var that =this;
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: 50 //距离底部距离
+                    }
+                }, function(ret, err) {
+                    // listAjax(true);
+                    console.log(JSON.stringify(ret))
+                    that.page =that.page+1;
+                    that.initdata()
+                });
+            },
+            bindplay(item, index){
+              var list = this.list;
+              var arr1 = [];
+              var arr2 = [];
+              for (var i = 0; i < list.length; i++) {
+                if(i<index){
+                  arr1.push(list[i]);
+                }else{
+                  arr2.push(list[i])
+                }
+              }
+              arr2 = arr2.concat(arr1)
+              this.openW('video_fav_play',{list:list},true,null,false);
+              return
+              console.log(JSON.stringify(item));
+              var that = this
+              var x = 0;
+              var y= $(window).width()*0.125 + api.safeArea.top;
+              var w = $(window).width();
+              var h = $(window).width()*0.75;
+              moviePlayer.close();
+              moviePlayer.open({
+                        rect:{
+                          x: x,
+                          y: y,
+                          w: w,
+                          h: h
+                        },
+                        texts:{
+                             title: item.savename    //（可选项）字符串类型；顶部标题文字
+                        },
+                        autorotation:false,
+                        styles:{
+                          head:{
+                            bg: 'rgba(0,0,0,0.5)',
+                            height: 30,
+                            y:0,
+                            title:{
+                              size:15,
+                              color:'#fff',
+                              width:200,
+                              leftMargin:10
+                            },
+                            backSize: 28,
+                            // backImg:'widget://image/back.png',
+                            customButtons:[{
+                              w:30,
+                              h:30,
+                              rightMagin:10,
+                              img:'widget://image/image/collect.png',
+                              imgSelected:'fs://image/collectSelected.png',
+                            }]
+                          },
+                          foot:{
+                            bg: 'rgba(0,0,0,0.5)',
+                            height: 44,
+                            palyBtn:{
+                              size: 20,
+                              playImg:'widget://image/play.png',
+                              pauseImg:'widget://image/pause.png',
+                              marginLeft:5
+                            },
+                            currentTimeLabel:{
+                              textSize:14,
+                              textColor:"#FFF",
+                              textWidth: 43,
+                              marginLeft:5
+                            },
+                            seekBar:{
+                              sliderImg:'widget://image/circle.png',
+                              sliderW : 20,
+                              sliderH : 20,
+                              progressColor: '#696969',
+                              progressSelected: '#76EE00',
+                              marginLeft:10,
+                              marginRight:10
+                            },
+                            totalTimeLabel:{
+                              textSize:14,
+                              textColor:"#FFF",
+                              textWidth: 43,
+                              marginRight:5
+                            },
+                            fullscreenBtn:{
+                              size:20,
+                            }
+                          }
+                        },
+                         path:item.file_url,
+                         autoPlay: true
+                        },function(ret, err){
+                              if(ret){
+                                  console.log(JSON.stringify(ret));
+                                  moviePlayer.addEventListener(function(ret){
+                                      if(ret){
+                                        if(ret.eventType=='error'){
+                                          that.toast('播放失败')
+                                          moviePlayer.close();
+                                        }
+                                        if(ret.eventType=='back'){
+                                          moviePlayer.close();
+                                        }
+                                      }
+                                  });
+                              } else {
+                                  console.log(JSON.stringify(err));
+                              }
+                        });
+              this.active = index
+            },
+            initdata(){
+              var that =this;
+              var data ={
+                page:that.page,
+                size:30,
+              }
+              that.ajaxpost('post',globalData.courseOutlineFaList,data).then((res)=>{
+                var res =$.parseJSON(res);
+                  // res.data.map((item) => {
+                  //   item.time_f = formatSeconds(item.time/1000)
+                  //   item.isplay = false
+                  // })
+                  var list = res.data;
+                  for (var i = 0; i < list.length; i++) {
+                    list[i].pic = list[i].file_url + '?x-oss-process=video/snapshot,t_0,m_fast';
+                    console.log(list[i].pic)
+                  }
+                  that.list=that.list.concat(res.data);
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

@@ -1,0 +1,56 @@
+.classify_area{
+  width: 93vw;
+  margin: 0 3.5vw 0 3.5vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.icon1{
+  width: 11vw;
+  height: 11vw;
+  background: url(../icon/c_tm.png) no-repeat;
+  background-size:11vw 11vw;
+  border-radius: 50%;
+}
+
+.icon2{
+  width: 11vw;
+  height: 11vw;
+  background: url(../icon/c_yy.png) no-repeat;
+  background-size:11vw 11vw;
+  border-radius: 50%;
+}
+
+.icon3{
+  width: 11vw;
+  height: 11vw;
+  background: url(../icon/c_lg.png) no-repeat;
+  background-size:11vw 11vw;
+  border-radius: 50%;
+}
+
+.icon4{
+  width: 11vw;
+  height: 11vw;
+  background: url(../icon/c_xz.png) no-repeat;
+  background-size:11vw 11vw;
+  border-radius: 50%;
+}
+
+.icon5{
+  width: 11vw;
+  height: 11vw;
+  background: url(../icon/c_sx.png) no-repeat;
+  background-size:11vw 11vw;
+  border-radius: 50%;
+}
+
+.classify_item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7vw;
+  font-size: 4vw;
+  width: 18.6vw;
+}

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta content="telephone=no" name="format-detection">
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" href="../css/add.css">
+      <link rel="stylesheet" href="../css/vant.css">
+      <link rel="stylesheet" href="../css/style2.css">
+      <style>
+        body{
+          background: #fff;
+        }
+        #header{
+          height: 12.5vw;
+          position: fixed;
+          top:0;
+          left:0;
+        }
+        #header{
+          background-color: #fff;
+          border-bottom: 1px solid #eee;
+        }
+        #header .aui-title{
+          color: #000;
+        }
+        #header .aui-icon-left{
+          color: #000
+        }
+        .pic{
+          width: 20vw;
+          height: 20vw;
+          border-radius: 50%;
+          box-shadow: 0 0 10px #0276f2;
+        }
+        .my_headimg img{
+          width: 100%;
+          height: 100%;
+        }
+        .curriculum{
+          padding: 2vw;
+          border: 1px solid #eeeeee;
+          border-radius: 1.5vw;
+          width: 92vw;
+          box-sizing: border-box;
+          min-height: 25vw;
+          position: relative;
+          word-break:break-all;
+        }
+        .remove_icon{
+          width: 5vw;
+          height: 5vw;
+          position: absolute;
+          right: 2vw;
+          top: 2vw;
+        }
+        .text{
+          padding: 0 4vw;
+          height: 7vw;
+          border-radius: 3.5vw;
+          background-color: #f2e2cb;
+          color: #eaa852;
+          margin-bottom: 2vw;
+          font-size: 3.8vw;
+        }
+        .reg_year{
+          font-size: 3.8vw;
+          position: absolute;
+          right: 4vw;
+          top:1vw;
+        }
+      </style>
+  </head>
+  <body>
+      <div id="app">
+        <header id="header" class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn" @click='this.closeW'>
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">教师履历</div>
+            <div class="aui-pull-right aui-btn">
+                <span></span>
+            </div>
+        </header>
+        <div id="main" class="main">
+          <div style="height:15.5vw;"></div>
+          <div style="position:relative;">
+            <span class="reg_year color6">已注册{{info.reg_year}}年</span>
+            <div class="fd_c">
+              <img class="fill pic" v-if='info' :src="info.avatar" alt="">
+              <div class="my_name" style="padding-top:0;">
+                <span style="font-size:3vw;font-weight: normal;color: #4D76C9;background-color: #edf3ff;padding: 0 0.5vw;border-radius: 0.5vw; ">积分：{{info.score}}</span>
+                <div class="fcc" style="font-weight: bold; text-align: center;" v-if='info'>{{info.nickname}}</div>
+                <div class="fiexd_xx" v-if="info.level==1">
+                  <span class="on_xx2"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==2">
+                  <span class="on_xx"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==3">
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==4">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==5">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==6">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==7">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==8">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==9">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==10">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx1"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==11">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==12">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==13">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==14">
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                  <span class="on_xx"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==15">
+                  <span class="on_h1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==16">
+                  <span class="on_h1"></span>
+                  <span class="on_h1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==17">
+                  <span class="on_h1"></span>
+                  <span class="on_h1"></span>
+                  <span class="on_h1"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==18">
+                  <span class="on_h2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==19">
+                  <span class="on_h2"></span>
+                  <span class="on_h2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==20">
+                  <span class="on_h2"></span>
+                  <span class="on_h2"></span>
+                  <span class="on_h2"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==21">
+                  <span class="on_h3"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==22">
+                  <span class="on_h3"></span>
+                  <span class="on_h3"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==23">
+                  <span class="on_h3"></span>
+                  <span class="on_h3"></span>
+                  <span class="on_h3"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==24">
+                  <span class="on_h4"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==25">
+                  <span class="on_h4"></span>
+                  <span class="on_h4"></span>
+                </div>
+                <div class="fiexd_xx" v-if="info.level==26">
+                  <span class="on_h4"></span>
+                  <span class="on_h4"></span>
+                  <span class="on_h4"></span>
+                </div>
+                <div style="font-size:3.6vw;margin-bottom:1.5vw;">
+                  <span style="color: #4D76C9;background-color: #edf3ff;padding: 0 0.5vw;border-radius: 0.5vw;" v-if="info.status">{{info.status}}</span>
+                  <span style="margin-left:0.5vw;color: #4DC9BF;background-color: #E5FFFD;padding: 0 0.5vw;border-radius: 0.5vw;" v-if="info.status1">{{info.status1}}</span>
+                  <span style="margin-left:0.5vw;color: #C94D4D;background-color: #FFEDED;padding: 0 0.5vw;border-radius: 0.5vw;" v-if="info.status2">{{info.status2}}</span>
+                  <span class="addadd" v-if="status3.length>0" v-for="(item,index) in status3">
+                    <span style="margin-left:0.5vw;background-color: #f2e2cb;color: #eaa852;padding: 0 0.5vw;border-radius: 0.5vw;" v-if="index==0">{{item}}</span>
+                    <span style="margin-left:0.5vw;background-color: #f6f6f6;color: #999999;padding: 0 0.5vw;border-radius: 0.5vw;" v-if="index!=0">{{item}}</span>
+                  </span>
+                </div>
+              </div>
+              <div class="text fcc" v-if="info.platform_evaluate">{{info.platform_evaluate}}</div>
+              <div class="curriculum color6" v-if="info.curriculum">{{info.curriculum}}</div>
+            </div>
+            <div class="f_c pad_b" style="height:11vw;margin-top:3vw;">
+              <img style="width:4.5vw;height:4.5vw;" src="../image/t_d0.png"/>
+              <div style="margin-left:3vw;">工作经历</div>
+            </div>
+            <div class="pad_b" v-if="info.vitae">
+              <div @click="turnEdit(1,item)" class="curriculum" style="font-size:4vw;margin-bottom:2vw;" v-for="item in info.vitae">
+                <div>{{item.starttime}}~{{item.endtime}}</div>
+                <div style="margin-top:1vw;font-weight: bold;">{{item.name}}</div>
+                <div style="margin-top:1vw;">{{item.major}}</div>
+              </div>
+              <div class="fcc color9" v-if="info.vitae.length==0" style="height:10vw;">暂无数据</div>
+            </div>
+            <div class="f_c pad_b" style="height:11vw;margin-top:3vw;">
+              <img style="width:4.5vw;height:4.5vw;" src="../image/t_d0.png"/>
+              <div style="margin-left:3vw;">教育经历</div>
+            </div>
+            <div class="pad_b" v-if="info.education">
+              <div @click="turnEdit(2,item)" class="curriculum" style="font-size:4vw;margin-bottom:2vw;" v-for="item in info.education">
+                <div>{{item.starttime}}~{{item.endtime}}</div>
+                <div style="margin-top:1vw;font-weight: bold;">{{item.name}}</div>
+                <div style="margin-top:1vw;">{{item.major}}</div>
+              </div>
+              <div class="fcc color9" v-if="info.education.length==0" style="height:10vw;">暂无数据</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script type="text/javascript" src="../script/util.js"></script>
+  <script type="text/javascript" src="../script/vant.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script src="../script/util.js" charset="utf-8"></script>
+  <script src="../script/moment.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var header = document.querySelector('#header');
+        var main = document.querySelector('#main');
+        $api.fixStatusBar(header);
+        $api.fixStatusBar(main);
+        var vm = new Vue({
+            el: '#app',
+            data: {
+              status3:[],
+              info:{},
+              viptype:false,
+              status:'',
+              status1:'',
+              status2:''
+            },
+            mounted: function () {
+              this.initData();
+              var that = this;
+              api.addEventListener({
+      					name: 'init_info'
+      				}, function (ret, err) {
+      					that.initData();
+      				});
+            },
+            methods:{
+              getteachertype(type){
+                if(type==1){
+                  return ' 学士'
+                }
+                if(type==2){
+                  return ' 硕士'
+                }
+                if(type==3){
+                  return ' 博士'
+                }
+              },
+              getteacherdip(type){
+                if(type==1){
+                  return ' 教师资质'
+                }
+                if(type==2){
+                  return ' 考研通教师资质'
+                }
+              },
+              delEdu(item){
+                  var that = this;
+                  api.confirm({
+                    title: '提示',
+                    msg: '是否移除该项',
+                    buttons: [ '确定', '取消' ]
+                  }, function ( ret, err ) {
+                    var index = ret.buttonIndex;
+                    if ( index == 1 ) {
+                      var param = {
+                        id:item.id
+                      }
+                      that.ajaxpost('post',globalData.deleteTeacherInfo,param).then((res)=>{
+                        var res =$.parseJSON(res);
+                        if(res.code==1){
+                          that.toast('移除成功')
+                          setTimeout(function(){
+                            that.initData();
+                          },1000)
+                        }else{
+                          that.toast(res.msg)
+                        }
+                      }).catch((ret)=>{
+                        loginfo(ret)
+                      })
+                    }
+                  } )
+              },
+              initData() {
+                var that = this
+                var info = api.pageParam.info;
+                console.log(JSON.stringify(info))
+                that.status3 = info.other_cert_text;
+                getLevel(info.score,function(level){
+                  info.level = level;
+                  that.info=info;
+                })
+                return
+      					var data = {}
+      					that.ajaxpost('post', globalData.teacherFollow, data).then((res) => {
+                  var res =$.parseJSON(res);
+                  that.status1 = that.getteacherdip(res.data.teachertype);
+                  that.status2 = that.getteachertype(res.data.dip);
+                  that.status3 = res.data.other_cert_text;
+                  if(res.data.is_real_teacher==1){
+                    that.status = '已认证';
+                  }
+                  getLevel(res.data.score,function(level){
+                    res.data.level = level;
+                    that.info=res.data
+                  })
+      					}).catch((ret) => {
+      						loginfo(ret)
+      					})
+      				},
+              turnEdit(type,item){
+                if(type==1){
+                  this.openW('teacher_dtl_add2',{edit:true,item:item},true,null,false);
+                }else{
+                  this.openW('teacher_dtl_add1',{edit:true,item:item},true,null,false);
+                }
+              },
+              turnAdd(type){
+                if(type==1){
+                  this.openW('teacher_dtl_add2',{},true,null,false);
+                }else{
+                  this.openW('teacher_dtl_add1',{},true,null,false);
+                }
+              }
+            }
+        })
+      };
+  </script>
+  </html>

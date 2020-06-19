@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/common_question.css"/>
+      <style>
+          body{
+
+          }
+          #header{
+            height: 12.5vw;
+            position: fixed;
+            top:0;
+            left:0;
+          }
+          #header{
+            background-color: #fff;
+          }
+          #header .aui-title{
+            color: #000;
+          }
+          #header .aui-icon-left{
+            color: #000
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap2">
+      <header id="header" class="aui-bar aui-bar-nav">
+          <div class="aui-pull-left aui-btn">
+              <span class="aui-iconfont aui-icon-left"@click='this.closeW'></span>
+          </div>
+          <div class="aui-title">帮助中心</div>
+          <!-- <div class="aui-pull-right aui-btn">
+              <span>创建课程</span>
+          </div> -->
+      </header>
+      <div id="main" class="main">
+        <div style="height:12.5vw"></div>
+        <div class="border_space"></div>
+        <p style="text-align:center;color:#666;font-size:4vw;" v-if='questions&&questions.length==0'>暂无数据</p>
+        <div class="question_items" @click="toggle(index,item)" v-for="(item,index) in questions">
+          <div class="question_area f_row_sb">
+            <div class="question f_middle"><div class="index f_middle">{{index+1}}</div><div>{{item.title}}</div></div>
+            <div class="icon" v-if="active != index"><i class="icon_del down_icon img"></i></div>
+            <div class="icon" v-if="active == index"><i class="icon_del top_icon img"></i></div>
+          </div>
+          <div class="answer_area" v-if="active == index">
+            <div v-html='item.content'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var header = document.querySelector('#header');
+        var main = document.querySelector('#main');
+        $api.fixStatusBar(header);
+        $api.fixStatusBar(main);
+        var vm = new Vue({
+          el: "#wrap2",
+          data: {
+            active:-1,
+            questions:[]
+          },
+          mounted: function () {
+            var header = document.querySelector('#header');
+            $api.fixStatusBar(header);
+            this.initInfo()
+          },
+          methods: {
+            toggle: function (i,v) {
+              console.log(i);
+              this.active = i;
+            },
+            //常见
+            initInfo(){
+              var that =this;
+              var data ={
+                type:2,
+              }
+              that.ajaxpost('post',globalData.getNewsListhelp,data).then((res)=>{
+                var res =$.parseJSON(res);
+                console.log(JSON.stringify(res))
+                that.questions=res.data.data;
+              }).catch((ret)=>{
+                loginfo(ret)
+              })
+            },
+          }
+        });
+      };
+  </script>
+  </html>

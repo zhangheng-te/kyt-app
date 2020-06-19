@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" href="../css/add.css">
+      <link rel="stylesheet" href="../css/vant.css">
+      <style>
+        body{
+          background: #fff;
+        }
+        #header{
+          height: 12.5vw;
+          position: fixed;
+          top:0;
+          left:0;
+        }
+        #header{
+          background-color: #fff;
+          border-bottom: 1px solid #eee;
+        }
+        #header .aui-title{
+          color: #000;
+        }
+        #header .aui-icon-left{
+          color: #000
+        }
+        .name{
+          font-weight: bold;
+          font-size: 5vw;
+          height: 11vw;
+        }
+        .time{
+          font-size: 3.8vw;
+        }
+        .num{
+          font-size: 3.8vw;
+          font-weight: bold;
+        }
+      </style>
+  </head>
+  <body>
+      <div id="app">
+        <header id="header" class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn" @click='this.closeW'>
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">{{info.name}}</div>
+            <div class="aui-pull-right aui-btn">
+                <span class="color6">{{info.state_text}}</span>
+            </div>
+        </header>
+        <div id="main" class="main">
+          <div style="height:12.5vw;"></div>
+          <van-swipe class="my-swipe" :autoplay="4000" indicator-color="white">
+            <van-swipe-item v-for="item in info.image_text">
+              <img style="width:100vw;height:60vw;" class="fill" :src="item"/>
+            </van-swipe-item>
+          </van-swipe>
+          <div class="pad_b">
+            <div class="f_c name">{{info.name}}</div>
+            <div class="time color9">授课方式：直播</div>
+            <div class="fsbc" style="margin-top:3vw;">
+              <div class="time" style="color:#f77c36;">距离直播：{{limit}}</div>
+              <div class="num">{{info.num}}人已报名</div>
+            </div>
+            <!-- <div class="time color6">结束时间：{{info.end_time_text}}</div>
+            <div class="time color6">倒计时：{{limit}}</div>
+            <div class="time color6">报名人数：{{info.num}}</div> -->
+            <div class="time color6" v-if="info.state==3">备注：{{info.remark}}</div>
+          </div>
+          <div style="height:14vw;" v-if="info.state==2"></div>
+          <div class="b_footer fcc" v-if="info.state==2">
+            <div class="b_btn fcc" v-if="info.issign==0" @click="addCourse">报名</div>
+            <div class="b_btn fcc" v-if="info.issign==1">已报名</div>
+          </div>
+        </div>
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script type="text/javascript" src="../script/util.js"></script>
+  <script type="text/javascript" src="../script/vant.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script src="../script/util.js" charset="utf-8"></script>
+  <script src="../script/moment.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var header = document.querySelector('#header');
+        var main = document.querySelector('#main');
+        $api.fixStatusBar(header);
+        $api.fixStatusBar(main);
+        var vm = new Vue({
+            el: '#app',
+            data: {
+              house_id:api.pageParam.info.house_id,
+              info:'',
+              // info:{
+          		// 	"house_id": "4",
+          		// 	"name": "开播",
+          		// 	"teacher_id": "622",
+          		// 	"image": "1502",
+          		// 	"category_id": "1",
+          		// 	"video_url": "",
+          		// 	"record_url": "",
+          		// 	"seat": "0",
+          		// 	"create_time": "1587202169",
+          		// 	"start_time": "1592472540",
+          		// 	"end_time": "1597742940",
+          		// 	"state": "0",
+          		// 	"teacher_code": null,
+          		// 	"student_code": null,
+          		// 	"room_id": null,
+          		// 	"admin_code": null,
+          		// 	"remark": null,
+          		// 	"image_text": ["http://kyt.wh66.cn/Uploads/Picture/2020-04-18/5e9ac871782aa.jpg"],
+          		// 	"category_array": ["面试"],
+          		// 	"state_text": "待审核",
+          		// 	"useful_seat": 0
+          		// },
+              timeout:null,
+              limit:''
+            },
+            mounted: function () {
+              this.initData();
+            },
+            methods:{
+              addCourse(){
+                var that = this;
+                api.confirm( {
+                  title: '提示',
+                  msg: '是否确认报名',
+                  buttons: [ '确定', '取消' ]
+                }, function ( ret, err ) {
+                  var index = ret.buttonIndex;
+                  if ( index == 1 ) {
+                    var param = {
+                      house_id:that.info.house_id
+                    }
+                    that.ajaxpost('post',globalData.signup,param).then((res)=>{
+                      var res =$.parseJSON(res);
+                      if(res.code==1){
+                        that.toast('已报名')
+                        setTimeout(function(){
+                          that.initData();
+                        },1000)
+                      }else{
+                        that.toast(res.msg)
+                      }
+                    }).catch((ret)=>{
+                      loginfo(ret)
+                    })
+                  }
+                })
+              },
+              initData(){
+                var that = this;
+                that.ajaxpost('post',globalData.getDirectInfo,{house_id:this.house_id}).then((res)=>{
+                  var res =$.parseJSON(res);
+                  that.info = res.data;
+                  that.initData1();
+                }).catch((ret)=>{
+                  loginfo(ret)
+                })
+              },
+              initData1(){
+                // var start_time = moment.unix(this.info.start_time).format('YYYY-MM-DD HH:mm:ss');
+                // this.info.start_time = start_time;
+
+                var start_time = this.info.start_time_text;
+                var end_time = this.info.end_time_text;
+                this.info.end_time = end_time;
+                var start = new Date(start_time.replace(/-/g, "/")).getTime();
+  							var now = new Date().getTime();
+  							var past = start - now;
+                if(past > 0){
+                  this.info.past = past;
+                  this.limit = this.timeCount(past);
+                  this.getTime();
+                }
+              },
+              getTime:function(){
+        			  	clearInterval(this.timeout);
+        			    var that = this;
+        			    this.timeout = setInterval(function(){
+                     var date = that.info.past;
+                     if(date>1000){
+                       date = date - 1000;
+                       that.info.past = date;
+                       that.limit = that.timeCount(date);
+                     }else{
+                       api.sendEvent({
+                           name: 'root_live',
+                           extra: '刷新'
+                       });
+                       setTimeout(function(){
+                         api.closeWin();
+                       },1000)
+                     }
+        			    },1000)
+        			},
+        			timeCount:function(date){
+        			    //计算出相差天数
+        			    var days=Math.floor(date/(24*3600*1000))
+        			    //计算出小时数
+        			    var leave1=date%(24*3600*1000)    //计算天数后剩余的毫秒数
+        			    var hours=Math.floor(leave1/(3600*1000))
+        			    //计算相差分钟数
+        			    var leave2=leave1%(3600*1000)        //计算小时数后剩余的毫秒数
+        			    var minutes=Math.floor(leave2/(60*1000))
+        			    //计算相差秒数
+        			    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+        			    var seconds=Math.round(leave3/1000)
+        			    if(hours < 10){
+        			      hours = '0' + hours;
+        			    }
+        			    if(minutes < 10){
+        			      minutes = '0' + minutes;
+        			    }
+        			    if(seconds < 10){
+        			      seconds = '0' + seconds;
+        			    }
+        			    return days+"天"+hours+":"+minutes+":"+seconds;
+        			},
+            }
+        })
+      };
+  </script>
+  </html>

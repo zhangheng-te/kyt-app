@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>消息</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <link rel="stylesheet" href="../css/aui.css">
+      <link rel="stylesheet" href="../css/style2.css">
+      <style>
+          body{
+            background-color: #fff;
+          }
+          .my_details{
+              padding: 0 4vw;
+          }
+          .my_details_head{
+
+              border-bottom: 1px solid #eee;
+          }
+          .my_details_head div{
+              height: 10vw;
+              line-height: 10vw;
+          }
+          .my_details_head span{
+              color: red;
+          }
+          .my_details_img img{
+            width: 20vw;
+            height: 20vw;
+            margin-right: 2vw;
+          }
+          .my_details_con{
+              display: flex;
+              padding: 4vw 0;
+              border-bottom: 1px solid #eee;
+          }
+          .my_details_right{
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              flex:1;
+          }
+          .my_details_right h4{
+            font-weight: bold;
+          }
+          .my_details_r_price{
+              display: flex;
+              justify-content: space-between;
+
+          }
+          .my_details_r_price{
+              color: red;
+          }
+          .my_details_info h4{
+              padding: 4vw 0;
+              font-weight: bold;
+          }
+          .my_details_info p{
+             margin-bottom: 2vw;
+          }
+          .my_details_fiexd{
+
+
+          }
+          .my_details_fiexd div{
+            background-image: linear-gradient(0deg,
+          		#0163ce 0%,
+                  #1f8dfe 100%);
+          	    border-radius: 5.33vw;
+              width: 30vw;
+              padding: 1vw 0;
+              text-align: center;
+              margin: 10vw auto;
+              border: 1px solid #eee;
+              color: #FFF;
+          }
+      </style>
+  </head>
+  <body>
+      <div id="app">
+        <div class="my_details">
+            <div class="my_details_head">
+                <div>订单时间：{{info.create_time}}</div>
+                <div>订单状态： <span>{{info.status_name}}</span></div>
+            </div>
+            <div class="my_details_con">
+                <div class="my_details_img">
+                    <img :src="info.img_url" alt="">
+                </div>
+                <div class="my_details_right">
+                    <h4>{{info.title}}</h4>
+                    <div>{{info.category_name}}</div>
+                    <div class="my_details_r_price"> <span>￥{{info.price}}</span><span>x{{info.num}}</span> </div>
+                </div>
+            </div>
+            <div class="my_details_info">
+                <h4>收货信息</h4>
+                <p>收货人：{{info.address_name}}</p>
+                <p>联系电话：{{info.address_phone}}</p>
+                <p>收货地址：{{info.address_detail}}</p>
+                <p>快递号：{{info.expresssn||'无'}}</p>
+            </div>
+            <div class="my_details_fiexd">
+                <!-- <div>联系客服</div> -->
+                <div @click='dele' v-if='info.status==4'>删除订单</div>
+            </div>
+        </div>
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/vue.js"></script>
+  <script src="../script/jquery.min.js"></script>
+  <script src="../script/configUtil.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                id:api.pageParam.id,
+                title: '',
+                info:''
+            },
+            methods:{
+                oninit(){
+                    var that =this
+                    that.ajaxpost('post',globalData.orderdetail,{order_id:that.id}).then((res)=>{
+                        var res =$.parseJSON(res);
+                        console.log(JSON.stringify(res))
+                        that.info =res.data
+                    }).catch((ret)=>{
+                        loginfo(ret)
+                    })
+                },
+                //删除
+                dele(){
+                    var that =this;
+                    api.confirm({
+                        title: '提示',
+                        msg: '确定删除',
+                        buttons: ['确定', '取消']
+                    }, function(ret, err) {
+                    if(ret.buttonIndex==1){
+                        var data ={
+
+                            order_id:that.id
+                        }
+                        that.ajaxpost('post',globalData.hidenOrder,data).then((res)=>{
+                        console.log(JSON.stringify(res))
+                        var res =$.parseJSON(res);
+                        if(res.code==1){
+                            api.sendEvent({
+                                name: 'oder_details',
+                                extra: '刷新'
+                            });
+                            that.toast(res.msg)
+                            setTimeout(function(){
+                                that.closeW()
+                            },2000)
+                        }else{
+                            that.toast(res.msg)
+                        }
+                        }).catch((ret)=>{
+                            loginfo(ret)
+                        })
+
+                    }
+
+                });
+
+              },
+            },
+            mounted: function () {
+                this.oninit()
+            },
+
+        })
+      };
+  </script>
+  </html>

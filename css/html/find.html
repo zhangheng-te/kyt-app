@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" href="../css/aui.css">
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<link rel="stylesheet" type="text/css" href="../css/find_mainpage.css" />
+	<link rel="stylesheet" type="text/css" href="../css/study_share.css" />
+	<link rel="stylesheet" type="text/css" href="../css/public_class.css" />
+	<link rel="stylesheet" type="text/css" href="../css/question_audition.css" />
+	<link rel="stylesheet" type="text/css" href="../css/test_shop.css" />
+	<link rel="stylesheet" type="text/css" href="../css/add.css" />
+	<link rel="stylesheet" href="../css/skin.css">
+	<style>
+		body {}
+
+		.menu_navs {
+			position: relative;
+			display: flex;
+			justify-content: space-between;
+			overflow-x: scroll;
+			line-height: 13vw;
+			width: 100vw;
+		}
+
+		.menu_navs_son {
+			position: relative;
+			display: -webkit-box;
+			justify-content: space-between;
+			overflow-x: scroll;
+			line-height: 13vw;
+		}
+
+		#wrap {
+			background-color: #fff;
+		}
+
+		.share_item {
+			padding: 3vw 3.5vw 4vw 3.5vw;
+			margin: 3vw 3.5vw 4vw 3.5vw;
+		}
+
+		[v-cloak] {
+			display: none;
+		}
+
+		#header {
+			background-color: #fff;
+		}
+
+		#header .aui-title {
+			color: #000;
+		}
+
+		#header .aui-icon-left {
+			color: #000
+		}
+
+		#header .aui-pull-right span {
+			width: 5vw;
+			height: 5vw;
+			background: url(../image/addcourse.png) 0 0 no-repeat;
+			background-size: 100% 100%;
+			/*margin-lefti: 2vw;*/
+		}
+
+		.textboox_line1 {
+			margin-bottom: 1vw;
+			padding: 2.2vw 0vw 0vw 0vw;
+			box-sizing: border-box;
+		}
+
+		.find_addfixed {
+			position: fixed;
+			right: 5vw;
+			bottom: 10vw
+		}
+
+		.find_addfixed img {
+			width: 10vw;
+			height: 10vw;
+		}
+
+		.f_row_sb_t {
+			margin-top: -0.5vw;
+		}
+
+		.course_item2 {
+			width: 48%;
+		}
+
+		.find_fixed {
+			position: fixed;
+			top: 0;
+			z-index: 999;
+			background-color: #fff;
+		}
+
+
+		.onnavs {
+			text-align: center;
+			flex: 1;
+			font-size: 3.5vw;
+			padding: 0;
+		}
+
+		.icon {
+			width: 4vw;
+			height: 4vw;
+		}
+
+		.ion_span {
+			color: #6a8ad1;
+			background-color: #edf3ff;
+			margin-left: 1.9vw;
+			font-size: 2.8vw;
+			padding: 0.5vw 1vw 0vw 1vw;
+		}
+		#header{
+			height: 12.5vw;
+			position: fixed;
+			top:0;
+			left:0;
+		}
+		.on_xx{
+		  width: 2.5vw;
+		  height: 2.5vw;
+		  display: inline-block;
+		  background:  url(../image/star0.jpg) 0 0 no-repeat;
+		  background-size: 100% 100%;
+		  -webkit-background-size:100% 100%;
+		  margin:0;
+		}
+		.on_xx1{
+		  width: 2.5vw;
+		  height: 2.5vw;
+		  display: inline-block;
+		  background:  url(../image/star1.jpg) 0 0 no-repeat;
+		  background-size: 100% 100%;
+		  -webkit-background-size:100% 100%;
+		  margin:0;
+		}
+		.on_xx2{
+		  width: 2.5vw;
+		  height: 2.5vw;
+		  display: inline-block;
+		  background:  url(../image/star2.jpg) 0 0 no-repeat;
+		  background-size: 100% 100%;
+		  -webkit-background-size:100% 100%;
+		  margin:0;
+		}
+		.on_h1{
+		  width: 2.5vw;
+		  height: 2.5vw;
+		  display: inline-block;
+		  background:  url(../image/h1.jpg) 0 0 no-repeat;
+		  background-size: 100% 100%;
+		  -webkit-background-size:100% 100%;
+		  margin:0;
+		}
+		.on_h2{
+		  width: 2.5vw;
+		  height: 2.5vw;
+		  display: inline-block;
+		  background:  url(../image/h2.jpg) 0 0 no-repeat;
+		  background-size: 100% 100%;
+		  -webkit-background-size:100% 100%;
+		  margin:0;
+		}
+		.on_h3{
+		  width: 2.5vw;
+		  height: 2.5vw;
+		  display: inline-block;
+		  background:  url(../image/h3.jpg) 0 0 no-repeat;
+		  background-size: 100% 100%;
+		  -webkit-background-size:100% 100%;
+		  margin:0;
+		}
+		.on_h4{
+		  width: 2.5vw;
+		  height: 2.5vw;
+		  display: inline-block;
+		  background:  url(../image/h4.jpg) 0 0 no-repeat;
+		  background-size: 100% 100%;
+		  -webkit-background-size:100% 100%;
+		  margin:0;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrap" v-cloak>
+		<div id="header" class="aui-bar aui-bar-nav">
+				<div class="aui-title">发现</div>
+		</div>
+		<div id="main" class="main">
+			<div style="height:12.5vw;"></div>
+		<div>
+			<!-- <div class="find_banner">
+				<img src="../image/find_banner.png" alt="">
+			</div> -->
+			<div class="menu_navs">
+				<!-- <div class="menu_nav onnavs" @click="toggle(index ,item)" v-for="(item,index) in navs" :class="{active:active==index}">
+					{{item.title}}
+				</div> -->
+				<div class="menu_nav onnavs" @click="toggle(1 ,'政策')" :class="{active:active==1}">政策</div>
+				<div class="menu_nav onnavs" @click="toggle(2 ,'教材')" :class="{active:active==2}">教材</div>
+				<div class="menu_nav onnavs" @click="toggle(3 ,'试卷')" :class="{active:active==3}">试卷</div>
+				<div class="menu_nav onnavs" @click="toggle(4 ,'直播课')" :class="{active:active==4}">直播课</div>
+				<div class="menu_nav onnavs" @click="toggle(0 ,'学习分享')" :class="{active:active==0}">学习分享</div>
+			</div>
+			<div class="menu_navs_son" v-show='active==1||active==2||active==3||active==4'>
+				<div v-for='(item,index)  in navs_son' class='menu_nav' @click="toggle_son(index ,item)"
+					:class="{active_son:active_son==index}">{{item.title?item.title:item.category_name}}</div>
+			</div>
+			<div class='line'></div>
+		</div>
+		<!-- <div :style='active!=0?"height:"+heig_share+"vw":"height:"+heig_h+"vw"'></div> -->
+		<div calss='find_com'>
+			<div class="find_com_item" v-show='active==0'>
+				<div class="share_item" v-for="(item,index) in share.data">
+					<div class="share_line1" @click='navreply(index)'>
+						<div class="line1_img"><img :src="item.avatar" alt=""></div>
+						<div class="line1_name f_c">{{item.username}}
+							<div class="f_c" v-if="item.level==1">
+								<span class="on_xx2"></span>
+							</div>
+							<div class="f_c" v-if="item.level==2">
+								<span class="on_xx"></span>
+							</div>
+							<div class="f_c" v-if="item.level==3">
+								<span class="on_xx"></span>
+								<span class="on_xx2"></span>
+							</div>
+							<div class="f_c" v-if="item.level==4">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+							</div>
+							<div class="f_c" v-if="item.level==5">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx2"></span>
+							</div>
+							<div class="f_c" v-if="item.level==6">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+							</div>
+							<div class="f_c" v-if="item.level==7">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx2"></span>
+							</div>
+							<div class="f_c" v-if="item.level==8">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+							</div>
+							<div class="f_c" v-if="item.level==9">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx2"></span>
+							</div>
+							<div class="f_c" v-if="item.level==10">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+							</div>
+							<div class="f_c" v-if="item.level==11">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx2"></span>
+							</div>
+							<div class="f_c"v-if="item.level==12">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+							</div>
+							<div class="f_c" v-if="item.level==13">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx2"></span>
+							</div>
+							<div class="f_c" v-if="item.level==14">
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+								<span class="on_xx"></span>
+							</div>
+							<div class="f_c" v-if="item.level==15">
+								<span class="on_h1"></span>
+							</div>
+							<div class="f_c" v-if="item.level==16">
+								<span class="on_h1"></span>
+								<span class="on_h1"></span>
+							</div>
+							<div class="f_c" v-if="item.level==17">
+								<span class="on_h1"></span>
+								<span class="on_h1"></span>
+								<span class="on_h1"></span>
+							</div>
+							<div class="f_c" v-if="item.level==18">
+								<span class="on_h2"></span>
+							</div>
+							<div class="f_c" v-if="item.level==19">
+								<span class="on_h2"></span>
+								<span class="on_h2"></span>
+							</div>
+							<div class="f_c" v-if="item.level==20">
+								<span class="on_h2"></span>
+								<span class="on_h2"></span>
+								<span class="on_h2"></span>
+							</div>
+							<div class="f_c" v-if="item.level==21">
+								<span class="on_h3"></span>
+							</div>
+							<div class="f_c" v-if="item.level==22">
+								<span class="on_h3"></span>
+								<span class="on_h3"></span>
+							</div>
+							<div class="f_c" v-if="item.level==23">
+								<span class="on_h3"></span>
+								<span class="on_h3"></span>
+								<span class="on_h3"></span>
+							</div>
+							<div class="f_c" v-if="item.level==24">
+								<span class="on_h4"></span>
+							</div>
+							<div class="f_c" v-if="item.level==25">
+								<span class="on_h4"></span>
+								<span class="on_h4"></span>
+							</div>
+							<div class="f_c" v-if="item.level==26">
+								<span class="on_h4"></span>
+								<span class="on_h4"></span>
+								<span class="on_h4"></span>
+							</div>
+						</div>
+						<div class="icon" style="margin-left: auto;" v-show='item.is_me==1'
+							@click.stop='dele_share(index)'><img src="../image/dele.png"
+								style="width: 100%;height: 100%;object-fit: fill;" alt=""></div>
+					</div>
+					<div class="share_line2" @click='navreply(index)'>{{item.content}}</div>
+					<div class="share_line3">
+						<div class="line3_img" v-for="(items,index_) in item.picture_text"><img :src="items" alt=""
+								:preview="index"></div>
+						<!-- <div class="add_img f_middle"><div class="icon"><i class="icon_del add_icon img"></i></div></div> -->
+					</div>
+					<div class="share_line4">
+						<div class="line4_time"><span>{{item.create_time_text}}</span></div>
+						<div class="icon" @click='navreply(index)'><i class="icon_del info_icon img"></i></div>
+					</div>
+					<div class="share_line5" v-show='item.evaluate_list' @click='navreply(index)'>
+						<div class="chat_item" v-for='active in item.evaluate_list'><span
+								class="chat_title">{{active.from_name}}：</span>{{active.content}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="find_com_item" v-show='active==1'>
+				<div class="revising_item" @click='navarticles(item.id)' v-for='item in revising.datalist'>
+					<div class='revising_left'>
+						<div class="revising_title three_lines">
+							{{item.title}}
+						</div>
+						<div class="revising_con">{{item.content}}</div>
+						<div class="revising_b"><span
+								class="revising_tip">{{active_son==0?'新闻':active_son==1?'政策':'活动'}}</span><strong>{{formatDate(item.createtime)}}</strong>
+						</div>
+					</div>
+					<div class="revising_img">
+						<img :src="item.image_url" alt="">
+					</div>
+				</div>
+			</div>
+			<div class="find_com_item" v-show='active==2'>
+				<div class="revising_item" @click='mavpaly(index)' v-for='(item,index) in course.datalist'>
+					<div class='revising_left'>
+						<div class="revising_title two_lines">
+							{{item.title}}
+						</div>
+						<div class="revising_con">{{item.content}}</div>
+						<div class="revising_b"><span class="revising_tip">{{item.category_name}}</span>
+							<!-- <strong>{{formatDate(item.createtime)}}</strong> -->
+							<strong style="color: #d51212;">￥{{item.price}}</strong>
+						</div>
+					</div>
+					<div class="revising_img">
+						<img :src="item.path" alt="">
+					</div>
+				</div>
+
+			</div>
+			<div class="find_com_item" v-show='active==3'>
+				<div class="course_item" v-for="(item,index) in paperdata.datalist" @click='mavpaly_jiaoc(index)'>
+					<div class="course_line1 f_row_sb">
+						<div style="widht:75vw; overflow: hidden;white-space: nowrap;text-overflow:ellipsis;">
+							{{item.name}}</div>
+
+						<div style="color:#d51212;width:15vw;;text-align:center;">￥{{item.price}}</div>
+					</div>
+					<div class="course_line2 f_row_sb">
+						<div style="flex:1;"><span>类型：{{item.category_name}}</span><span
+								style="margin-left:5vw;">教师：{{item.nickname}}</span><span class="ion_span"
+								v-if='item.vip_price!=null'>{{'会员价：￥'+item.vip_price}}</span></div>
+						<div class="icon">
+							<!-- <i class="dele" @click.stop='dele(index)'> -->
+							</i><i class="icon_del right_icon img" style="padding-right:0.2vw;"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="find_com_item" v-show='active==4'>
+
+				<div class="course_area2">
+
+					<div class="course_item2" v-for="(item,index) in courselist.data" @click='openlive(item.house_id)'>
+						<div class="course_img2"><img style='width:100%;height:100%;' :src="item.image_text[0]" alt="">
+							<p></p><span>剩余座位：{{item.useful_seat}}个</span>
+						</div>
+						<div class="course_name">{{item.name}}</div>
+						<div class="course_time">{{item.start_time}}</div>
+					</div>
+				</div>
+			</div>
+			<div style="text-align:center;color:#666;font-size:4vw;margin-top: 2vw;"
+				v-if='active==0&&share.data.length==0||active==1&&revising.datalist.length==0||active==2&&course.datalist.length==0||active==3&&paperdata.datalist.length==0||active==4&&courselist.data.length==0'>
+				暂无数据</div>
+		</div>
+		<div class="find_addfixed" v-show='active==0' @click='addnav'>
+			<img src="../image/find_add.png" alt="">
+		</div>
+		<!-- <div class="choose_area">
+          <div class="choose_item f_c_mid" @click='navShare'>
+            <div class="find_icon1"></div>
+            <div style="margin-top:7vw;">学习分享</div>
+          </div>
+          <div class="choose_item f_c_mid" @click='navGuide'>
+            <div class="find_icon2"></div>
+            <div style="margin-top:7vw;">院校指南</div>
+          </div>
+          <div class="choose_item f_c_mid" @click='navRevising'>
+            <div class="find_icon3"></div>
+            <div style="margin-top:7vw;">政策</div>
+          </div>
+          <div class="choose_item f_c_mid" @click='navjiaoc'>
+            <div class="find_icon4"></div>
+            <div style="margin-top:7vw;">教材</div>
+          </div>
+          <div class="choose_item f_c_mid" @click='navPaper'>
+            <div class="find_icon5"></div>
+            <div style="margin-top:7vw;">试卷商城</div>
+          </div>
+          <div class="choose_item f_c_mid" @click='navCourse'>
+            <div class="find_icon6"></div>
+            <div style="margin-top:7vw;">公开课</div>
+          </div>
+      </div> -->
+			</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script src="../script/vue-photo-preview.js"></script>
+<script src="../script/configUtil.js" charset="utf-8"></script>
+<script src="../script/util.js" charset="utf-8"></script>
+<script type="text/javascript">
+	apiready = function () {
+		api.setStatusBarStyle({
+				style: 'dark',
+		})
+		api.parseTapmode();
+		var header = document.querySelector('#header');
+		var main = document.querySelector('#main');
+		$api.fixStatusBar(header);
+		$api.fixStatusBar(main);
+		var options = {
+			fullscreenEl: false, //关闭全屏按钮
+			tapToClose: true,
+			closeEl: true
+		}
+		Vue.use(vuePhotoPreview, options);
+		new Vue({
+			el: "#wrap",
+			data: {
+				navs: [{
+					title: '学习分享'
+				},
+				{
+					title: '政策'
+				},
+				{
+					title: '教材'
+				},
+				{
+					title: '试卷'
+				},
+				{
+					title: '公开课'
+				}
+				],
+				active: 1,
+				active_son: 0,
+				navs_son: [],
+				share: {
+					data: [],
+					page: 1
+				},
+				revising: {
+					datalist: [],
+					page: 1
+				},
+				course: {
+					datalist: [],
+					page: 1,
+				},
+				paperdata: {
+					datalist: [],
+					page: 1
+				},
+				courselist: {
+					data: [],
+					page: 1
+				},
+				userinfo: $api.getStorage('userinfo') == null ? '' : $api.getStorage('userinfo'),
+				is_vip: '',
+				heig_share: 30,
+				heig_h: 18
+			},
+			mounted: function () {
+				var that = this
+				that.bindFl();
+				if (api.deviceModel.indexOf('iPhone10,3') > -1) {
+					that.heig_share = 33
+					that.heig_h = 21
+				}
+				that.$nextTick(function () {
+					api.addEventListener({
+						name: 'root_data'
+					}, function (ret, err) {
+
+						that.uservip();
+					});
+					api.addEventListener({
+						name: 'find_share',
+					}, function (ret, err) {
+						// that.setyes(JSON.stringify(ret.value.yes))
+						// alert(JSON.stringify(ret.value));
+						if (ret.value.yes == 1) {
+							that.chareInfo(true);
+						}
+					});
+					api.addEventListener({
+						name: 'find_close',
+					}, function (ret, err) {
+						// that.setyes(JSON.stringify(ret.value.yes))
+						// alert(JSON.stringify(ret.value));
+						that.chareInfo(true);
+					});
+					api.addEventListener({
+						name: 'jiaoc_add'
+					}, function (ret, err) {
+						if (ret.value.yes == 1) {
+							that.course.page = 1;
+							that.bindjiaoclist(that.active_son)
+						}
+					});
+					api.addEventListener({
+						name: 'paper',
+					}, function (ret, err) {
+						// that.setyes(JSON.stringify(ret.value.yes))
+						// alert(JSON.stringify(ret.value));
+						if (ret.value.yes == 1) {
+							that.paperdata.page = 1;
+							that.bindpaperlist(that.active_son)
+						}
+					});
+					api.addEventListener({
+						name: 'tohome'
+					}, function (ret, err) {
+						that.paperdata.page = 1;
+						that.bindpaperlist(that.active_son)
+					});1
+					api.setRefreshHeaderInfo({
+						bgColor: '#ffffff'
+					}, function (ret, err) {
+						that.chareInfo(true);
+						that.revising.page = 1;
+						that.revising.datalist = [];
+						that.bindlist(0);
+						if (that.active == 4) {
+
+							that.courselist.page = that.courselist.page + 1;
+							that.publicList(that.active_son)
+						}
+
+					});
+					api.addEventListener({
+							name: 'buybuy'
+					}, function(ret, err){
+							if(that.active==3){
+								that.paperdata.page = 1;
+								that.bindpaperlist(0);
+							}
+					});
+					that.scrolltobottom()
+				})
+			},
+			methods: {
+				//上拉
+				scrolltobottom() {
+					var that = this;
+					api.addEventListener({
+						name: 'scrolltobottom',
+						extra: {
+							threshold: 50 //距离底部距离
+						}
+					}, function (ret, err) {
+						// listAjax(true);
+						console.log(JSON.stringify(ret))
+						if (that.active == 0) {
+							that.share.page = that.share.page + 1;
+							that.chareInfo()
+						}
+						if (that.active == 1) {
+							that.revising.page = that.revising.page + 1;
+							that.bindlist(that.active_son)
+						}
+						if (that.active == 2) {
+							that.course.page = that.course.page + 1;
+							that.bindjiaoclist(that.active_son)
+						}
+						if (that.active == 3) {
+							that.paperdata.page = that.paperdata.page + 1;
+							that.bindpaperlist(that.active_son)
+
+						}
+						if (that.active == 4) {
+							that.courselist.page = that.courselist.page + 1;
+							that.publicList(that.active_son)
+						}
+					});
+				},
+				uservip() {
+					var that = this
+					var data = {
+
+					}
+					that.ajaxpost_noloading('post', globalData.getMemberIsVip, data).then((res) => {
+
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						if (res.code == 1) {
+							that.is_vip = res.data.is_vip
+						}
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				dele_share(index) {
+					var that = this;
+					var datas = {
+						comment_id: that.share.data[index].comment_id
+					}
+
+					that.ajaxpost('post', globalData.deleteShare, datas).then((res) => {
+						var res = $.parseJSON(res);
+						if (res.code == 1) {
+							that.share.data.splice(index, 1)
+							that.toast('删除成功')
+						}
+
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//教材list
+				bindjiaoclist(index) {
+					var that = this;
+					console.log(that.course.page)
+					if (that.course.page == 1) {
+						that.course.datalist = [];
+					}
+					var data = {
+
+						category_id: that.navs_son[index].id,
+						page: that.course.page,
+						page_size: 10
+					}
+					console.log(JSON.stringify(data))
+					that.ajaxpost_noloading('post', globalData.getStudentTextBookList, data).then((res) => {
+
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						for (var i = 0; i < res.data.data.length; i++) {
+							res.data.data[i].createtime = that.formatTime(res.data.data[i].createtime)
+						}
+						var resdata = that.course.datalist.concat(res.data.data)
+						that.course.datalist = resdata;
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//分类
+				bindjiaocFl() {
+					var that = this;
+					that.ajaxpost_noloading('post', globalData.getBookCategoryAll).then((res) => {
+						var res = $.parseJSON(res);
+						var whole = {
+							id: '0',
+							title: '全部'
+						}
+						res.data.unshift(whole)
+						console.log(JSON.stringify(res))
+						that.navs_son = res.data;
+						that.bindjiaoclist(0);
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//试卷list
+				bindpaperlist(index) {
+					var that = this;
+					if (that.paperdata.page == 1) {
+						that.paperdata.datalist = [];
+					}
+					var data = {
+
+						categoryid: that.navs_son[index].id,
+						testpaper_type: '',
+						teacher_id: 0,
+						page: that.paperdata.page,
+						page_size: 10
+					}
+					console.log(JSON.stringify(data))
+					that.ajaxpost_noloading('post', globalData.getPapersShopList, data).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						if (res.data.data != null) {
+							var resdata = that.paperdata.datalist.concat(res.data.data)
+							that.paperdata.datalist = resdata
+							that.uservip()
+						}
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//分类
+				bindpaperFl() {
+					var that = this;
+					that.ajaxpost_noloading('post', globalData.getPapersCategoryAll).then((res) => {
+						var res = $.parseJSON(res);
+						var whole = {
+							id: '0',
+							title: '全部'
+						}
+						res.data.unshift(whole)
+						// console.log(JSON.stringify(res))
+						that.navs_son = res.data;
+						that.bindpaperlist(0);
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//进入直播
+				openlive(id) {
+					var that = this;
+					that.ajaxpost('post', globalData.entryDirect, { house_id: id }).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(id))
+						console.log(JSON.stringify(res))
+						if (res.code == 1) {
+							that.urllive(id, res.data.username)
+						} else {
+							loginfo(res)
+						}
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+
+				},
+				//直播地址
+				urllive(id, username) {
+					var that = this
+					that.ajaxpost('post', globalData.pullDirect, { house_id: id }).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						if (res.code == 1) {
+							that.openW('Inclass', { 'url': res.data.live_flv_url, 'house_id': id, 'username': username }, false)
+						} else {
+							that.toast(res.msg)
+						}
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				mavpaly(index) {
+					var data = {
+						type: 2,
+						info_jiaoc: this.course.datalist[index],
+						is_score:this.course.datalist[index].is_score,
+						add:2
+					}
+					if(data.is_score==1){
+						data.score_price = this.course.datalist[index].score_price
+					}
+					this.openW('buy_course_frm', data, true);
+				},
+				mavpaly_jiaoc(index) {
+					if (this.paperdata.datalist[index].order_id == null) {
+						this.paperdata.datalist[index].is_vip = this.is_vip
+						var data = {
+							type: 2,
+							info_testpaper: this.paperdata.datalist[index],
+							is_score:this.paperdata.datalist[index].is_score,
+							add:3
+						}
+						if(data.is_score==1){
+							data.score_price = this.paperdata.datalist[index].score_price
+						}
+						this.openW('buy_course_frm', data, true);
+					} else {
+						this.openW('question_test_win', { testpaper_id: this.paperdata.datalist[index].id }, true)
+					}
+
+				},
+				//分类
+				bindFl() {
+					var that = this;
+					that.ajaxpost_noloading('post', globalData.getNewCategoryAll).then((res) => {
+						var res = $.parseJSON(res);
+
+						console.log(JSON.stringify(res))
+						that.navs_son = res.data;
+						that.bindlist(0);
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				navarticles(id) {
+					this.openW('find_article_win', { 'new_id': id }, true)
+				},
+				//备考list
+				bindlist(index) {
+					var that = this;
+					if (that.revising.page == 1) {
+						that.revising.datalist = []
+					}
+					var data = {
+
+						category_id: that.navs_son[index].id,
+						page: that.revising.page,
+						page_size: 10
+					}
+					console.log(JSON.stringify(data))
+					that.ajaxpost_noloading('post', globalData.getNewsList, data).then((res) => {
+
+						var res = $.parseJSON(res);
+						if (!res.data.data) {
+							return
+						}
+						console.log(JSON.stringify(res))
+						that.revising.datalist = that.revising.datalist.concat(res.data.data);
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//详情
+				navreply(index) {
+					var that = this;
+					var data = {
+						comment_id: that.share.data[index].comment_id
+					}
+					that.openW('find_shareReply', data, true)
+				},
+				//分类
+				initpublicFl() {
+					var that = this;
+					console.log(11)
+					var data = {
+						type: 1
+					}
+					that.ajaxpost_noloading('post', globalData.category, data).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						that.navs_son = res.data;
+						that.publicList(0)
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//公开课list
+				publicList(index) {
+					var that = this;
+					if (that.courselist.page == 1) {
+						that.courselist.data = []
+					}
+					var data = {
+						category_id: parseInt(that.navs_son[index].category_id),
+						page: that.courselist.page,
+						limit: 6
+					}
+
+					that.ajaxpost_noloading('post', globalData.directList, data).then((res) => {
+						var res = $.parseJSON(res);
+						console.log(JSON.stringify(res))
+						api.refreshHeaderLoadDone()
+						if (res.data.data == null) {
+
+							return
+						}
+						for (var i = 0; i < res.data.data.length; i++) {
+							res.data.data[i].start_time = that.formatTime(res.data.data[i].start_time)
+						}
+						that.courselist.data = that.courselist.data.concat(res.data.data)
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				//学习分享
+				chareInfo(calldata) {
+					var that = this;
+
+					if (calldata) { that.share.data = []; that.share.page = 1; };
+					var data = {
+						page: that.share.page,
+						limit: 5
+					}
+					that.ajaxpost('post', globalData.shareList, data).then((res) => {
+						var res = $.parseJSON(res);
+
+
+						if (res.data.data != null && res.data.data.length != 0) {
+							var list = res.data.data;
+							for (let i = 0; i < list.length; i++) {
+								getLevel(list[i].score,function(level){
+									list[i].level = level;
+									if(i==list.length - 1){
+										that.share.data = that.share.data.concat(list)
+									}
+								})
+							}
+							// res.data.data.map(function (item) {
+							// 	if (item.level) {
+							// 		item.level = parseInt(item.level)
+							// 		getLevel(res.data.score,function(level){
+							// 			res.data.level = level;
+							// 			that.teacher=res.data
+							// 		})
+							// 	}
+							//
+							// })
+							// that.share.data = that.share.data.concat(res.data.data)
+
+						}
+						api.refreshHeaderLoadDone()
+						that.$previewRefresh()
+
+					}).catch((ret) => {
+						loginfo(ret)
+					})
+				},
+				addnav() {
+					if (this.active == 0) {
+						this.openW('find_shareadd', {}, true)
+					}
+
+				},
+				toggle(index, item) {
+					this.active = index
+					this.active_son = 0
+					if (index == 1) {
+						this.chareInfo()
+						this.bindFl();
+					}
+					if (index == 2) {
+						this.bindjiaocFl()
+					}
+					if (index == 3) {
+						this.bindpaperFl()
+					}
+					if (index == 4) {
+						this.initpublicFl()
+					}
+				},
+				toggle_son(index, item) {
+					var that = this;
+					this.active_son = index
+
+					if (this.active == 1) {
+						this.revising.page = 1
+						this.bindlist(index)
+					}
+					if (this.active == 2) {
+						this.course.page = 1;
+						this.bindjiaoclist(index);
+					}
+					if (this.active == 3) {
+						this.paperdata.page = 1;
+						that.paperdata.datalist = [];
+						this.bindpaperlist(index)
+					}
+					if (this.active == 4) {
+						this.courselist.page = 1
+						this.publicList(index)
+					}
+				},
+				//学习分享
+				navShare() {
+					console.log(1)
+					var that = this;
+					that.openW('find_share_win', {}, true);
+				},
+				//院校指南
+				navGuide() {
+					var that = this;
+					that.openW('find_school_guide_win', {}, true);
+				},
+				//备考计划
+				navRevising() {
+					var that = this;
+					that.openW('find_revising_win', {}, true);
+				},
+				//教材
+				navjiaoc() {
+					var that = this;
+					that.openW('find_jiaoc_win', {}, true);
+				},
+				//我的试卷
+				navPaper() {
+					var that = this;
+					that.openW('find_testPaper_win', {}, true);
+				},
+				//公开课
+				navCourse() {
+					var that = this;
+					that.openW('public_class_win', {}, true);
+				},
+			}
+		});
+	};
+</script>
+
+</html>

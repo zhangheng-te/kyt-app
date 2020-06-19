@@ -1,0 +1,126 @@
+.score_area{
+  border-width: 3vw 0 3vw 0;
+  border-color: #f2f2f2;
+  border-style: solid;
+  height: 96vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10vw;
+  box-sizing: border-box;
+}
+.score_line1{
+  font-size: 4.2vw;
+  /*padding-top: 5vw;*/
+  box-sizing: border-box;
+}
+
+.score_line2{
+  width: 31vw;
+  height: 31vw;
+  border-radius: 50%;
+  background: linear-gradient(#0391ff, #0165d0);
+  color: #ffffff;
+  margin-top: 5vw;
+  font-size: 4vw;
+}
+
+.score_line3{
+  height: 9vw;
+  width: 60vw;
+  color: #0c77ec;
+  font-size: 4.5vw;
+  border: 1px solid #0c77ec;
+  border-radius: 4.5vw;
+  margin-top: 5vw;
+}
+
+.score_line4{
+  font-size: 3.7vw;
+  margin-top: 3vw;
+}
+
+.right_icon{
+  background: url(../icon/right.png) no-repeat center center;
+  background-size: 100% 100%!important;
+}
+
+.icon{
+    width: 5vw;
+    height: 5vw;
+
+}
+
+.icon_del{
+  background-size:4.2vw 4.2vw;
+  width: 5vw;
+  height: 5vw;
+  display: inline-block;
+  /*left: 0vw;*/
+  /*border-right: 5vw solid transparent;*/
+  /*-webkit-filter: drop-shadow(5vw 0vw #000000);*/
+  /*filter: drop-shadow(5vw 0 #000000);*/
+  /*filter: none(5vw 0);*/
+}
+
+.img{
+    position: relative;
+
+}
+
+.course_item{
+  border-bottom: 1px solid #f2f2f2;
+  padding: 2vw 3.5vw 2vw 3.5vw;
+  box-sizing: border-box;
+}
+
+.course_line1{
+  font-size: 4vw;
+  height: 7vw;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+}
+
+.course_line1 div{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+
+.course_line2{
+  font-size: 3.6vw;
+  height: 7vw;
+  color: #999999;
+}
+
+.test_area{
+  padding: 3.5vw;
+  box-sizing: border-box;
+}
+
+.test_title{
+  display: flex;
+  font-size: 4.2vw;
+  font-weight: bold;
+  align-items: center;
+}
+
+.test_item{
+  padding: 3vw;
+  box-sizing: border-box;
+}
+
+.test_question{
+  font-size: 4vw;
+}
+
+.test_answer{
+  font-size: 3.8vw;
+}
+
+.test_answer{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 2vw;
+}
