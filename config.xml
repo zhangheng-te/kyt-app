@@ -1,67 +1,63 @@
  <widget id="A6047008267089"  version="0.0.1">
-
+   //项目名称
     <name>考研通学员版</name>
-
+    //项目简介
     <description>
-
         Example For APICloud.
-
     </description>
-
+    //作者
     <author email="developer@apicloud.com" href="http://www.apicloud.com">
-
         Developer
-
     </author>
-
+    //运行起始页
     <content src="wrap.html" />
-
+    //在那些页面可以访问apicloud的扩展api
     <access origin="*" />
-
+    //配置页面是否弹动
     <preference name="pageBounce" value="false"/>
-
+    //app全局背景
 	<preference name="appBackground" value="rgba(0,0,0,0.0)"/>
-
+  //window默认背景
   <preference name="windowBackground" value="#ffffff"/>
-
+  //frame默认背景
 	<preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>
 
   <preference name="AllowInlineMediaPlayback" value="true" />
-
+  //是否显示横向滚动条
 	<preference name="hScrollBarEnabled" value="false"/>
-
+  //是否显示竖向滚动条
 	<preference name="vScrollBarEnabled" value="false"/>
-
+  //启动页是否自动隐藏  3秒
 	<preference name="autoLaunch" value="true"/>
-
+  //是否全屏运行
 	<preference name="fullScreen" value="false"/>
-
+  //是否自动检测更新
 	<preference name="autoUpdate" value="true" />
-
+  //是否支持增量更新、云修复
 	<preference name="smartUpdate" value="false" />
-
+  //应用开启调试模式
 	<preference name="debug" value="true"/>
 
 	<preference name="statusBarAppearance" value="true"/>
-
+  //键盘弹出方式，页面不会推移
   <preference name="softInputMode" value="pan"/>
-
+  //加载页面时将默认使用WKWebView
   <preference name="useWKWebView" value="true" />
-
+  //读取手机状态和身份
 	<permission name="readPhoneState" />
-
+  //使用拍照和视频
 	<permission name="camera" />
-
+  //使用录音
 	<permission name="record" />
-
+  //访问地理位置
 	<permission name="location" />
-
+  //访问文件系统
 	<permission name="fileSystem" />
-
+  //访问网络权限
 	<permission name="internet" />
-
+  //开机启动
 	<permission name="bootCompleted" />
-
+  //制闪光灯、振动器、防止手机休眠等
 	<permission name="hardware" />
 
   <feature name="aliPayPlus">
