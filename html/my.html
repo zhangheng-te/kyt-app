@@ -17,13 +17,19 @@
       background-color: #f3f3f3;
     }
 
-    /* #app {
-      overflow: hidden;
+    /* [v-cloak] {
+      display: none
     } */
+
+    #app {
+      overflow: hidden;
+    }
+
 
 
     #header .aui-title {
       color: #000;
+
     }
 
     #header .aui-icon-left {
@@ -31,18 +37,22 @@
     }
 
     #header {
-      padding: 5vm 0;
+      padding: 0 3.333vw;
+      box-sizing: border-box;
       position: fixed;
       top: 0;
       left: 0;
       background-color: #0094FA;
+      height: 11.733vw;
+      background-image: linear-gradient(to right, #5bbbff, #289bff);
     }
 
     #my_message {
       position: relative;
-      height: 25vw;
+      margin-top: 11.533vw;
+      height: 15.2vw;
       width: 100%;
-      background-color: #0094FA;
+      background-image: linear-gradient(to right, #5bbbff, #289bff);
 
     }
 
@@ -52,60 +62,85 @@
       top: 50%;
       transform: translateX(-50%);
       background-color: #fff;
-      width: 88.267vw;
-      height: 100%;
+      width: 88vw;
+      height: 21.6vw;
       border-radius: 4.667vw;
     }
 
     #my_photo {
-      width: 15.6vw;
-      height: 15.6vw;
-      background-color: #ff3040;
+      width: 13.6vw;
+      float: left;
+      height: 13.6vw;
+      background-image: url(../image/iconimg/linshitx.png);
+      background-size: contain;
       border-radius: 50%;
       position: absolute;
       top: 50%;
-      left: 3vw;
+      left: 4.533vw;
       transform: translateY(-50%);
       overflow: hidden;
     }
 
+    #my_photo img {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+    }
+
     #user {
       float: left;
-      margin-left: 21vw;
-      margin-top: 5vw;
+
+      margin-left: 22.133vw;
     }
 
     #name {
+
       float: left;
-      margin-bottom: 3vw;
-      font-size: 3.667vw;
+      margin-top: 5.067vw;
+
+      font-size: 4.667vw;
       font-weight: 800;
+    }
+
+    #name p {
+      font-size: 4.267vw;
+      float: left;
     }
 
     #vip {
       display: inline-block;
-      vertical-align: middle;
 
     }
 
+
     #vip_time {
-      font-size: 2.867vw;
+      font-size: 2.667vw;
       color: #aaa;
+      /* margin-top: 2.2vw; */
 
     }
 
     #integral {
+      float: right;
       text-align: center;
-      font-size: 26px;
-      margin-top: 37.5px;
-      color: #aaa
+      margin-top: 3.067vw;
+      color: #aaa;
+      font-size: 2.933vw;
     }
 
     #integral i {
       color: black;
       display: inline-block;
-      margin-bottom: 1.467vw;
-      font-size: 4.667vw;
+      padding: 2vw 0;
+      font-size: 3.733vw;
+
+    }
+
+    #integral span {
+      margin-right: 6vw
     }
 
     #my_service,
@@ -122,21 +157,16 @@
       margin-top: 13vw;
     }
 
-    #my_service span {
-      display: inline-block;
-      vertical-align: text-top;
-    }
-
-    #my_more span {
-      display: inline-block;
-      vertical-align: text-top;
-
-    }
-
     h2 {
       font-size: 4.267vw;
       margin-bottom: 6.667vw;
+      height: 4vw;
+      line-height: 4vw;
+      font-weight: 800;
+      font-size: 4.267vw;
     }
+
+
 
     ul {
       display: flex;
@@ -144,35 +174,109 @@
       width: 88.267vw;
       text-align: center;
       background-color: #fff;
-      border-radius: 2.667vw;
+      border-radius: 4.667vw;
+      padding: 2.933vw 0;
+
+
 
     }
 
-    li {
+    #ul_list li {
       width: 33%;
       height: 21.867vw;
       text-align: center;
-      margin-bottom: 10px;
     }
 
-    li img {
-      width: 8vw;
-      height: 7.6vw;
-      margin: 3.333vw auto
-    }
+
 
     li p {
-      font-size: 3.733vw;
+      font-size: 2.933vw;
     }
 
     #ul li {
+
       width: 25%;
+      height: 21.867vw;
+      text-align: center;
+      padding: 1.033vw 0;
     }
 
-    #ul li img {
-      width: 7.6vw;
-      height: 8.2vw;
-      margin: 3.333vw auto
+    #ul li .img {
+      position: relative;
+      width: 100%;
+      height: 7.133vw;
+      line-height: 7.133vw;
+      margin: 3.333vw auto;
+      text-align: center;
+      /* vertical-align:middle; */
+    }
+
+    #ul li .img img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0 auto;
+      width: 6.8vw;
+      height: 6.8vm;
+    }
+
+
+    #ul_list li .img {
+      position: relative;
+      width: 100%;
+      height: 8.8vw;
+      line-height: 8.8vw;
+      margin: 3.333vw auto;
+    }
+
+    #ul_list li .img img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0 auto;
+      width: 7.067vw;
+      /* height: 9.8vm; */
+    }
+
+    .span {
+      display: inline-block;
+      width: 0.8vw;
+      height: 3.067vw;
+      background-color: #2397ff;
+      line-height: 4vw;
+      border-radius: 1.333vw;
+      margin-right: 1.333vw;
+
+    }
+
+
+    .newsico img {
+      width: 5vw;
+      height: 6.3vw;
+    }
+
+    .banxin {
+      width: 88.267vw;
+      margin: 0 auto;
+    }
+
+    .star {
+      position: relative;
+      width: 19vw;
+      height: 6vw;
+      display: inline-block;
+      margin-left: 2.5vw
+    }
+
+    .star img {
+      height: 2.533vw;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+
     }
   </style>
 </head>
@@ -182,257 +286,156 @@
     <!-- 头部 -->
     <header id="header" class="aui-bar aui-bar-nav">
       <!-- 左侧消息提示 -->
-      <div class="aui-pull-left aui-btn" @click='bindmsg'>
-        <span class="my-newsico" style="position:relative;">
-          <span v-if="weidu"
-            style="width:2vw;height:2vw;border-radius:50%;background-color:red;position:absolute;right:-1vw;top:-1vw;"></span>
-        </span>
-      </div>
-      <!-- 右侧 -->
-      <div style="color: #fff" class="aui-pull-right aui-btn">
-        <!-- 收藏 -->
-        <span @click='turnFav' id="icon" style="width:5vw;height:5vw;"><img src="../image/iconimg/shoucang.png"
-            alt=""></span>&nbsp&nbsp&nbsp
-        <!-- 设置 -->
-        <span id="icon" style="width:5vw;height:5vw;"><img src="../image/iconimg/shezhi.png" alt=""></span>
+      <div class="banxin">
+        <div class="aui-pull-left aui-btn" @click='bindmsg'>
+          <span class="newsico" style="position:relative;">
+            <img src="../image/iconimg/tongzhi.png" alt="">
+            <span v-if="weidu"
+              style="width:2vw;height:2vw;border-radius:50%;background-color:red;position:absolute;right:-1vw;top:-1vw;"></span>
+          </span>
+        </div>
+        <!-- 右侧 -->
+        <div style="color: #fff" class="aui-pull-right aui-btn">
+          <!-- 收藏 -->
+          <span @click='turnFav' id="icon" style="width:5.6vw;height:6vw;"><img src="../image/iconimg/shoucang.png"
+              alt=""></span>&nbsp&nbsp&nbsp
+          <!-- 设置 -->
+          <span id="icon" style="width:5.333vw;height:6vw;" @click="setting"><img src="../image/iconimg/shezhi.png"
+              alt=""></span>
+        </div>
       </div>
     </header>
-    <!-- 我的信息 -->
-    <div id="my_message">
-      <!-- 个人信息展示 -->
-      <div id="my_show">
-        <!-- 头像 -->
-        <div id="my_photo" @click='navSetup'>
-          <img v-if='info' :src="info.avatar" alt="">
-        </div>
-        <!-- 昵称与会员 -->
-        <div id="user">
-          <div id="name" style="font-weight: bold; text-align: center;" v-if='info'>{{info.nickname}}
-            <img id="vip" style="width:6vw;height:6vw;margin-left:1vw;" v-if='viptype' class="fit"
-              src="../image/vip.png" />
+    <div id="main">
+      <!-- 我的信息 -->
+      <div id="my_message">
+        <!-- 个人信息展示 -->
+        <div id="my_show">
+          <!-- 头像 -->
+          <div id="my_photo" @click='navSetup'>
+            <img v-if='info' :src="info.avatar" alt="">
           </div>
-          <div id="vip_time" v-if='viptype'>会员到期时间:{{viptype}}</div>
-        </div>
-        <!-- 积分 -->
-        <div id="integral">
-          <span @click="turnOutput">
-            <i>{{info.score}}</i><br>
-            积分
-          </span>
-          <span>
-            <i>2222</i><br>
-            关注
-          </span>
-        </div>
-      </div>
-
-
-
-      <!-- <div class="my">
-
-      <div class="my_bg" style="width:100%;height:35vw;">
-        <div class="my_head">
-          <div class="my_headimg">
-            <img v-if='info' :src="info.avatar" @click='imgsetup' alt="">
-          </div>
-          <div class="my_name">
-            <span @click="turnOutput"
-              style="font-size:3vw;font-weight: normal;color: #4D76C9;background-color: #edf3ff;padding: 0 0.5vw;border-radius: 0.5vw; ">积分：{{info.score}}</span>
-            <div class="fcc" style="font-weight: bold; text-align: center;" v-if='info'>{{info.nickname}}
-              <img style="width:6vw;height:6vw;margin-left:1vw;" v-if='viptype' class="fit" src="../image/vip.png" />
-              <i style="width:4.5vw;height:3.5vw;" v-if='viptype'></i>
+          <!-- 昵称与会员 -->
+          <div id="user">
+            <!-- 昵称 -->
+            <div id="name" style="font-weight: bold;" v-if='info'>
+              <p>
+                {{info.nickname}}
+              </p>
+              <!-- vip -->
+              <img id="vip" style="width:6vw;height:6vw;margin-left:1vw;" v-if='is_vip==true' class="fit"
+                src="../image/iconimg/vip1.png" />
+              <img id="vip" style="width:6vw;height:6vw;margin-left:1vw;" class="fit" src="../image/iconimg/vip.png"
+                v-if='is_vip==false' />
+              <!-- 星级 -->
+              <div class="star" @click="turnOutput">
+                <img src="../image/star/1.1.png" alt="" v-if="info.score>1&&info.score<=1000">
+                <img src="../image/star/1.2.png" alt="" v-if="info.score>1000&&info.score<=2000">
+                <img src="../image/star/1.3.png" alt="" v-if="info.score>2000&&info.score<=3000">
+                <img src="../image/star/1.4.png" alt="" v-if="info.score>3000&&info.score<=5000">
+                <img src="../image/star/1.5.png" alt="" v-if="info.score>5000&&info.score<=7000">
+                <img src="../image/star/2.1.png" alt="" v-if="info.score>7000&&info.score<=9000">
+                <img src="../image/star/2.2.png" alt="" v-if="info.score>9000&&info.score<=11000">
+                <img src="../image/star/2.3.png" alt="" v-if="info.score>11000&&info.score<=13000">
+                <img src="../image/star/2.4.png" alt="" v-if="info.score>13000&&info.score<=15000">
+                <img src="../image/star/2.5.png" alt="" v-if="info.score>15000&&info.score<=17000">
+                <img src="../image/star/3.1.png" alt="" v-if="info.score>17000&&info.score<=19000">
+                <img src="../image/star/3.2.png" alt="" v-if="info.score>19000&&info.score<=22000">
+                <img src="../image/star/3.3.png" alt="" v-if="info.score>22000&&info.score<=25000">
+                <img src="../image/star/3.4.png" alt="" v-if="info.score>25000&&info.score<=28000">
+                <img src="../image/star/3.5.png" alt="" v-if="info.score>28000&&info.score<=32000">
+                <img src="../image/star/4.1.png" alt="" v-if="info.score>32000&&info.score<=36000">
+                <img src="../image/star/4.2.png" alt="" v-if="info.score>36000&&info.score<=40000">
+                <img src="../image/star/4.3.png" alt="" v-if="info.score>40000&&info.score<=45000">
+                <img src="../image/star/4.4.png" alt="" v-if="info.score>45000&&info.score<=50000">
+                <img src="../image/star/4.5.png" alt="" v-if="info.score>50000&&info.score<=55000">
+                <img src="../image/star/5.1.png" alt="" v-if="info.score>55000&&info.score<=60000">
+                <img src="../image/star/5.2.png" alt="" v-if="info.score>60000&&info.score<=65000">
+                <img src="../image/star/5.3.png" alt="" v-if="info.score>65000&&info.score<=70000">
+                <img src="../image/star/5.4.png" alt="" v-if="info.score>70000&&info.score<=80000">
+                <img src="../image/star/5.5.png" alt="" v-if="info.score>80000&&info.score<=90000">
+                <img src="../image/star/6.1.png" alt="" v-if="info.score>90000&&info.score<=100000">
+                <img src="../image/star/6.2.png" alt="" v-if="info.score>100000&&info.score<=110000">
+                <img src="../image/star/6.3.png" alt="" v-if="info.score>110000&&info.score<=120000">
+                <img src="../image/star/6.4.png" alt="" v-if="info.score>120000&&info.score<=130000">
+                <img src="../image/star/6.5.png" alt="" v-if="info.score>130000&&info.score<=140000">
+                <img src="../image/star/7.1.png" alt="" v-if="info.score>140000&&info.score<=160000">
+                <img src="../image/star/7.2.png" alt="" v-if="info.score>160000&&info.score<=180000">
+                <img src="../image/star/7.3.png" alt="" v-if="info.score>180000&&info.score<=200000">
+                <img src="../image/star/7.4.png" alt="" v-if="info.score>200000&&info.score<=220000">
+                <img src="../image/star/7.5.png" alt="" v-if="info.score>220000&&info.score<=240000">
+              </div>
+              <!-- 到期时间 -->
+              <div id="vip_time" v-if='is_vip==true' style="font-weight: 400;">会员到期时间:{{viptype}}</div>
+              <div id="vip_time" v-if='is_vip==false' style="font-weight: 400;" @click='bindvip'>开通会员</div>
             </div>
-
-            <div style="font-size:3.3vw;color:#999;" v-if='viptype'>会员到期时间{{viptype}}</div>
-
-
           </div>
-          <div class="my_sign fd_c">
-            <span style="color: #57cbd9;font-size:3.6vw;padding-bottom:1vw;" @click="turnRZ"
-              v-if='info'>{{status}}</span>
-            <span
-              style="color: #4D76C9;background-color: #edf3ff;padding: 0 0.5vw;font-size: 3.3vw;border-radius: 0.5vw;margin-bottom:1vw;"
-              @click="turnRZ" v-if='info'>{{status}}</span>
-            <div @click='navSign' class="my_sign_bnt fcc">签到</div>
+          <!-- 积分 -->
+          <div id="integral">
+            <span @click='bindteacher'>
+              <i style="font-size: 4.633vw;">{{number}}</i><br>
+              关注
+            </span>
           </div>
-          <ul class="my_order">
-            <li @click='navCourse(-1)'>
-              <i></i>
-              <p>我的课程</p>
-            </li>
-            <li @click='naverrTopic'>
-              <i></i>
-              <p>我的题库</p>
-            </li>
-            <li @click='bindteacher'>
-              <i></i>
-              <p>关注老师</p>
-            </li>
-          </ul>
         </div>
       </div>
-      <div class="my_acconut">
-        <div class="my_account_wrap" @click='bindacconut'>
-          <h3><span class="span_line">我的账户</span></h3>
-          <h5 class="oncolor999">￥{{money}}<span></span> <i class="i_arrow"></i> </h5>
-        </div>
+      <!-- 我的服务 -->
+      <div id="my_service">
+        <h2><span class="span" style="height: 3.067vw;"></span>&nbsp;我的服务</h2>
+        <ul id="ul_list">
+          <li @click='navCourse(-1)'>
+            <div class="img"><img src="../image/iconimg/kecheng.png" alt=""></div>
+            <p>我的课程</p>
+          </li>
+          <li @click='naverrTopic'>
+            <div class="img"><img src="../image/iconimg/tiku.png" alt=""></div>
+            <p>我的题库</p>
+          </li>
+          <li @click='turnHistory'>
+            <div class="img"><img src="../image/iconimg/lishi.png" alt=""></div>
+            <p>观看历史</p>
+          </li>
+        </ul>
       </div>
-      <div class="my_acconut" style="margin-top:1.5vw;">
-        <div class="my_account_wrap" @click='turnHistory'>
-          <h3><span class="span_line">观看历史</span></h3>
-          <h5 class="oncolor999"><span></span> <i class="i_arrow"></i> </h5>
-        </div>
-      </div>
-      <div class="my_acconut" style="margin-top:1.5vw;">
-        <div class="my_account_wrap" @click='turnFav'>
-          <h3><span class="span_line">我的收藏</span></h3>
-          <h5 class="oncolor999"><span></span> <i class="i_arrow"></i> </h5>
-        </div>
-      </div>
-      <div class="my_acconut" style="margin-top:1.5vw;">
-        <div class="my_account_wrap" @click='turnCards'>
-          <h3><span class="span_line">银行卡</span></h3>
-          <h5 class="oncolor999"><span></span> <i class="i_arrow"></i> </h5>
-        </div>
-      </div>
-      <div class="my_more">
-        <h3><span class="span_line">更多服务</span></h3>
-        <div class="my_m_wrap " v-if="isshenhe==0">
-          <div class="my_m_row my_m_p1" @click='bindorder'>
-            <i></i>
-            <p>资料订单</p>
-          </div>
-          <div class="my_m_row my_m_p1" @click='bindvip'>
-            <i></i>
-            <p>会员开通</p>
-          </div>
-          <div class="my_m_row my_m_p1" @click='bindcoupon_win'>
-            <i></i>
-            <p>优惠劵区</p>
-          </div>
-        </div>
-        <div class="my_m_wrap ">
-          <div class="my_m_row my_m_p2" @click='bindyaoqing'>
-            <i></i>
-            <p>邀约学员</p>
-          </div>
-          <div class="my_m_row my_m_p2" @click='bindxiaof'>
-            <i></i>
-            <p>消费管理</p>
-          </div>
-          <div class="my_m_row my_m_p2" @click='kefu'>
-            <i></i>
+      <!-- 更多服务 -->
+      <div id="my_more">
+        <h2><span class="span" style="height: 3.067vw;"></span>&nbsp;更多服务</h2>
+        <ul id="ul">
+          <li @click='bindvip'>
+            <div class="img"><img src="../image/iconimg/vipzx.png" alt=""></div>
+            <p>VIP中心</p>
+          </li>
+          <li @click='bindyaoqing'>
+            <div class="img"><img src="../image/iconimg/yq.png" alt=""></div>
+            <p>邀请学员</p>
+          </li>
+          <li @click='bindxiaof'>
+            <div class="img"><img src="../image/iconimg/xfls.png" alt=""></div>
+            <p>消费历史</p>
+          </li>
+          <li @click='kefu'>
+            <div class="img"><img src="../image/iconimg/kf.png" alt=""></div>
             <p>客服咨询</p>
-          </div>
-        </div>
-        <div class="my_m_wrap ">
-          <div class="my_m_row my_m_p3" @click='bindmy_opinion'>
-            <i></i>
-            <p>意见反馈</p>
-          </div>
-          <div class="my_m_row my_m_p3" @click='bindabout'>
-            <i></i>
+          </li>
+          <li @click='bindabout'>
+            <div class="img"><img src="../image/iconimg/js.png" alt=""></div>
             <p>我是教师</p>
-          </div>
-          <div class="my_m_row my_m_p3" @click='bindquestion'>
-            <i></i>
-            <p>帮助中心</p>
-          </div>
-        </div>
-        <div class=" my_m_wrap ">
-          <div class="my_m_row my_m_p4" @click='bindaddress'>
-            <i></i>
-            <p>地址管理</p>
-          </div>
-          <div class="my_m_row my_m_p4" @click='onmoble'>
-            <i></i>
-            <p>热线电话</p>
-          </div>
-          <div class="my_m_row my_m_p4" @click='turnCards'>
-            <i></i>
+          </li>
+          <li @click="bindcoupon_win">
+            <div class="img"><img src="../image/iconimg/yhq.png" alt=""></div>
+            <p>优惠券</p>
+          </li>
+          <li @click='turnCards'>
+            <div class="img"><img src="../image/iconimg/yhk.png" alt=""></div>
             <p>银行卡</p>
-          </div>
-          <div class="my_m_row my_m_p4" @click='navSetup'>
-            <i></i>
-            <p>设置</p>
-          </div>
-        </div>
-
-      </div>
-      <div class="my_btn_tuic">
-        <div @click='closelogo("是否退出登录")'>退出</div>
-      </div>
-      <div class="mask" v-show="mask"></div>
-      <div v-bind:class="mask?'bottom_window_hover':''" class="bottom_window">
-
-        <div class="my_Showmask">
-          <div class="my_s_row">
-            <img src="../image/my-weix.png" alt="">
-            <p>微信</p>
-          </div>
-          <div class="my_s_row">
-            <img src="../image/my-pengy.png" alt="">
-            <p>朋友圈</p>
-          </div>
-          <div class="my_s_row">
-            <img src="../image/my-qq.png" alt="">
-            <p>QQ</p>
-          </div>
-          <div class="my_s_row">
-            <img src="../image/my-weib.png" alt="">
-            <p>新浪微博</p>
-          </div>
-        </div>
-        <div class="my_s_close" @click='bindClosemask'>取消</div>
+          </li>
+          <li @click='bindacconut'>
+            <div class="img"><img src="../image/iconimg/zh.png" alt=""></div>
+            <p>我的账户</p>
+          </li>
+        </ul>
       </div>
     </div>
-  </div> -->
-    </div>
-    <!-- 我的服务 -->
-    <div id="my_service">
-      <h2><span class="span_line"></span>我的服务</h2>
-      <ul>
-        <li @click='navCourse(-1)'><img src="../image/iconimg/kecheng.png" alt="">
-          <p>我的课程</p>
-        </li>
-        <li @click='naverrTopic'><img src="../image/iconimg/tiku.png" alt="">
-          <p>我的题库</p>
-        </li>
-        <li @click='turnHistory'><img src="../image/iconimg/lishi.png" alt="">
-          <p>观看历史</p>
-        </li>
-      </ul>
-    </div>
-    <!-- 更多服务 -->
-    <div id="my_more">
-      <h2><span class="span_line"></span>更多服务</h2>
-      <ul id="ul">
-        <li @click='bindvip'><img src="../image/iconimg/vipzx.png" alt="">
-          <p>VIP中心</p>
-        </li>
-        <li @click='bindyaoqing'><img src="../image/iconimg/yq.png" alt="">
-          <p>邀请学员</p>
-        </li>
-        <li @click='bindxiaof'><img src="../image/iconimg/xfls.png" alt="">
-          <p>消费历史</p>
-        </li>
-        <li @click='kefu'><img src="../image/iconimg/kf.png" alt="">
-          <p>客服咨询</p>
-        </li>
-        <li @click='bindabout'><img src="../image/iconimg/js.png" alt="">
-          <p>我是教师</p>
-        </li>
-        <li @click="bindcoupon_win"><img src="../image/iconimg/yhq.png" alt="">
-          <p>优惠券</p>
-        </li>
-        <li @click='turnCards'><img src="../image/iconimg/yhk.png" alt="">
-          <p>银行卡</p>
-        </li>
-        <li @click='bindacconut'><img src="../image/iconimg/zh.png" alt="">
-          <p>我的账户</p>
-        </li>
-      </ul>
-    </div>
+  </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/vue.js"></script>
@@ -452,15 +455,18 @@
     var vm = new Vue({
       el: '#app',
       data: {
+        user: true,
         token: window.localStorage.getItem('userinfo') || '',
         money: '',
         title: '',
         mask: false,
         info: '',
         viptype: false,
-        status: '实名认证',
         weidu: false,
-        isshenhe: -1
+        isshenhe: -1,
+        is_vip: false,
+        number: 0,
+        page: 1
       },
       mounted: function () {
         var that = this
@@ -483,6 +489,7 @@
           }
         })
         this.userInfo();
+        this.initdata();
         this.$nextTick(() => {
           api.addEventListener({
             name: 'my_setup'
@@ -511,7 +518,7 @@
           that.userInfo()
           that.accoutinfo()
           that.uservip();
-          that.initData();
+          // that.initData();
         });
         api.addEventListener({
           name: 'buybuy'
@@ -521,7 +528,7 @@
         that.userInfo()
         that.accoutinfo()
         that.uservip();
-        that.initData();
+        // that.initData();
         that.getWeidu();
         api.addEventListener({
           name: 'getWeidu'
@@ -543,6 +550,7 @@
             loginfo(ret)
           })
         },
+        // 消息未读
         getWeidu() {
           var that = this;
           that.ajaxpost_noloading('post', globalData.checkNoReadMessage, {}).then((res) => {
@@ -554,76 +562,44 @@
             loginfo(ret)
           })
         },
+        // 银行卡
         turnCards() {
           this.openW('card_list', {}, true, null, false);
         },
+        // 收藏
         turnFav() {
           this.openW('video_fav', {}, true, null, false);
         },
+        // 观看历史
         turnHistory() {
           this.openW('history_frm', {}, true, null, false);
         },
+        // 积分商城
         turnOutput() {
           this.openW('output_win', {}, true);
         },
-        //退出登录
-        closelogo(title) {
-          var that = this
-          api.confirm({
-            title: '提示',
-            msg: title,
-            buttons: ['确定', '取消']
-          }, function (ret, err) {
-            if (ret.buttonIndex == 1) {
 
-              that.ajaxpost('post', globalData.loginout, {}).then((res) => {
-                var res = $.parseJSON(res);
+        // 实名认证
+        // initData() {
+        //   var that = this;
+        //   var param = {
+        //     applytype: 1
+        //   }
+        //   that.ajaxpost_noloading('post', globalData.getMemberApplyStatus, param).then((res) => {
+        //     var res = $.parseJSON(res);
+        //     if (res.code == 1) {
+        //       if (res.data.status == 1) {
+        //         that.status = '已实名'
+        //       } else {
+        //         that.status = '实名认证'
+        //       }
+        //     }
 
-                if (res.code == 1) {
-                  console.log(JSON.stringify(res))
-
-                  window.localStorage.removeItem('userinfo')
-                  window.localStorage.removeItem('mobile')
-                  api.openWin({
-                    useWKWebView: true,
-                    name: 'index',
-                    url: 'index.html',
-                    pageParam: '',
-                    slidBackEnabled: false
-                  })
-
-                } else if (res.code == 0) {
-                  that.toast(res.msg)
-                }
-
-              }).catch((ret) => {
-                loginfo(ret)
-              })
-
-            }
-          });
-
-
-        },
-        initData() {
-          var that = this;
-          var param = {
-            applytype: 1
-          }
-          that.ajaxpost_noloading('post', globalData.getMemberApplyStatus, param).then((res) => {
-            var res = $.parseJSON(res);
-            if (res.code == 1) {
-              if (res.data.status == 1) {
-                that.status = '已实名'
-              } else {
-                that.status = '实名认证'
-              }
-            }
-
-          }).catch((ret) => {
-            loginfo(ret)
-          })
-        },
+        //   }).catch((ret) => {
+        //     loginfo(ret)
+        //   })
+        // },
+        // 消息
         bindmsg() {
 
           this.openW('my_msg_win', {}, true)
@@ -652,7 +628,7 @@
           that.ajaxpost_noloading('post', globalData.getUserBalance, data).then((res) => {
 
             var res = $.parseJSON(res);
-            console.log(JSON.stringify(res))
+            al(JSON.stringify(res))
             if (res.code == 1) {
               that.money = res.data
             }
@@ -661,45 +637,7 @@
           })
         },
 
-        //退出登录
-        closelogo(title) {
-          var that = this
-          api.confirm({
-            title: '提示',
-            msg: title,
-            buttons: ['确定', '取消']
-          }, function (ret, err) {
-            if (ret.buttonIndex == 1) {
-
-              that.ajaxpost('post', globalData.loginout, {}).then((res) => {
-                var res = $.parseJSON(res);
-
-                if (res.code == 1) {
-                  console.log(JSON.stringify(res))
-
-                  window.localStorage.removeItem('userinfo')
-                  window.localStorage.removeItem('mobile')
-                  api.openWin({
-                    useWKWebView: true,
-                    name: 'index',
-                    url: 'index.html',
-                    pageParam: '',
-                    slidBackEnabled: false
-                  })
-
-                } else if (res.code == 0) {
-                  that.toast(res.msg)
-                }
-
-              }).catch((ret) => {
-                loginfo(ret)
-              })
-
-            }
-          });
-
-
-        },
+        // 获取会员信息
         uservip() {
           var that = this
           var data = {
@@ -711,12 +649,19 @@
             console.log(JSON.stringify(res))
             if (res.code == 1) {
               that.viptype = moment.unix(res.data.is_vip).format('YYYY-MM-DD');
+
+            }
+            alert(JSON.stringify(res))
+
+            if (res.data.is_vip != '') {
+              that.is_vip = true
             }
 
           }).catch((ret) => {
             loginfo(ret)
           })
         },
+        // 获取个人信息
         userInfo() {
           var that = this
           var data = {
@@ -734,6 +679,25 @@
             loginfo(ret)
           })
         },
+        //获取关注数量
+        initdata() {
+          var that = this;
+          var data = {
+            page: that.page,
+            limit: 10
+          }
+          that.ajaxpost('post', globalData.followList, data).then((res) => {
+
+            var res = $.parseJSON(res);
+            alert(JSON.stringify(res))
+            that.number = res.data.data.length
+
+          }).catch((ret) => {
+            loginfo(ret)
+          })
+        },
+
+
         //老师
         bindteacher() {
           var that = this;
@@ -787,7 +751,7 @@
         navSign() {
           this.openW('my_signin_win', {}, true)
         },
-        //设置
+        //修改资料
         navSetup() {
           this.openW('my_setup_h', {}, true)
         },
@@ -805,9 +769,7 @@
           }
           that.openW('coupon_win', data, true);
         },
-        turnRZ() {
-          this.openW('add_attestation', {}, true);
-        },
+
         //会员
         bindvip() {
           var that = this;
@@ -818,12 +780,13 @@
           var that = this;
           that.openW('purchase_history_win', {}, true);
         },
-        onmoble() {
-          api.call({
-            type: 'tel_prompt',
-            number: '400-928-6877'
-          });
-        },
+        // 拨打热线
+        // onmoble() {
+        //   api.call({
+        //     type: 'tel_prompt',
+        //     number: '400-928-6877'
+        //   });
+        // },
         //客服
         kefu() {
           var mq = api.require('meiQia');
@@ -842,7 +805,7 @@
           var that = this;
           that.openW('my_account', {}, true);
         },
-        //关于我们
+        //我是教师
         bindabout() {
           var that = this;
           that.openW('my_about', {}, true);
@@ -852,20 +815,10 @@
           var that = this;
           that.openW('my_amass', {}, true);
         },
-        //意见
-        bindmy_opinion() {
+        //设置
+        setting() {
           var that = this;
-          that.openW('my_opinion_h', {}, true);
-        },
-        //常见
-        bindquestion() {
-          var that = this;
-          that.openW('my_problem', {}, true);
-        },
-        //地址
-        bindaddress() {
-          var that = this;
-          that.openW('my_address_win', {}, true);
+          that.openW('my_setting', {}, true);
         },
         //关闭弹出框
         bindClosemask: function () {

@@ -1,158 +1,182 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>设置</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <link rel="stylesheet" href="../css/aui.css">
-      <link rel="stylesheet" href="../css/style2.css">
-      <style>
-          body{
-            background: #ffffff;
-          }
-          #header{
-            background-color: #fff;
-          }
-          #header .aui-title{
-            color: #000;
-          }
-          #header .aui-icon-left{
-            color: #000
-          }
-          .aui-list-item input{
-            width: 30vw;
-            text-align: right!important;
-            font-size: 3.2vw;
-            color: #666666;
-          }
-          .aui-list-item-inner{
-            font-size: 3.7vw;
-          }
-          select{
-            font-size: 3.2vw;
-            color:#666666;
-          }
-          option{
-            margin-left: 1vw;
-            background: red;
-          }
-          .aui-list-item-arrow{
-            padding: 1.5vw;
-          }
-          .my_setup_aui-btn div{
+<html>
 
-            width: 92vw;
-            height: 10.67vw;
-            background-image: linear-gradient(0deg,
-              #0163ce 0%,
-              #1f8dfe 100%);
-            border-radius: 5.33vw;
-            border: solid 0.13vw #f5f5f5;
-            color: #fff;
-            line-height: 10.67vw;
-            margin: auto;
-          }
-         .my_setup_aui-btn{
-            width: 100%;
-            position: relative;
-            top: 10vw;
-          }
-          .xy_bottom{
-            text-align: center;
-            margin: 5vw 0;
-            padding-top: 5vw;
-            font-size: 3.5vw;
-          }
-      </style>
-  </head>
-  <body>
-      <div id="app">
-        <div class="setop">
-          <ul class="aui-list aui-list-in">
-            <li class="aui-list-item">
-                <div class="aui-list-item-inner aui-list-item-arrow">
-                    <span>头像<span style="color:red;">*</span></span>
-                    <div class="setop_img" @click='imgsetup'>
-                      <img :src="imgs" alt="">
-                    </div>
-                </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+  <title>设置</title>
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" href="../css/aui.css">
+  <link rel="stylesheet" href="../css/style2.css">
+  <style>
+    body {
+      background: #ffffff;
+    }
 
-            </li>
-            <li class="aui-list-item">
-                <div class="aui-list-item-inner aui-list-item-arrow">
-                    <span>昵称<span style="color:red;">*</span></span>
-                    <div class="setop_call">
-                      <input type="text" placeholder='请输入' v-model='setup.Nickname' name="" value="">
+    [v-cloak] {
+      display: none;
+    }
 
-                    </div>
-                </div>
-            </li>
-            <li class="aui-list-item">
-                <div class="aui-list-item-inner aui-list-item-arrow">
-                    <span>姓名</span>
-                    <div class="setop_name">
-                      <input type="text" placeholder='请完成实名认证' disabled v-model='setup.name' name="" value="">
+    #header {
+      background-color: #fff;
+    }
 
-                    </div>
-                </div>
-            </li>
-            <li class="aui-list-item">
-                <div class="aui-list-item-inner aui-list-item-arrow">
-                    <span>性别<span style="color:red;">*</span></span>
-                    <div class="setop_sex">
-                      <select class=""  v-model='setup.sex' name="" >
-                        <option v-for='item in sexlist' v-bind:value="item.id" >{{item.title}}</option>
-                      </select>
-                    </div>
-                </div>
-            </li>
-            <li class="aui-list-item">
-                <div class="aui-list-item-inner aui-list-item-arrow">
-                    <span>年龄<span style="color:red;">*</span></span>
-                    <div class="setop_age">
-                      <input type="number" placeholder='请输入' v-model='setup.age' name="" value="">
+    #header .aui-title {
+      color: #000;
+    }
 
-                    </div>
-                </div>
-            </li>
-            <li class="aui-list-item">
-                <div class="aui-list-item-inner aui-list-item-arrow">
-                    <span>手机号码<span style="color:red;">*</span></span>
-                    <div class="setop_phone">
-                      <input type="text" placeholder='请输入' disabled='true' v-model='setup.phone' name="" value="">
+    #header .aui-icon-left {
+      color: #000
+    }
 
-                    </div>
-                </div>
-            </li>
-            <li class="aui-list-item">
-                <div class="aui-list-item-inner aui-list-item-arrow">
-                    <span>工作单位<span style="color:red;">*</span></span>
-                    <div class="setop_sign">
-                      <input type="text"  placeholder='请输入' maxlength="20" v-model='setup.work' name="" value="">
+    .aui-list-item input {
+      width: 30vw;
+      text-align: right !important;
+      font-size: 3.2vw;
+      color: #666666;
+    }
 
-                    </div>
-                </div>
-            </li>
-            <li class="aui-list-item">
-                <div class="aui-list-item-inner aui-list-item-arrow">
-                    <span>地区<span style="color:red;">*</span></span>
-                    <div class="setop_sign">
-                      <input type="text"  placeholder='请输入' maxlength="20" v-model='setup.area' name="" value="">
+    .aui-list-item-inner {
+      font-size: 3.7vw;
+    }
 
-                    </div>
-                </div>
-            </li>
-            <li class="aui-list-item">
-                <div class="aui-list-item-inner aui-list-item-arrow">
-                    <span>现任职务<span style="color:red;">*</span></span>
-                    <div class="setop_sign">
-                      <input type="text"  placeholder='请输入' maxlength="20" v-model='setup.job' name="" value="">
+    select {
+      font-size: 3.2vw;
+      color: #666666;
+    }
 
-                    </div>
-                </div>
-            </li>
-            <!-- <li class="aui-list-item">
+    option {
+      margin-left: 1vw;
+      background: red;
+    }
+
+    .setop_img {
+      background-image: url(../image/iconimg/linshitx.png);
+      background-size: contain;
+    }
+
+
+    .aui-list-item-arrow {
+      padding: 1.5vw;
+    }
+
+    .my_setup_aui-btn div {
+
+      width: 92vw;
+      height: 10.67vw;
+      background-image: linear-gradient(0deg,
+          #0163ce 0%,
+          #1f8dfe 100%);
+      border-radius: 5.33vw;
+      border: solid 0.13vw #f5f5f5;
+      color: #fff;
+      line-height: 10.67vw;
+      margin: auto;
+    }
+
+    .my_setup_aui-btn {
+      width: 100%;
+      position: relative;
+      top: 10vw;
+    }
+
+    .xy_bottom {
+      text-align: center;
+      margin: 5vw 0;
+      padding-top: 5vw;
+      font-size: 3.5vw;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <div class="setop">
+      <ul class="aui-list aui-list-in">
+        <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-arrow">
+            <span>头像<span style="color:red;">*</span></span>
+            <div class="setop_img" @click='imgsetup'>
+              <img :src="imgs" alt="">
+            </div>
+          </div>
+
+        </li>
+        <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-arrow">
+            <span>昵称<span style="color:red;">*</span></span>
+            <div class="setop_call">
+              <input type="text" placeholder='请输入' v-model='setup.Nickname' name="" value="">
+
+            </div>
+          </div>
+        </li>
+        <li class="aui-list-item" @click="turnRZ">
+          <div class="aui-list-item-inner aui-list-item-arrow">
+            <span>姓名</span>
+            <div class="setop_name">
+              <input type="text" placeholder='请完成实名认证' disabled v-model='setup.name' name="" value="">
+
+            </div>
+          </div>
+        </li>
+        <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-arrow">
+            <span>性别<span style="color:red;">*</span></span>
+            <div class="setop_sex">
+              <select class="" v-model='setup.sex' name="">
+                <option v-for='item in sexlist' v-bind:value="item.id">{{item.title}}</option>
+              </select>
+            </div>
+          </div>
+        </li>
+        <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-arrow">
+            <span>年龄<span style="color:red;">*</span></span>
+            <div class="setop_age">
+              <input type="number" placeholder='请输入' v-model='setup.age' name="" value="">
+
+            </div>
+          </div>
+        </li>
+        <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-arrow">
+            <span>手机号码<span style="color:red;">*</span></span>
+            <div class="setop_phone">
+              <input type="text" placeholder='请输入' disabled='true' v-model='setup.phone' name="" value="">
+
+            </div>
+          </div>
+        </li>
+        <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-arrow">
+            <span>工作单位<span style="color:red;">*</span></span>
+            <div class="setop_sign">
+              <input type="text" placeholder='请输入' maxlength="20" v-model='setup.work' name="" value="">
+
+            </div>
+          </div>
+        </li>
+        <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-arrow">
+            <span>地区<span style="color:red;">*</span></span>
+            <div class="setop_sign">
+              <input type="text" placeholder='请输入' maxlength="20" v-model='setup.area' name="" value="">
+
+            </div>
+          </div>
+        </li>
+        <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-arrow">
+            <span>现任职务<span style="color:red;">*</span></span>
+            <div class="setop_sign">
+              <input type="text" placeholder='请输入' maxlength="20" v-model='setup.job' name="" value="">
+
+            </div>
+          </div>
+        </li>
+        <!-- <li class="aui-list-item">
                 <div class="aui-list-item-inner aui-list-item-arrow">
                     身份证
                     <div class="setop_sign">
@@ -161,146 +185,167 @@
                     </div>
                 </div>
             </li> -->
-          </ul>
-          <div class="my_setup_aui-btn">
-            <div class="aui-btn " @click='save' style="margin-bottom:5vw;">保存</div>
-          </div>
-
-
-
-        </div>
-        <div class="xy_bottom">
-          <span style="color: #0B64CD;" @click='showXieyBox()'>《用户协议》</span> | <span @click='showClauseBox()' style="color: #0B64CD;">《隐私协议》</span>
-        </div>
+      </ul>
+      <div class="my_setup_aui-btn">
+        <div class="aui-btn " @click='save' style="margin-bottom:5vw;">保存</div>
       </div>
-  </body>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script src="../script/jquery.min.js"></script>
-  <script type="text/javascript" src="../script/vue.js"></script>
-  <script src="../script/configUtil.js" charset="utf-8"></script>
-  <script type="text/javascript">
-      apiready = function(){
-        api.setStatusBarStyle({
-            style: 'dark',
-        })
-        var vm = new Vue({
-            el: '#app',
-            data: {
-                eventHub: new Vue(),
-                title: '',
-                imgs:'',
-
-                sexlist:[{id:0,title:'保密'},{id:1,title:'男'},{id:2,title:'女'}],
-                setup:{
-                  Nickname:'',
-                  name:'',
-                  sex:0,
-                  age:'',
-                  phone:'',
-                  card:'',
-                  job:'',
-                  area:'',
-                  work:''
-                }
-            },
-            mounted: function () {
-              var header = document.querySelector('#header');
-              $api.fixStatusBar(header);
-              this.infouser();
-            },
-            methods:{
-               //打开条款盒子
-            showClauseBox(){
-
-            this.openW('clause_win',{type:1},true)
-            },
-            showXieyBox(){
-            this.openW('clause_win',{type:2},true)
-            },
-              //头像
-              imgsetup(){
-                var that =this;
-
-                that.uploadfirst(function(res){
-                  // var res =$.parseJSON(res);
-
-                  if(res.code==1){
-                      that.toast(res.msg)
-                      that.imgs =res.data.user_image
-                  }else{
-                    loginfo(res)
-                  }
-                },globalData.uploadAvatar,'pic',{imges:'上传头像'})
-              },
-              //获取
-              infouser(){
-                var that =this;
-                var data={
-
-                }
-                that.ajaxpost('post',globalData.userInfo,data).then((res)=>{
-
-                  var res =$.parseJSON(res);
-                    console.log(JSON.stringify(res))
-                  if(res.code==1){
-                    that.setup.Nickname=res.data.nickname
-                    if(res.data.is_real==1){
-                      that.setup.name=res.data.name;
-                    }
-                    that.setup.age=res.data.age
-                    that.setup.sex=res.data.sex
-                    that.setup.sign=res.data.signature
-                    that.setup.phone=res.data.mobile
-                    that.setup.card=res.data.card
-                    that.setup.job=res.data.job
-                    that.setup.area=res.data.area
-                    that.setup.work=res.data.work
-                    that.imgs=res.data.avatar
-                  }else{
-                    that.toast(res.msg)
-                  }
-                }).catch((ret)=>{
-                  loginfo(ret)
-                })
-              },
-              //保存
-              save(){
-                var that =this;
-                var data={
-                  nickname:that.setup.Nickname,
-                  sex:that.setup.sex,
-                  signature:that.setup.sign,
-                  age:that.setup.age,
-                  mobile:that.setup.phone,
-                  job:that.setup.job,
-                  area:that.setup.area,
-                  work:that.setup.work
-                }
-                if(testFunction.isMobile(data.mobile)!=true){
-                  that.toast('手机号不正确')
-                  return;
-                }
 
 
-                that.ajaxpost('post',globalData.editInfo,data).then((res)=>{
-                  var res =$.parseJSON(res);
-                  if(res.code==1){
-                    that.toast(res.msg)
-                    api.sendEvent({
-                        name: 'my_setup',
-                        extra:''
-                    });
-                    that.closeW()
-                  }else{
-                    that.toast(res.msg)
-                  }
-                }).catch((ret)=>{
-                  loginfo(ret)
-                })
+
+    </div>
+    <div class="xy_bottom">
+      <span style="color: #0B64CD;" @click='showXieyBox()'>《用户协议》</span> | <span @click='showClauseBox()'
+        style="color: #0B64CD;">《隐私协议》</span>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script src="../script/configUtil.js" charset="utf-8"></script>
+<script type="text/javascript">
+  apiready = function () {
+    api.setStatusBarStyle({
+      style: 'dark',
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        eventHub: new Vue(),
+        title: '',
+        imgs: '',
+
+        sexlist: [{
+          id: 0,
+          title: '保密'
+        }, {
+          id: 1,
+          title: '男'
+        }, {
+          id: 2,
+          title: '女'
+        }],
+        setup: {
+          Nickname: '',
+          name: '',
+          sex: 0,
+          age: '',
+          phone: '',
+          card: '',
+          job: '',
+          area: '',
+          work: ''
+        }
+      },
+      mounted: function () {
+        var header = document.querySelector('#header');
+        $api.fixStatusBar(header);
+        this.infouser();
+      },
+      methods: {
+        //打开条款盒子
+        showClauseBox() {
+
+          this.openW('clause_win', {
+            type: 1
+          }, true)
+        },
+        showXieyBox() {
+          this.openW('clause_win', {
+            type: 2
+          }, true)
+        },
+        // 实名认证
+        turnRZ() {
+          this.openW('add_attestation', {}, true);
+        },
+        //头像
+        imgsetup() {
+          var that = this;
+
+          that.uploadfirst(function (res) {
+            // var res =$.parseJSON(res);
+
+            if (res.code == 1) {
+              that.toast(res.msg)
+              that.imgs = res.data.user_image
+            } else {
+              loginfo(res)
+            }
+          }, globalData.uploadAvatar, 'pic', {
+            imges: '上传头像'
+          })
+        },
+        //获取
+        infouser() {
+          var that = this;
+          var data = {
+
+          }
+          that.ajaxpost('post', globalData.userInfo, data).then((res) => {
+
+            var res = $.parseJSON(res);
+            console.log(JSON.stringify(res))
+            if (res.code == 1) {
+              that.setup.Nickname = res.data.nickname
+              if (res.data.is_real == 1) {
+                that.setup.name = res.data.name;
               }
-            },
+              that.setup.age = res.data.age
+              that.setup.sex = res.data.sex
+              that.setup.sign = res.data.signature
+              that.setup.phone = res.data.mobile
+              that.setup.card = res.data.card
+              that.setup.job = res.data.job
+              that.setup.area = res.data.area
+              that.setup.work = res.data.work
+              that.imgs = res.data.avatar
+            } else {
+              that.toast(res.msg)
+            }
+          }).catch((ret) => {
+            loginfo(ret)
+          })
+        },
+        //保存
+        save() {
+          var that = this;
+          var data = {
+            nickname: that.setup.Nickname,
+            sex: that.setup.sex,
+            signature: that.setup.sign,
+            age: that.setup.age,
+            mobile: that.setup.phone,
+            job: that.setup.job,
+            area: that.setup.area,
+            work: that.setup.work
+          }
+          if (testFunction.isMobile(data.mobile) != true) {
+            that.toast('手机号不正确')
+            return;
+          }
 
-        })
-      };
-  </script>
-  </html>
+
+          that.ajaxpost('post', globalData.editInfo, data).then((res) => {
+            var res = $.parseJSON(res);
+            if (res.code == 1) {
+              that.toast(res.msg)
+              api.sendEvent({
+                name: 'my_setup',
+                extra: ''
+              });
+              that.closeW()
+            } else {
+              that.toast(res.msg)
+            }
+          }).catch((ret) => {
+            loginfo(ret)
+          })
+        }
+      },
+
+    })
+  };
+</script>
+
+</html>

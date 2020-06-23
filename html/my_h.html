@@ -6,20 +6,17 @@
     <meta name="viewport"
         content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" href="../css/aui.css">
     <link rel="stylesheet" href="../css/style2.css">
     <style>
-        body {
-
-        }
-
         [v-cloak] {
             display: none;
         }
 
         .my #header {
-            background-color: #0094FA;
+            background-image: linear-gradient(to right, #5bbbff, #289bff);
+
         }
 
         #header .aui-title {
@@ -29,12 +26,11 @@
         #header .aui-icon-left {
             color: #000
         }
-
     </style>
 </head>
 
 <body>
-    <div id='wrap' class="my">
+    <div id='wrap' class="my" v-cloak>
         <header id="header" class="aui-bar aui-bar-nav">
             <div class="aui-pull-left aui-btn" @click='closelogo("是否注销账号")'>
                 <span>注销</span>
@@ -52,9 +48,9 @@
 <script src="../script/configUtil.js" charset="utf-8"></script>
 <script type="text/javascript">
     apiready = function () {
-      api.setStatusBarStyle({
-          style: 'dark',
-      })
+        api.setStatusBarStyle({
+            style: 'dark',
+        })
         api.parseTapmode();
         var header = $api.byId('header');
         $api.fixStatusBar(header);
@@ -66,22 +62,23 @@
             mounted: function () {
                 console.log($('#header').height())
                 api.openFrame({
-                  useWKWebView:true,
+                    useWKWebView: true,
                     name: 'my',
                     url: './my.html',
                     rect: {
                         x: 0,
                         y: $('#header').height() + api.safeArea.top,
                         w: 'auto',
-                        h: api.winHeight - 65 - api.safeArea.bottom - $('#header').height() - api.safeArea.top
+                        h: api.winHeight - 65 - api.safeArea.bottom - $('#header').height() -
+                            api.safeArea.top
                     }
                 });
             },
             methods: {
 
-                bindmsg(){
+                bindmsg() {
 
-                  this.openW('my_msg_win',{},true)
+                    this.openW('my_msg_win', {}, true)
                 },
                 //退出登录
                 closelogo(title) {
@@ -102,7 +99,7 @@
                                     window.localStorage.removeItem('userinfo')
                                     window.localStorage.removeItem('mobile')
                                     api.openWin({
-                                      useWKWebView:true,
+                                        useWKWebView: true,
                                         name: 'index',
                                         url: 'index.html',
                                         pageParam: '',

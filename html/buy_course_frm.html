@@ -64,13 +64,15 @@
         }
 
         input::-webkit-input-placeholder {
-          color: #999;
+            color: #999;
         }
+
         input::-moz-input-placeholder {
-          color: #999;
+            color: #999;
         }
+
         input::-ms-input-placeholder {
-          color: #999;
+            color: #999;
         }
     </style>
 </head>
@@ -94,7 +96,8 @@
                 <div class="course_right">
                     <div class="course_line1 f_row_sb">
                         <div class="tit">{{infodata.title}}</div>
-                        <div class="cancel" v-show='shenheStaus == 0'>￥{{team_id!=''?infodata.groupon_money:infodata.is_vip?infodata.member_price:price}}</div>
+                        <div class="cancel" v-show='shenheStaus == 0'>
+                            ￥{{team_id!=''?infodata.groupon_money:infodata.is_vip?infodata.member_price:price}}</div>
                     </div>
                     <div class="course_line2">{{infodata.period}}课时</div>
                     <div class="course_line3" v-show='shenheStaus == 0'>{{infodata.buy_count}}购买人次</div>
@@ -143,10 +146,12 @@
         </div>
         <div class="line2 f_c" style="border-top:1px solid #eeeeee" v-if="is_score!=0">
             <div class="f_c">
-              <div class="line2_l">使用积分</div>
-              <van-switch v-model="scoreShow" size="24px" @change="scoreShowChange"/ style="margin:0 2vw;">
+                <div class="line2_l">使用积分</div>
+                <van-switch v-model="scoreShow" size="24px" @change="scoreShowChange"/ style="margin:0 2vw;">
             </div>
-            <div><input v-if="scoreShow" type="Number" v-model='score' :placeholder="score_text" style="border:1px solid #eeeeee;padding:0 2vw;font-size:3.3vw;width:57vw;height:8vw;background-color:#f6f6f6;border-radius: 1.5vw;"></div>
+            <div><input v-if="scoreShow" type="Number" v-model='score' :placeholder="score_text"
+                    style="border:1px solid #eeeeee;padding:0 2vw;font-size:3.3vw;width:57vw;height:8vw;background-color:#f6f6f6;border-radius: 1.5vw;">
+            </div>
         </div>
         <div class="line2 f_row_sb" v-if='vipprice!=""'>
             <div class="line2_l">一年vip</div>
@@ -242,30 +247,30 @@
         var vm = new Vue({
             el: "#wrap2",
             data: {
-                infodata: api.pageParam.infodata || '',//商品
-                info_testpaper: api.pageParam.info_testpaper || '',//试卷
-                info_jiaoc: api.pageParam.info_jiaoc || '',//教材
-                course_id: api.pageParam.course_id || '',//课程id
-                vipprice: api.pageParam.vipprice || '',//会员
+                infodata: api.pageParam.infodata || '', //商品
+                info_testpaper: api.pageParam.info_testpaper || '', //试卷
+                info_jiaoc: api.pageParam.info_jiaoc || '', //教材
+                course_id: api.pageParam.course_id || '', //课程id
+                vipprice: api.pageParam.vipprice || '', //会员
                 is_vip: api.pageParam.is_vip || '',
-                address: {},//地址
+                address: {}, //地址
                 mony: '',
                 couponname: '',
-                type: api.pageParam.type,//类型
-                pay_type: '3',//支付方式
-                team_id: api.pageParam.team_id,//拼团/或发起拼团
-                coupon_id: '',//优惠券ID
-                price: '',//
+                type: api.pageParam.type, //类型
+                pay_type: '3', //支付方式
+                team_id: api.pageParam.team_id, //拼团/或发起拼团
+                coupon_id: '', //优惠券ID
+                price: '', //
                 member_price: '',
                 groupon_money: '',
-				        shenheStaus: 0,
-                add:api.pageParam.add,
-                scoreShow:false,
-                score:'',
-                score_text:'',
-                rate:0,
-                is_score:api.pageParam.is_score,
-                score_price:api.pageParam.score_price
+                shenheStaus: 0,
+                add: api.pageParam.add,
+                scoreShow: false,
+                score: '',
+                score_text: '',
+                rate: 0,
+                is_score: api.pageParam.is_score,
+                score_price: api.pageParam.score_price
             },
             watch: {
                 // pay_type: function(){
@@ -274,11 +279,11 @@
             },
             mounted: function () {
                 var that = this;
-        				api.getPrefs({
-        					key: 'shenheStaus'
-        				}, function (ret, err) {
-        					that.shenheStaus = ret.value;
-        				});
+                api.getPrefs({
+                    key: 'shenheStaus'
+                }, function (ret, err) {
+                    that.shenheStaus = ret.value;
+                });
                 var header = document.querySelector('#header');
                 if (that.infodata) {
                     that.price = that.infodata.price
@@ -312,23 +317,32 @@
                         console.log(JSON.stringify(ret))
                         if (ret.value.yes == 1) {
                             var data = {
-                                order_money: that.type == 1 ? that.infodata.groupon_money : that.info_testpaper != '' && that.info_testpaper.is_vip > 0 ? that.info_testpaper.vip_price : that.info_testpaper != '' ? that.info_testpaper.price : that.info_jiaoc != '' ? that.info_jiaoc.price : that.infodata.is_vip ? that.infodata.member_price : that.infodata.price,
+                                order_money: that.type == 1 ? that.infodata
+                                    .groupon_money : that.info_testpaper != '' &&
+                                    that.info_testpaper.is_vip > 0 ? that
+                                    .info_testpaper.vip_price : that
+                                    .info_testpaper != '' ? that.info_testpaper
+                                    .price : that.info_jiaoc != '' ? that.info_jiaoc
+                                    .price : that.infodata.is_vip ? that.infodata
+                                    .member_price : that.infodata.price,
                                 coupon_id: ret.value.data.id
                             }
-                            that.ajaxpost('post', globalData.reckonOrderMoney, data).then((res) => {
-                                var res = $.parseJSON(res);
-                                console.log(JSON.stringify(res))
-                                if (res.code == 1) {
-                                    that.couponname = ret.value.data.couponname
-                                    that.coupon_id = ret.value.data.id
-                                    that.price = res.data.discount_amount
-                                    that.member_price = res.data.discount_amount
-                                    that.groupon_money = res.data.discount_amount
-                                }
+                            that.ajaxpost('post', globalData.reckonOrderMoney, data)
+                                .then((res) => {
+                                    var res = $.parseJSON(res);
+                                    console.log(JSON.stringify(res))
+                                    if (res.code == 1) {
+                                        that.couponname = ret.value.data.couponname
+                                        that.coupon_id = ret.value.data.id
+                                        that.price = res.data.discount_amount
+                                        that.member_price = res.data.discount_amount
+                                        that.groupon_money = res.data
+                                            .discount_amount
+                                    }
 
-                            }).catch((ret) => {
-                                loginfo(ret)
-                            })
+                                }).catch((ret) => {
+                                    loginfo(ret)
+                                })
                         } else if (ret.value.yes == 2) {
                             that.couponname = ''
                             that.coupon_id = ''
@@ -361,31 +375,31 @@
                 this.getScorePrice();
             },
             methods: {
-                getScorePrice(){
-                  var that = this;
-                  that.ajaxpost('post', globalData.getScorePrice, {}).then((res) => {
-                      var res = $.parseJSON(res);
-                      console.log(JSON.stringify(res))
-                      that.rate = res.data;
-                      var text = "兑换比例" + res.data + ":1";
-                      if(that.is_score==1){
-                        text = text + '，最高兑换' + that.score_price + '元';
-                      }
-                      that.score_text = text;
+                getScorePrice() {
+                    var that = this;
+                    that.ajaxpost('post', globalData.getScorePrice, {}).then((res) => {
+                        var res = $.parseJSON(res);
+                        console.log(JSON.stringify(res))
+                        that.rate = res.data;
+                        var text = "兑换比例" + res.data + ":1";
+                        if (that.is_score == 1) {
+                            text = text + '，最高兑换' + that.score_price + '元';
+                        }
+                        that.score_text = text;
 
-                  }).catch((ret) => {
-                      loginfo(ret)
-                  })
+                    }).catch((ret) => {
+                        loginfo(ret)
+                    })
                 },
-                scoreShowChange(value){
-                  if(value){
-                    this.scoreShow = true;
-                  }else{
-                    this.scoreShow = false;
-                  }
+                scoreShowChange(value) {
+                    if (value) {
+                        this.scoreShow = true;
+                    } else {
+                        this.scoreShow = false;
+                    }
                 },
-                back(){
-                  this.closeW()
+                back() {
+                    this.closeW()
                 },
                 //优惠劵
                 navcoupon() {
@@ -394,7 +408,8 @@
                     var data = {
                         title: '我的优惠劵',
                         type: 1,
-                        scoupe: that.infodata != '' ? 1 : that.info_jiaoc != '' ? 3 : that.info_testpaper != '' ? 2 : 5
+                        scoupe: that.infodata != '' ? 1 : that.info_jiaoc != '' ? 3 : that
+                            .info_testpaper != '' ? 2 : 5
                     }
                     that.openW('coupon_win', data, true);
                 },
@@ -459,7 +474,7 @@
                 saveOrder() {
                     var that = this;
                     var data
-                    if (that.type == 1) {//是否团购
+                    if (that.type == 1) { //是否团购
                         data = {
                             goods_id: that.infodata.id,
                             pay_type: that.pay_type,
@@ -473,77 +488,79 @@
                         }
                     } else {
                         data = {
-                            order_type: that.infodata != '' ? 1 : that.info_jiaoc != '' ? 3 : that.vipprice != '' ? 5 : 2,
-                            goods_id: that.infodata != '' ? that.infodata.id : that.info_jiaoc != '' ? that.info_jiaoc.id : that.vipprice != '' ? '' : that.info_testpaper.id,
+                            order_type: that.infodata != '' ? 1 : that.info_jiaoc != '' ? 3 : that
+                                .vipprice != '' ? 5 : 2,
+                            goods_id: that.infodata != '' ? that.infodata.id : that.info_jiaoc != '' ?
+                                that.info_jiaoc.id : that.vipprice != '' ? '' : that.info_testpaper.id,
                             num: 1,
                             pay_type: that.pay_type,
-                            addres_id: that.address.address_id || '',//地址
-                            money: '',//充值金额
+                            addres_id: that.address.address_id || '', //地址
+                            money: '', //充值金额
                             is_confirm: 1,
                             coupon_id: that.coupon_id,
                         }
                     }
-                    if(this.scoreShow==true&&this.is_score!=0){
-                      if(this.add==1){
-                        var price = 0;
-                        if(this.is_score==1){
-                          price = this.score_price;
-                        }else{
-                          price = this.infodata.price;
-                          if(this.infodata.is_vip > 0){
-                            price = this.infodata.member_price;
-                          }
-                          if(this.infodata.is_groupon==1){
-                            price = this.infodata.groupon_money;
-                          }
+                    if (this.scoreShow == true && this.is_score != 0) {
+                        if (this.add == 1) {
+                            var price = 0;
+                            if (this.is_score == 1) {
+                                price = this.score_price;
+                            } else {
+                                price = this.infodata.price;
+                                if (this.infodata.is_vip > 0) {
+                                    price = this.infodata.member_price;
+                                }
+                                if (this.infodata.is_groupon == 1) {
+                                    price = this.infodata.groupon_money;
+                                }
+                            }
+                            if (price * this.rate < this.score) {
+                                that.toast('最多使用' + price * this.rate + '积分')
+                                return
+                            }
+                            data.score = this.score;
                         }
-                        if(price*this.rate < this.score){
-                          that.toast('最多使用' + price*this.rate  + '积分')
-                          return
+                        if (this.add == 2) {
+                            var price = 0;
+                            if (this.is_score == 1) {
+                                price = this.score_price;
+                            } else {
+                                price = this.info_jiaoc.price;
+                            }
+                            if (price * this.rate < this.score) {
+                                that.toast('最多使用' + price * this.rate + '积分')
+                                return
+                            }
+                            data.score = this.score;
                         }
-                        data.score = this.score;
-                      }
-                      if(this.add==2){
-                        var price = 0;
-                        if(this.is_score==1){
-                          price = this.score_price;
-                        }else{
-                          price = this.info_jiaoc.price;
+                        if (this.add == 3) {
+                            var price = 0;
+                            if (this.is_score == 1) {
+                                price = this.score_price;
+                            } else {
+                                price = this.info_testpaper.price;
+                                if (this.info_testpaper.is_vip > 0) {
+                                    price = this.info_testpaper.vip_price;
+                                }
+                            }
+                            if (price * this.rate < this.score) {
+                                that.toast('最多使用' + price * this.rate + '积分')
+                                return
+                            }
+                            data.score = this.score;
                         }
-                        if(price*this.rate < this.score){
-                          that.toast('最多使用' + price*this.rate  + '积分')
-                          return
-                        }
-                        data.score = this.score;
-                      }
-                      if(this.add==3){
-                        var price = 0;
-                        if(this.is_score==1){
-                          price = this.score_price;
-                        }else{
-                          price = this.info_testpaper.price;
-                          if(this.info_testpaper.is_vip > 0){
-                            price = this.info_testpaper.vip_price;
-                          }
-                        }
-                        if(price*this.rate < this.score){
-                          that.toast('最多使用' + price*this.rate  + '积分')
-                          return
-                        }
-                        data.score = this.score;
-                      }
                     }
-                    if(this.add==1){
-                      var share = this.infodata.share;
-                      if(share){
-                        data.pid = share.uid;
-                      }
+                    if (this.add == 1) {
+                        var share = this.infodata.share;
+                        if (share) {
+                            data.pid = share.uid;
+                        }
                     }
-                    if(this.is_score!=2){
-                      if (data.pay_type == '') {
-                          that.toast('请选择支付方式')
-                          return;
-                      }
+                    if (this.is_score != 2) {
+                        if (data.pay_type == '') {
+                            that.toast('请选择支付方式')
+                            return;
+                        }
                     }
                     if (data.order_type == 3) {
                         if (data.addres_id == '') {
@@ -552,14 +569,16 @@
                         }
                     }
                     if (data.pay_type == 1) {
-                        var msg = this.shenheStaus == 0?'确定用余额支付？':'确定立刻获取课程？'
+                        var msg = this.shenheStaus == 0 ? '确定用余额支付？' : '确定立刻获取课程？'
                         api.confirm({
                             title: '提示',
                             msg: msg,
                             buttons: ['确定', '取消']
                         }, function (ret, err) {
                             if (ret.buttonIndex == 1) {
-                                that.ajaxpost('post', that.type == 1 ? globalData.addGroup : that.type == 3 ? globalData.continuePay : globalData.createorder, data).then((res) => {
+                                that.ajaxpost('post', that.type == 1 ? globalData.addGroup : that
+                                    .type == 3 ? globalData.continuePay : globalData
+                                    .createorder, data).then((res) => {
                                     var res = $.parseJSON(res);
                                     if (res.code == 1) {
                                         api.alert({
@@ -571,26 +590,26 @@
                                                 extra: '刷新'
                                             });
                                             if (ret.buttonIndex == 1) {
-                                              api.sendEvent({
-                                                  name: 'buybuy',
-                                                  extra: '刷新'
-                                              });
+                                                api.sendEvent({
+                                                    name: 'buybuy',
+                                                    extra: '刷新'
+                                                });
                                                 if (that.info_jiaoc != '') {
                                                     if (that.type == 3) {
-                                                      api.sendEvent({
-                                                          name: 'buybuy',
-                                                          extra: '刷新111'
-                                                      });
+                                                        api.sendEvent({
+                                                            name: 'buybuy',
+                                                            extra: '刷新111'
+                                                        });
                                                         api.sendEvent({
                                                             name: 'my_order_paly',
                                                             extra: '购买成功'
                                                         });
                                                         that.closeW()
                                                     } else {
-                                                      api.sendEvent({
-                                                          name: 'buybuy',
-                                                          extra: '刷新222'
-                                                      });
+                                                        api.sendEvent({
+                                                            name: 'buybuy',
+                                                            extra: '刷新222'
+                                                        });
                                                         // if(that.type==2){
                                                         //   that.toast('购买成功')
                                                         //   setTimeout(function(){
@@ -603,15 +622,19 @@
                                                         //   },1000)
                                                         //   return
                                                         // }
-                                                        that.openW('pay_success_win', {}, false)
+                                                        that.openW(
+                                                            'pay_success_win', {},
+                                                            false)
                                                     }
 
                                                 } else {
-                                                  api.sendEvent({
-                                                      name: 'buybuy',
-                                                      extra: '刷新333'
-                                                  });
-                                                    that.openW('pay_success_win', {}, false)
+                                                    api.sendEvent({
+                                                        name: 'buybuy',
+                                                        extra: '刷新333'
+                                                    });
+                                                    that.openW(
+                                                        'pay_success_win', {},
+                                                        false)
                                                 }
 
                                             }
@@ -628,7 +651,8 @@
                         });
                     }
                     if (data.pay_type == 2) {
-                        that.ajaxpost('post', that.type == 1 ? globalData.addGroup : that.type == 3 ? globalData.continuePay : globalData.createorder, data).then((res) => {
+                        that.ajaxpost('post', that.type == 1 ? globalData.addGroup : that.type == 3 ?
+                            globalData.continuePay : globalData.createorder, data).then((res) => {
                             var res = $.parseJSON(res);
                             if (res.code == 1) {
                                 if (that.is_vip) {
@@ -652,10 +676,10 @@
 
                                 } else {
                                     if (res.data.is_pay == 1) {
-                                      api.sendEvent({
-                                          name: 'buybuy',
-                                          extra: '刷新'
-                                      });
+                                        api.sendEvent({
+                                            name: 'buybuy',
+                                            extra: '刷新'
+                                        });
                                         that.openW('pay_success_win', {}, false)
                                     } else {
                                         that.paly(1, res)
@@ -667,7 +691,8 @@
                         })
                     }
                     if (data.pay_type == 3) {
-                        that.ajaxpost('post', that.type == 1 ? globalData.addGroup : that.type == 3 ? globalData.continuePay : globalData.createorder, data).then((res) => {
+                        that.ajaxpost('post', that.type == 1 ? globalData.addGroup : that.type == 3 ?
+                            globalData.continuePay : globalData.createorder, data).then((res) => {
                             var res = $.parseJSON(res);
                             if (res.code == 1) {
                                 if (that.is_vip) {
@@ -678,12 +703,12 @@
                                     }, function (ret, err) {
                                         if (ret.buttonIndex == 1) {
                                             if (res.data.is_pay == 1) {
-                                              api.sendEvent({
-                                                  name: 'buybuy',
-                                                  extra: '刷新'
-                                              });
+                                                api.sendEvent({
+                                                    name: 'buybuy',
+                                                    extra: '刷新'
+                                                });
 
-                                              that.openW('pay_success_win', {}, false)
+                                                that.openW('pay_success_win', {}, false)
                                             } else {
                                                 that.paly(2, res)
                                             }
@@ -692,10 +717,10 @@
 
                                 } else {
                                     if (res.data.is_pay == 1) {
-                                      api.sendEvent({
-                                          name: 'buybuy',
-                                          extra: '刷新'
-                                      });
+                                        api.sendEvent({
+                                            name: 'buybuy',
+                                            extra: '刷新'
+                                        });
                                         that.openW('pay_success_win', {}, false)
                                     } else {
                                         that.paly(2, res)
@@ -713,135 +738,142 @@
                     var that = this
                     var aliPayPlus = api.require('aliPayPlus');
                     if (status == 1) {
-                      var param = {
-                        out_trade_no:res.data.order_sn,
-                        subject:that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that.info_testpaper != '' ? '试卷' : 'vip会员',
-                        total_amount:res.data.total_fee,
-                        body:that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that.info_testpaper != '' ? '试卷' : 'vip会员',
-                      }
-                      that.ajaxpost('post', globalData.zfbpay, param).then((res) => {
-            						var res = $.parseJSON(res)
-            						if (res.code == 1) {
-                          var aliPayPlus = api.require('aliPayPlus');
-                          console.log('111')
-                          console.log(res.data.payinfo)
-                          aliPayPlus.payOrder({
-                              orderInfo: res.data.payinfo
-                          }, function(codeinfo, err) {
-                            console.log(JSON.stringify(codeinfo))
-                            console.log(JSON.stringify(err))
-                            if (codeinfo.code == 9000) {
-                                that.toast('支付成功')
-                                setTimeout(function () {
-                                    if (that.info_jiaoc != '') {
-                                        if (that.type == 3) {
-                                          api.sendEvent({
-                                              name: 'buybuy',
-                                              extra: '刷新'
-                                          });
-                                            api.sendEvent({
-                                                name: 'my_order_paly',
-                                                extra: '购买成功'
-                                            });
-                                            that.closeW()
-                                        } else {
-                                          api.sendEvent({
-                                              name: 'buybuy',
-                                              extra: '刷新'
-                                          });
-                                            that.openW('pay_success_win', {}, false)
-                                        }
-
-                                    } else {
-                                      api.sendEvent({
-                                          name: 'buybuy',
-                                          extra: '刷新'
-                                      });
-                                        that.openW('pay_success_win', {}, false)
-                                    }
-                                }, 2000)
-
-                            } else if (codeinfo.code == 4000) {
-                                that.toast('系统异常')
-                            } else if (codeinfo.code == 4003) {
-                                that.toast('该用户绑定的支付宝账户被冻结或不允许支付')
-                            } else if (codeinfo.code == 4006) {
-                                that.toast('订单支付失败')
-                            } else if (codeinfo.code == 6001) {
-                                that.toast('取消支付')
-                            }
-                          });
-            						}
-            					}).catch((ret) => {
-            						loginfo(ret)
-            					})
-                    } else {
-                      var wxPayPlus = api.require('wxPayPlus');
-                      var param = {
-                        out_trade_no:res.data.order_sn,
-                        subject:that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that.info_testpaper != '' ? '试卷' : 'vip会员',
-                        total_amount:res.data.total_fee,
-                        body:that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that.info_testpaper != '' ? '试卷' : 'vip会员'
-                      }
-                      that.ajaxpost('post', globalData.studentwxpay, param).then((res) => {
-            						var res = $.parseJSON(res)
-                        var pay_param = {
-                          apiKey: res.data.payinfo.appid,
-                          orderId: res.data.payinfo.prepay_id,
-                          mchId: res.data.payinfo.mch_id,
-                          nonceStr: res.data.payinfo.nonce_str,
-                          timeStamp: res.time.toString(),
-                          package: 'Sign=WXPay',
-                          sign: res.data.payinfo.sign
+                        var param = {
+                            out_trade_no: res.data.order_sn,
+                            subject: that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that
+                                .info_testpaper != '' ? '试卷' : 'vip会员',
+                            total_amount: res.data.total_fee,
+                            body: that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that
+                                .info_testpaper != '' ? '试卷' : 'vip会员',
                         }
-                        console.log('---------------------------')
-                        console.log(JSON.stringify(pay_param))
-                        console.log('---------------------------')
-            						if (res.code == 1) {
-                          wxPayPlus.payOrder(pay_param, function(ret, err) {
-                            console.log(JSON.stringify(ret))
-                            console.log(JSON.stringify(err))
-                            if (ret.status) {
-                                //支付成功
-                                that.toast('支付成功')
-                                setTimeout(function () {
-                                    if (that.info_jiaoc != '') {
-                                        if (that.type == 3) {
-                                          api.sendEvent({
-                                              name: 'buybuy',
-                                              extra: '刷新'
-                                          });
-                                            api.sendEvent({
-                                                name: 'my_order_paly',
-                                                extra: '购买成功'
-                                            });
-                                            that.closeW()
-                                        } else {
-                                          api.sendEvent({
-                                              name: 'buybuy',
-                                              extra: '刷新'
-                                          });
-                                          api.closeWin();
-                                        }
+                        that.ajaxpost('post', globalData.zfbpay, param).then((res) => {
+                            var res = $.parseJSON(res)
+                            if (res.code == 1) {
+                                var aliPayPlus = api.require('aliPayPlus');
+                                console.log('111')
+                                console.log(res.data.payinfo)
+                                aliPayPlus.payOrder({
+                                    orderInfo: res.data.payinfo
+                                }, function (codeinfo, err) {
+                                    console.log(JSON.stringify(codeinfo))
+                                    console.log(JSON.stringify(err))
+                                    if (codeinfo.code == 9000) {
+                                        that.toast('支付成功')
+                                        setTimeout(function () {
+                                            if (that.info_jiaoc != '') {
+                                                if (that.type == 3) {
+                                                    api.sendEvent({
+                                                        name: 'buybuy',
+                                                        extra: '刷新'
+                                                    });
+                                                    api.sendEvent({
+                                                        name: 'my_order_paly',
+                                                        extra: '购买成功'
+                                                    });
+                                                    that.closeW()
+                                                } else {
+                                                    api.sendEvent({
+                                                        name: 'buybuy',
+                                                        extra: '刷新'
+                                                    });
+                                                    that.openW(
+                                                        'pay_success_win', {},
+                                                        false)
+                                                }
 
-                                    } else {
-                                      api.sendEvent({
-                                          name: 'buybuy',
-                                          extra: '刷新'
-                                      });
-                                      api.closeWin();
+                                            } else {
+                                                api.sendEvent({
+                                                    name: 'buybuy',
+                                                    extra: '刷新'
+                                                });
+                                                that.openW('pay_success_win', {},
+                                                    false)
+                                            }
+                                        }, 2000)
+
+                                    } else if (codeinfo.code == 4000) {
+                                        that.toast('系统异常')
+                                    } else if (codeinfo.code == 4003) {
+                                        that.toast('该用户绑定的支付宝账户被冻结或不允许支付')
+                                    } else if (codeinfo.code == 4006) {
+                                        that.toast('订单支付失败')
+                                    } else if (codeinfo.code == 6001) {
+                                        that.toast('取消支付')
                                     }
-                                }, 2000)
-                            } else {
-                              console.log(JSON.stringify(err))
-                              that.toast(err.code);
+                                });
                             }
-                          });
-            						}
-            					}).catch((ret) => {
-            						loginfo(ret)
-            					})
-                      return
+                        }).catch((ret) => {
+                            loginfo(ret)
+                        })
+                    } else {
+                        var wxPayPlus = api.require('wxPayPlus');
+                        var param = {
+                            out_trade_no: res.data.order_sn,
+                            subject: that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that
+                                .info_testpaper != '' ? '试卷' : 'vip会员',
+                            total_amount: res.data.total_fee,
+                            body: that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that
+                                .info_testpaper != '' ? '试卷' : 'vip会员'
+                        }
+                        that.ajaxpost('post', globalData.studentwxpay, param).then((res) => {
+                            var res = $.parseJSON(res)
+                            var pay_param = {
+                                apiKey: res.data.payinfo.appid,
+                                orderId: res.data.payinfo.prepay_id,
+                                mchId: res.data.payinfo.mch_id,
+                                nonceStr: res.data.payinfo.nonce_str,
+                                timeStamp: res.time.toString(),
+                                package: 'Sign=WXPay',
+                                sign: res.data.payinfo.sign
+                            }
+                            console.log('---------------------------')
+                            console.log(JSON.stringify(pay_param))
+                            console.log('---------------------------')
+                            if (res.code == 1) {
+                                wxPayPlus.payOrder(pay_param, function (ret, err) {
+                                    console.log(JSON.stringify(ret))
+                                    console.log(JSON.stringify(err))
+                                    if (ret.status) {
+                                        //支付成功
+                                        that.toast('支付成功')
+                                        setTimeout(function () {
+                                            if (that.info_jiaoc != '') {
+                                                if (that.type == 3) {
+                                                    api.sendEvent({
+                                                        name: 'buybuy',
+                                                        extra: '刷新'
+                                                    });
+                                                    api.sendEvent({
+                                                        name: 'my_order_paly',
+                                                        extra: '购买成功'
+                                                    });
+                                                    that.closeW()
+                                                } else {
+                                                    api.sendEvent({
+                                                        name: 'buybuy',
+                                                        extra: '刷新'
+                                                    });
+                                                    api.closeWin();
+                                                }
+
+                                            } else {
+                                                api.sendEvent({
+                                                    name: 'buybuy',
+                                                    extra: '刷新'
+                                                });
+                                                api.closeWin();
+                                            }
+                                        }, 2000)
+                                    } else {
+                                        console.log(JSON.stringify(err))
+                                        that.toast(err.code);
+                                    }
+                                });
+                            }
+                        }).catch((ret) => {
+                            loginfo(ret)
+                        })
+                        return
                         wxPay.config({
                             apiKey: 'wx1e2c98de81a5e5e7',
                             mchId: '1488679322',
@@ -851,7 +883,9 @@
                             console.log(JSON.stringify(ret) + '支付')
                             if (ret.status) {
                                 wxPay.pay({
-                                    description: that.infodata != '' ? '课程' : that.info_jiaoc != '' ? '教材' : that.info_testpaper != '' ? '试卷' : 'vip会员',
+                                    description: that.infodata != '' ? '课程' : that
+                                        .info_jiaoc != '' ? '教材' : that.info_testpaper !=
+                                        '' ? '试卷' : 'vip会员',
                                     totalFee: res.data.total_fee * 100,
                                     tradeNo: res.data.order_sn,
                                 }, function (codeinfo, err) {
@@ -862,20 +896,20 @@
                                         setTimeout(function () {
                                             if (that.info_jiaoc != '') {
                                                 if (that.type == 3) {
-                                                  api.sendEvent({
-                                                      name: 'buybuy',
-                                                      extra: '刷新'
-                                                  });
+                                                    api.sendEvent({
+                                                        name: 'buybuy',
+                                                        extra: '刷新'
+                                                    });
                                                     api.sendEvent({
                                                         name: 'my_order_paly',
                                                         extra: '购买成功'
                                                     });
                                                     that.closeW()
                                                 } else {
-                                                  api.sendEvent({
-                                                      name: 'buybuy',
-                                                      extra: '刷新'
-                                                  });
+                                                    api.sendEvent({
+                                                        name: 'buybuy',
+                                                        extra: '刷新'
+                                                    });
                                                     // if(that.type==2){
                                                     //   that.toast('购买成功')
                                                     //   setTimeout(function(){
@@ -888,14 +922,16 @@
                                                     //   },1000)
                                                     //   return
                                                     // }
-                                                    that.openW('pay_success_win', {}, false)
+                                                    that.openW(
+                                                        'pay_success_win', {},
+                                                        false)
                                                 }
 
                                             } else {
-                                              api.sendEvent({
-                                                  name: 'buybuy',
-                                                  extra: '刷新'
-                                              });
+                                                api.sendEvent({
+                                                    name: 'buybuy',
+                                                    extra: '刷新'
+                                                });
                                                 // if(that.type==2){
                                                 //   that.toast('购买成功')
                                                 //   setTimeout(function(){
@@ -908,7 +944,8 @@
                                                 //   },1000)
                                                 //   return
                                                 // }
-                                                that.openW('pay_success_win', {}, false)
+                                                that.openW('pay_success_win', {},
+                                                    false)
                                             }
                                         }, 2000)
                                     } else {

@@ -1,57 +1,65 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>我是教师</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <link rel="stylesheet" href="../css/aui.css">
-      <link rel="stylesheet" href="../css/add.css">
-      <link rel="stylesheet" href="../css/vant.css">
-      <style>
-        body{
-          background: #fff;
-        }
-        #header{
-          height: 12.5vw;
-          position: fixed;
-          top:0;
-          left:0;
-        }
-        #header{
-          background-color: #fff;
-          border-bottom: 1px solid #eee;
-        }
-        #header .aui-title{
-          color: #000;
-        }
-        #header .aui-icon-left{
-          color: #000
-        }
-        .down_code{
-          width: 40vw;
-          height: 40vw;
-        }
-      </style>
-  </head>
-  <body>
-      <div id="app">
-        <header id="header" class="aui-bar aui-bar-nav">
-            <div class="aui-pull-left aui-btn" @click='this.closeW'>
-                <span class="aui-iconfont aui-icon-left"></span>
-            </div>
-            <div class="aui-title">下载教师版APP</div>
-            <!-- <div class="aui-pull-right aui-btn" @click="downApp">
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+  <title>我是教师</title>
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" href="../css/aui.css">
+  <link rel="stylesheet" href="../css/add.css">
+  <link rel="stylesheet" href="../css/vant.css">
+  <style>
+    body {
+      background: #fff;
+    }
+
+    #header {
+      height: 12.5vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    #header {
+      background-color: #fff;
+      border-bottom: 1px solid #eee;
+    }
+
+    #header .aui-title {
+      color: #000;
+    }
+
+    #header .aui-icon-left {
+      color: #000
+    }
+
+    .down_code {
+      width: 40vw;
+      height: 40vw;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <header id="header" class="aui-bar aui-bar-nav">
+      <div class="aui-pull-left aui-btn" @click='this.closeW'>
+        <span class="aui-iconfont aui-icon-left"></span>
+      </div>
+      <div class="aui-title">下载教师版APP</div>
+      <!-- <div class="aui-pull-right aui-btn" @click="downApp">
                 <span>下载</span>
             </div> -->
-        </header>
-        <div id="main" class="main" v-cloak>
-          <div style="height:12.5vw"></div>
-          <div class="pad_b">
-            <div v-if="flag" class="fsac"style="margin-top:10vw">
-              <div style="color: #1f8dfe;" @click='downAPP(azcode)'>安卓下载</div>
-              <div style="color: #1f8dfe;" @click='downAPP(ioscode)'>ios下载</div>
-              <!-- <div class="fd_c" @click="downPic(pics.azcode)">
+    </header>
+    <div id="main" class="main" v-cloak>
+      <div style="height:12.5vw"></div>
+      <div class="pad_b">
+        <div v-if="flag" class="fsac" style="margin-top:10vw">
+          <div style="color: #1f8dfe;" @click='downAPP(azcode)'>安卓下载</div>
+          <div style="color: #1f8dfe;" @click='downAPP(ioscode)'>ios下载</div>
+          <!-- <div class="fd_c" @click="downPic(pics.azcode)">
                 <img class="fit down_code" :src="pics.azcode"/>
                 <div>安卓二维码</div>
               </div>
@@ -59,140 +67,141 @@
                 <img class="fit down_code" :src="pics.ioscode"/>
                 <div>ios二维码</div>
               </div> -->
-            </div>
-            <div v-if="!flag" class="fsac"style="margin-top:10vw">
-              <a :href="azcode">安卓下载</a>
-              <a :href="ioscode">ios下载</a>
-            </div>
-            <!-- <div class="fdcc" style="margin-top:10vw">
+        </div>
+        <div v-if="!flag" class="fsac" style="margin-top:10vw">
+          <a :href="azcode">安卓下载</a>
+          <a :href="ioscode">ios下载</a>
+        </div>
+        <!-- <div class="fdcc" style="margin-top:10vw">
               <div>点击二维码将图片保存到本地</div>
               <div>并使用浏览器扫码下载</div>
             </div> -->
-          </div>
-        </div>
       </div>
-  </body>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script src="../script/jquery.min.js"></script>
-  <script type="text/javascript" src="../script/vue.js"></script>
-  <script type="text/javascript" src="../script/util.js"></script>
-  <script src="../script/configUtil.js" charset="utf-8"></script>
-  <script src="../script/vant.min.js"  charset="utf-8"></script>
-  <script type="text/javascript">
-      apiready = function(){
-        api.setStatusBarStyle({
-            style: 'dark',
-        })
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript" src="../script/util.js"></script>
+<script src="../script/configUtil.js" charset="utf-8"></script>
+<script src="../script/vant.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+  apiready = function () {
+    api.setStatusBarStyle({
+      style: 'dark',
+    })
+    var header = document.querySelector('#header');
+    var main = document.querySelector('#main');
+    $api.fixStatusBar(header);
+    $api.fixStatusBar(main);
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        ioscode: '',
+        azcode: '',
+        flag: false
+      },
+      mounted: function () {
+        if (api.systemType == 'ios') {
+          this.flag = true;
+        }
         var header = document.querySelector('#header');
-        var main = document.querySelector('#main');
         $api.fixStatusBar(header);
-        $api.fixStatusBar(main);
-        var vm = new Vue({
-            el: '#app',
-            data: {
-              ioscode:'',
-              azcode:'',
-              flag:false
-            },
-            mounted: function () {
-              if (api.systemType == 'ios'){
-                this.flag = true;
-              }
-              var header = document.querySelector('#header');
-              $api.fixStatusBar(header);
-              this.initData();
-            },
-            methods:{
-              downAPP(url){
-                if(!confirmPer('storage')){
-                  return;
-                }
-                var arr = url.split('/');
-                var that = this;
-                var downloadManager = api.require('downloadManager');
-                vant.Toast.loading({
-                  duration: 0, // 持续展示 toast
-                  forbidClick: true,
-                  message: '正在下载...'
-                });
-                downloadManager.enqueue({
-                    url: url,
-                    savePath: 'fs://' + arr[arr.length-1],
-                    cache: false,
-                    allowResume: true,
-                    title: '',
-                    networkTypes: 'all'
-                }, function(ret, err) {
-                    if (ret) {
-                      vant.Toast.clear();
-                      vant.Toast.loading({
-                        message: '下载成功，正在打开...',
-                        forbidClick: true,
-                        duration:1000
-                      });
-                      setTimeout(function(){
-                        downloadManager.openDownloadedFile({
-                          id: ret.id
-                        }, function(ret, err) {
-                          if (ret.status) {
+        this.initData();
+      },
+      methods: {
+        downAPP(url) {
+          if (!confirmPer('storage')) {
+            return;
+          }
+          var arr = url.split('/');
+          var that = this;
+          var downloadManager = api.require('downloadManager');
+          vant.Toast.loading({
+            duration: 0, // 持续展示 toast
+            forbidClick: true,
+            message: '正在下载...'
+          });
+          downloadManager.enqueue({
+            url: url,
+            savePath: 'fs://' + arr[arr.length - 1],
+            cache: false,
+            allowResume: true,
+            title: '',
+            networkTypes: 'all'
+          }, function (ret, err) {
+            if (ret) {
+              vant.Toast.clear();
+              vant.Toast.loading({
+                message: '下载成功，正在打开...',
+                forbidClick: true,
+                duration: 1000
+              });
+              setTimeout(function () {
+                downloadManager.openDownloadedFile({
+                  id: ret.id
+                }, function (ret, err) {
+                  if (ret.status) {
 
-                          } else {
-                            console.log(JSON.stringify(err))
-                            vant.Toast.clear();
-                            vant.Toast({
-                              message: '文件不存在',
-                              forbidClick: true,
-                              duration:1500
-                            });
-                          }
-                        });
-                      },1000)
-                    } else {
-                      vant.Toast.clear();
-                      vant.Toast({
-                        message: '下载失败',
-                        forbidClick: true,
-                        duration:1500
-                      });
-                    }
+                  } else {
+                    console.log(JSON.stringify(err))
+                    vant.Toast.clear();
+                    vant.Toast({
+                      message: '文件不存在',
+                      forbidClick: true,
+                      duration: 1500
+                    });
+                  }
                 });
-              },
-              initData(){
-                var that = this;
-                that.ajaxpost('post',globalData.getConfig2,{}).then((res)=>{
-                  var res =$.parseJSON(res);
-                  that.ioscode = res.data.ioscode;
-                  that.azcode = res.data.azcode;
-                }).catch((ret)=>{
-                  loginfo(ret)
-                })
-              },
-              downPic(url){
-                var that = this;
-                api.download({
-                    url: url,
-                    report: true,
-                    cache: true,
-                    allowResume: true
-                }, function(ret, err) {
-                    if (ret.state == 1) {
-                        //下载成功，保存到相册
-                        api.saveMediaToAlbum({
-                            path: ret.savePath
-                        }, function(ret, err) {
-                            if (ret && ret.status) {
-                              that.toast('保存成功')
-                            } else {
-                              that.toast('保存失败')
-                            }
-                        });
-                    } else {
-                      that.toast('下载失败')
-                    }
-                });
-              }
-            },
-        })
-      };
-  </script>
-  </html>
+              }, 1000)
+            } else {
+              vant.Toast.clear();
+              vant.Toast({
+                message: '下载失败',
+                forbidClick: true,
+                duration: 1500
+              });
+            }
+          });
+        },
+        initData() {
+          var that = this;
+          that.ajaxpost('post', globalData.getConfig2, {}).then((res) => {
+            var res = $.parseJSON(res);
+            that.ioscode = res.data.ioscode;
+            that.azcode = res.data.azcode;
+          }).catch((ret) => {
+            loginfo(ret)
+          })
+        },
+        downPic(url) {
+          var that = this;
+          api.download({
+            url: url,
+            report: true,
+            cache: true,
+            allowResume: true
+          }, function (ret, err) {
+            if (ret.state == 1) {
+              //下载成功，保存到相册
+              api.saveMediaToAlbum({
+                path: ret.savePath
+              }, function (ret, err) {
+                if (ret && ret.status) {
+                  that.toast('保存成功')
+                } else {
+                  that.toast('保存失败')
+                }
+              });
+            } else {
+              that.toast('下载失败')
+            }
+          });
+        }
+      },
+    })
+  };
+</script>
+
+</html>

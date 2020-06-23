@@ -1,37 +1,42 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>title</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <link rel="stylesheet" href="../css/aui.css">
-      <style>
-          body{
+<html>
 
-          }
-          #header{
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" href="../css/aui.css">
+    <style>
+        body {}
+
+        #header {
             background-color: #fff;
             border-bottom: 1px solid #eee;
-          }
-          #header .aui-title{
+        }
+
+        #header .aui-title {
             color: #000;
-          }
-          #header .aui-icon-left{
+        }
+
+        #header .aui-icon-left {
             color: #000
-          }
-          #header .aui-pull-right span{
+        }
+
+        #header .aui-pull-right span {
             width: 5vw;
             height: 5vw;
-            background:  url(../image/addcourse.png) 0 0 no-repeat;
+            background: url(../image/addcourse.png) 0 0 no-repeat;
             background-size: 100% 100%;
             margin-left: 2vw;
-          }
-      </style>
-  </head>
-  <body>
+        }
+    </style>
+</head>
+
+<body>
     <div id="wrap">
-      <!-- <header id="header" class="aui-bar aui-bar-nav">
+        <!-- <header id="header" class="aui-bar aui-bar-nav">
           <div class="aui-pull-left aui-btn" @click='this.closeW'>
               <span class="aui-iconfont aui-icon-left"></span>
           </div>
@@ -41,14 +46,14 @@
           </div>
       </header> -->
     </div>
-  </body>
-  <script type="text/javascript" src="script/api.js"></script>
-  <script type="text/javascript" src="script/vue.js"></script>
-  <script src="script/jquery.min.js"></script>
-  <script src="script/configUtil.js" charset="utf-8"></script>
-  <script type="text/javascript" src="script/push.js"></script>
-  <script type="text/javascript">
-      apiready = function(){
+</body>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/vue.js"></script>
+<script src="script/jquery.min.js"></script>
+<script src="script/configUtil.js" charset="utf-8"></script>
+<script type="text/javascript" src="script/push.js"></script>
+<script type="text/javascript">
+    apiready = function () {
         push()
         funIniGroup(0)
         // api.openFrame({
@@ -62,72 +67,79 @@
         //     }
         // });
         var vm = new Vue({
-          el: "#wrap",
-          data: {
+            el: "#wrap",
+            data: {
 
-          },
-          mounted: function () {
-            if (api.systemType != 'ios'){
-              this.getPer(['camera','storage']);
-            }
-            // confirmPer('camera');
-            // confirmPer('storage');
-            // confirmPer('calendar');
-            // confirmPer('contacts');
-            // confirmPer('microphone');
-            // var header = document.querySelector('#header');
-            // $api.fixStatusBar(header);
-            api.addEventListener({
-                  name: 'my_to_home'
-              }, function(ret, err){
-                var NVTabBar = api.require('NVTabBar');
-                NVTabBar.setSelect({
-                    index: 0,
-                    selected: true,
-                });
-                api.setFrameGroupIndex({
-                    name: "group",
-                    index: 0,
-                    scroll: false,
-                    reload: false
-                });
-                api.bringFrameToFront({
-                    from: 'blank',
-                });
-                api.bringFrameToFront({
-                    from: 'home',
-                });
-                var NVTabBar = api.require('NVTabBar');
-                NVTabBar.bringToFront();
-              });
-          },
-          methods: {
-            getPer(perms){
-              var has = hasPermission(perms);
-              if(!has || !has[0] || !has[0].granted){
-                api.requestPermission({
-                    list: perms,
-                    code: 100001
-                }, function(ret, err){
-
-                });
-              };
             },
-            //添加
-            navaddshare(){
-              var that =this;
-              that.openW('find_shareadd',{},true)
+            mounted: function () {
+                if (api.systemType != 'ios') {
+                    this.getPer(['camera', 'storage']);
+                }
+                // confirmPer('camera');
+                // confirmPer('storage');
+                // confirmPer('calendar');
+                // confirmPer('contacts');
+                // confirmPer('microphone');
+                // var header = document.querySelector('#header');
+                // $api.fixStatusBar(header);
+                api.addEventListener({
+                    name: 'my_to_home'
+                }, function (ret, err) {
+                    var NVTabBar = api.require('NVTabBar');
+                    NVTabBar.setSelect({
+                        index: 0,
+                        selected: true,
+                    });
+                    api.setFrameGroupIndex({
+                        name: "group",
+                        index: 0,
+                        scroll: false,
+                        reload: false
+                    });
+                    api.bringFrameToFront({
+                        from: 'blank',
+                    });
+                    api.bringFrameToFront({
+                        from: 'home',
+                    });
+                    api.addEventListener({
+                        name: 'viewappear'
+                    }, function (ret, err) {
+                        api.setStatusBarStyle({
+                            style: 'dark',
+                            color: '#000000'
+                        });
+                    });
+                    var NVTabBar = api.require('NVTabBar');
+                    NVTabBar.bringToFront();
+                });
             },
+            methods: {
+                getPer(perms) {
+                    var has = hasPermission(perms);
+                    if (!has || !has[0] || !has[0].granted) {
+                        api.requestPermission({
+                            list: perms,
+                            code: 100001
+                        }, function (ret, err) {
 
-            sendevent(){
-              api.sendEvent({
-                  name: 'navpubilc',
-                  extra: {
-                  }
-              });
+                        });
+                    };
+                },
+                //添加
+                navaddshare() {
+                    var that = this;
+                    that.openW('find_shareadd', {}, true)
+                },
 
+                sendevent() {
+                    api.sendEvent({
+                        name: 'navpubilc',
+                        extra: {}
+                    });
+
+                }
             }
-          }
         });
         api.setStatusBarStyle({
             style: 'dark',
@@ -218,7 +230,7 @@
                     selected: '#027fec',
                     marginB: 6.0
                 }
-            },   {
+            }, {
                 w: api.winWidth / 5.0,
                 bg: {
                     marginB: 0,
@@ -264,9 +276,9 @@
                 }
             }],
             selectedIndex: 0
-        }, function(ret, err) {
+        }, function (ret, err) {
 
-            var jsonData = JSON.stringify(ret);// 转成JSON格式
+            var jsonData = JSON.stringify(ret); // 转成JSON格式
 
             api.setFrameGroupIndex({
                 name: "group",
@@ -275,15 +287,15 @@
                 reload: false
             });
             var name = '';
-            if(ret.index == 0){
+            if (ret.index == 0) {
                 name = 'home'
-            }else if(ret.index == 1){
+            } else if (ret.index == 1) {
                 name = 'find'
-            }else if(ret.index == 2){
+            } else if (ret.index == 2) {
                 name = 'video_index'
-            }else if(ret.index == 3){
+            } else if (ret.index == 3) {
                 name = 'find_school_guide'
-            }else if(ret.index == 4){
+            } else if (ret.index == 4) {
                 name = 'my'
             }
             api.bringFrameToFront({
@@ -295,8 +307,9 @@
             var NVTabBar = api.require('NVTabBar');
             NVTabBar.bringToFront();
         });
+
         function funIniGroup(index) {
-                frames = [{
+            frames = [{
                     name: "html/home",
                     url: "html/home.html",
                     bgColor: "#fff",
@@ -330,56 +343,57 @@
                     bgColor: "#fff",
                     bounces: false
                 },
-                ];
+            ];
 
-                api.openFrameGroup({
-                  useWKWebView:true,
-                  name: "group",
-                  scrollEnabled: false,
-                  rect: {
-                      x: 0,
-                      y: 0,
-                      w: api.winWidth,
-                      h: api.winHeight-65-api.safeArea.bottom
-                  },
-                  index: index,
-                  preload:0,
-                  frames: frames,
+            api.openFrameGroup({
+                    useWKWebView: true,
+                    name: "group",
+                    scrollEnabled: false,
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        w: api.winWidth,
+                        h: api.winHeight - 65 - api.safeArea.bottom
+                    },
+                    index: index,
+                    preload: 0,
+                    frames: frames,
                 },
                 function (ret, err) {
-                  if(ret.index==2){
-                    api.sendEvent({
-                        name: 'video_index',
-                        extra:''
-                    });
-                  }else{
-                    api.setStatusBarStyle({
-                        style: 'dark'
-                    });
-                    api.sendEvent({
-                        name: 'video_close',
-                        extra:''
-                    });
-                  }
+                    if (ret.index == 2) {
+                        api.sendEvent({
+                            name: 'video_index',
+                            extra: ''
+                        });
+                    } else {
+                        api.setStatusBarStyle({
+                            style: 'dark'
+                        });
+                        api.sendEvent({
+                            name: 'video_close',
+                            extra: ''
+                        });
+                    }
 
-                    if(ret.index==0){
+                    if (ret.index == 0) {
                         var NVTabBar = api.require('NVTabBar');
                         NVTabBar.setSelect({
                             index: 0,
                             selected: true
                         });
                     }
-                  if(ret.index==4){
-                    api.sendEvent({
-                        name: 'root_data',
-                        extra:''
-                    });
+                    if (ret.index == 4) {
+                        api.sendEvent({
+                            name: 'root_data',
+                            extra: ''
+                        });
 
-                  }
+                    }
 
                 }
             );
-          }
-      };
-  </script>
-  </html>
+        }
+    };
+</script>
+
+</html>

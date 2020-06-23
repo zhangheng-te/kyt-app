@@ -97,27 +97,27 @@
 <script type="text/javascript">
 	apiready = function () {
 		api.setStatusBarStyle({
-				style: 'dark',
+			style: 'dark',
 		})
-        var header = $api.byId('header');
-        $api.fixStatusBar(header);
+		var header = $api.byId('header');
+		$api.fixStatusBar(header);
 		var vm = new Vue({
 			el: '#app',
 			data: {
 
 			},
 			mounted: function () {
-                api.openFrame({
-									useWKWebView:true,
-                    name: 'my_setup',
-                    url: './my_setup.html',
-                    rect: {
-                        x: 0,
-                        y: $('#header').height() + api.safeArea.top,
-                        w: 'auto',
-                        h: api.winHeight - $('#header').height() - api.safeArea.top
-                    }
-                });
+				api.openFrame({
+					useWKWebView: true,
+					name: 'my_setup',
+					url: './my_setup.html',
+					rect: {
+						x: 0,
+						y: $('#header').height() + api.safeArea.top,
+						w: 'auto',
+						h: api.winHeight - $('#header').height() - api.safeArea.top
+					}
+				});
 			},
 			methods: {
 
@@ -125,4 +125,5 @@
 		})
 	};
 </script>
+
 </html>

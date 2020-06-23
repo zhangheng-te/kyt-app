@@ -1,112 +1,116 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>title</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <link rel="stylesheet" href="../css/aui.css">
-      <link rel="stylesheet" href="../css/style.css">
-      <style>
-          body{
+<html>
 
-          }
-          .clause{
-            padding:1rem;
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+  <title>title</title>
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" href="../css/aui.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .clause {
+      padding: 1rem;
 
-            font-size: 1.2rem;
-          }
-          .clause .aui-btn-outlined{
-            background-color: #026fe4;
-            color: #fff;
-            margin-top: 1.5rem;
-          }
-          [v-cloak]{
-            display: none;
-          }
-          .my_btn_tuic{
-            text-align: center;
-            width: 80vw;
-            height: 10.67vw;
-            background-image: linear-gradient(0deg,
-              #0163ce 0%,
-              #1f8dfe 100%);
-            border-radius: 5.33vw;
-            border: solid 0.13vw #f5f5f5;
-            color: #fff;
-            line-height: 10.67vw;
-            margin: 6vw auto;
-            font-size: 5vw;
-          }
-          .clause_con{
-            font-size: 4vw;
-          }
-      </style>
-  </head>
-  <body >
-      <div id="app" v-cloak class="clause aui-content">
+      font-size: 1.2rem;
+    }
 
-        <div class="clause_con">
-          <p v-html='info'></p>
-        </div>
-        <div class="my_btn_tuic" @click='onclose()'>同意条款</div>
-      </div>
+    .clause .aui-btn-outlined {
+      background-color: #026fe4;
+      color: #fff;
+      margin-top: 1.5rem;
+    }
 
-  </body>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script src="../script/jquery.min.js"></script>
-  <script type="text/javascript" src="../script/vue.js"></script>
+    [v-cloak] {
+      display: none;
+    }
 
-  <script src="../script/configUtil.js" charset="utf-8"></script>
-  <script type="text/javascript">
+    .my_btn_tuic {
+      text-align: center;
+      width: 80vw;
+      height: 10.67vw;
+      background-image: linear-gradient(0deg,
+          #0163ce 0%,
+          #1f8dfe 100%);
+      border-radius: 5.33vw;
+      border: solid 0.13vw #f5f5f5;
+      color: #fff;
+      line-height: 10.67vw;
+      margin: 6vw auto;
+      font-size: 5vw;
+    }
+
+    .clause_con {
+      font-size: 4vw;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="clause aui-content">
+
+    <div class="clause_con">
+      <p v-html='info'></p>
+    </div>
+    <div class="my_btn_tuic" @click='onclose()'>同意条款</div>
+  </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+
+<script src="../script/configUtil.js" charset="utf-8"></script>
+<script type="text/javascript">
   apiready = function () {
     api.setStatusBarStyle({
-        style: 'dark',
+      style: 'dark',
     })
-      var vm = new Vue({
-          el: '#app',
-          data: {
-              eventHub: new Vue(),
-              title: '',
-              type:api.pageParam.type,
-              info:''
-          },
-          methods:{
-            oninit(){
-              var that =this
-              that.ajaxpost('post',that.type==1?globalData.ysxy:globalData.userment).then((res)=>{
-                var res =$.parseJSON(res);
-                  console.log(JSON.stringify(res))
-                that.info =res.data.content
-              }).catch((ret)=>{
-                loginfo(ret)
-              })
-            },
-            //同意协议
-            onclose(){
-              var that =this
-              api.sendEvent({
-                  name: 'apprunning',
-                  extra: {
-                      yes: that.type
-                  }
-              });
-
-              // console.log(api.pageParam.id)
-
-              this.closeW()
-              // console.log()
-              // var jsonData = JSON.stringify(this);// 转成JSON格式
-              // var result = $.parseJSON(jsonData);// 转成JSON对象
-              // console.log(jsonData);
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        eventHub: new Vue(),
+        title: '',
+        type: api.pageParam.type,
+        info: ''
+      },
+      methods: {
+        oninit() {
+          var that = this
+          that.ajaxpost('post', that.type == 1 ? globalData.ysxy : globalData.userment).then((res) => {
+            var res = $.parseJSON(res);
+            console.log(JSON.stringify(res))
+            that.info = res.data.content
+          }).catch((ret) => {
+            loginfo(ret)
+          })
+        },
+        //同意协议
+        onclose() {
+          var that = this
+          api.sendEvent({
+            name: 'apprunning',
+            extra: {
+              yes: that.type
             }
-          },
-          mounted: function () {
-            this.oninit()
-          },
+          });
 
-      })
+          // console.log(api.pageParam.id)
+
+          this.closeW()
+          // console.log()
+          // var jsonData = JSON.stringify(this);// 转成JSON格式
+          // var result = $.parseJSON(jsonData);// 转成JSON对象
+          // console.log(jsonData);
+        }
+      },
+      mounted: function () {
+        this.oninit()
+      },
+
+    })
   }
+</script>
 
-  </script>
-  </html>
+</html>

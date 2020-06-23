@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" href="../css/aui.css" />
+    <link rel="stylesheet" href="../css/vant.css">
+    <style>
+        body,
+        html {
+            background-color: #f3f3f3;
+            width: 100%;
+        }
+
+
+        #header {
+            background-image: linear-gradient(to right, #5bbbff, #289bff);
+            height: 11.733vw;
+        }
+
+        #header .aui-title {
+            color: #fff;
+        }
+
+        #header .aui-icon-left {
+            color: #fff;
+        }
+
+        #header .aui-pull-right span {
+            width: 5vw;
+            height: 5vw;
+            background: url(../icon/ss.png) 0 0 no-repeat;
+            background-size: 100% 100%;
+            margin-left: 2vw;
+        }
+
+
+
+
+        li {
+            width: 100%;
+            height: 11.733vw;
+            line-height: 11.733vw;
+            background-color: #fff;
+            padding-left: 8.267vw;
+            box-sizing: border-box;
+        }
+
+        p {
+            position: relative;
+            box-sizing: border-box;
+            height: 100%;
+            font-size: 3.733vw;
+        }
+
+        p span {
+            position: absolute;
+            top: 50%;
+            right: 8.533vw;
+            transform: translateY(-50%);
+            /* float: right;
+            margin-right: 8.533vw; */
+            width: 1.867vw;
+            height: 3.467vw;
+
+        }
+
+        p img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <!-- 头部 -->
+        <header id="header" class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn" @click="this.closeW">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">设置</div>
+        </header>
+        <!-- 内容 -->
+        <div class="content">
+            <ul>
+                <li style="margin-bottom:2.667vw" @click="bindaddress">
+                    <p>地址管理
+                        <span><img src="../image/arrow.png" alt=""></span>
+                    </p>
+                </li>
+                <li @click="bindquestion">
+                    <p style="border-bottom: 0.133vw solid #dadada;">帮助中心<span><img src="../image/arrow.png"
+                                alt=""></span></p>
+                </li>
+                <li style="margin-bottom:2.667vw" @click="bindmy_opinion">
+                    <p>意见反馈
+                        <span><img src="../image/arrow.png" alt=""></span>
+                    </p>
+                </li>
+                <li @click="bindabout">
+                    <p style="border-bottom: 0.133vw solid #dadada;">关于我们
+                        <span><img src="../image/arrow.png" alt=""></span></p>
+                </li>
+                <li @click="showPopup">
+                    <p>退出登录
+                        <span><img src="../image/arrow.png" alt=""></span>
+                    </p>
+                </li>
+            </ul>
+
+            <div id="tuichu" style="background-color: #dadada;">
+                <van-popup v-model="show" round position="bottom" :style="{ height: '43.067vw'}">
+                    <p style="height: 13.467vw;line-height: 13.467vw; text-align: center;width: 100%;font-size: 2.933vw;
+                        border-bottom:0.133vw solid #dadada">
+                        是否退出登录</p>
+                    <p style="height:14vw;line-height: 14vw; text-align: center;width: 100%;font-size: 3.467vw;color:#e12424;border-bottom:1.333vw solid #cccccc"
+                        @click="tuichu">
+                        退出登录</p>
+                    <p style="text-align: center;font-size: 3.467vw;height:14vw;line-height: 14vw;" @click="cancel">
+                        取消</p>
+                </van-popup>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script src="../script/configUtil.js" charset="utf-8"></script>
+<script src="../script/vant.min.js"></script>
+<script type="text/javascript">
+    apiready = function () {
+        api.setStatusBarStyle({
+            style: "dark",
+        });
+        var vm = new Vue({
+            el: "#wrap",
+            data: {
+                show: false,
+            },
+            mounted: function () {
+                var header = document.querySelector("#header");
+                $api.fixStatusBar(header);
+            },
+            methods: {
+                // 地址
+                bindaddress() {
+                    var that = this;
+                    that.openW('my_address_win', {}, true);
+                },
+                // 意见
+                bindmy_opinion() {
+                    var that = this;
+                    that.openW('my_opinion_h', {}, true);
+                },
+                // 关于我们
+                bindabout() {
+                    var that = this;
+                    that.openW('my_about', {}, true);
+                },
+                // 帮助中心
+                bindquestion() {
+                    var that = this;
+                    that.openW('my_problem', {}, true);
+                },
+                // 打开弹层
+                showPopup() {
+                    this.show = true;
+                },
+                // 取消
+                cancel() {
+                    this.show = false;
+                },
+                // 退出
+                tuichu() {
+                    window.localStorage.removeItem('userinfo')
+                    window.localStorage.removeItem('mobile')
+                    api.openWin({
+                        useWKWebView: true,
+                        name: 'index',
+                        url: 'index.html',
+                        pageParam: '',
+                        slidBackEnabled: false
+                    })
+                },
+                sendevent() {
+                    api.sendEvent({
+                        name: "navpubilc",
+                        extra: {},
+                    });
+                },
+            },
+        });
+    };
+</script>
+
+</html>

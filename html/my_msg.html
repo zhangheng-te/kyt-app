@@ -1,47 +1,92 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>消息</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <link rel="stylesheet" href="../css/aui.css">
-      <link rel="stylesheet" href="../css/style2.css">
-      <style>
-          body{
+<html>
 
-          }
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+  <title>消息</title>
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" href="../css/aui.css">
+  <link rel="stylesheet" href="../css/style2.css">
+  <style>
+    body {
+      background-color: #f3f3f3;
+      width: 100%;
+    }
 
-          .news_w_img{
-            width: 12vw;
-            height: 12vw;
-            border-radius: 50%;
-          }
-          .news_w_name{
-            box-sizing: border-box;
+    [v-cloak] {
+      display: none;
+    }
 
-          }
-          .news_w_name span{
-            font-size: 4.187vw;
-            color: #333333;
-          }
-      </style>
-  </head>
-  <body>
-      <div id="app">
-        <div class="news">
-            <div class="line"></div>
-            <ul class="news_wrap">
-              <li @click='navsystem'>
-                <div class="news_w_img">
-                  <img src="../image/lh_messagepic1.png" alt="">
-                </div>
-                <div class="news_w_content">
-                  <div class="news_w_name"><span>系统消息</span><span class="oncolor999">{{info.day}}</span></div>
-                  <div style="color: #666; font-size: 3vw; overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">{{info.content}}</div>
-                </div>
-              </li>
-              <!-- <li @click='kefu'>
+    #header {
+      background-image: linear-gradient(to right, #5bbbff, #289bff);
+    }
+
+    .news_w_img {
+      position: relative;
+      width: 13.467vw;
+      height: 13.467vw;
+      border-radius: 50%;
+      background-color: #2397ff;
+    }
+
+    .news_w_img img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 7.6vw;
+      height: 9.333vw;
+    }
+
+    .news_w_name {
+      box-sizing: border-box;
+      line-height: 1.5;
+
+    }
+
+    .news_w_name span {
+      font-size: 3.733vw;
+      font-weight: 600;
+
+      color: #333333;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .news_wrap li {
+      padding: 2.267vw 8.267vw;
+    }
+
+    .news_w_content {
+      margin-left: 5.2vw;
+      padding: 0
+    }
+  </style>
+</head>
+
+<body>
+  <div id="warp" v-cloak>
+    <div class="news">
+      <div class="line" style="height:2.667vw;"></div>
+      <ul class="news_wrap">
+        <li @click='navsystem'>
+          <div class="news_w_img">
+            <img src="../image/iconimg/tongzhi.png" alt="">
+          </div>
+          <div class="news_w_content">
+            <div class="news_w_name"><span>系统消息</span><span class="oncolor999"
+                style="font-size:2.4vw;color:#8a8a8a;font-weight: 400;">{{info.day}}</span></div>
+            <div
+              style="color: #8a8a8a; font-size: 2.933vw; overflow: hidden;text-overflow: ellipsis; white-space: nowrap;font-weight: 200;margin-top:2.267vw;">
+              {{info.content}}</div>
+          </div>
+        </li>
+        <!-- <li @click='kefu'>
                 <div class="news_w_img">
                   <img src="../image/home_bg2.png" alt="">
                 </div>
@@ -50,71 +95,73 @@
                   <p style="color: #666;">dru</p>
                 </div>
               </li> -->
-            </ul>
-        </div>
-      </div>
-  </body>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script type="text/javascript" src="../script/vue.js"></script>
-  <script src="../script/jquery.min.js"></script>
-  <script src="../script/configUtil.js" charset="utf-8"></script>
-  <script type="text/javascript">
-      apiready = function(){
-        api.setStatusBarStyle({
-            style: 'dark',
-        })
-        var vm = new Vue({
-            el: '#app',
-            data: {
+      </ul>
+      <img src="../image/iconimg/wtz.png" alt="" v-if="info==''">
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script src="../script/configUtil.js" charset="utf-8"></script>
+<script type="text/javascript">
+  apiready = function () {
+    api.setStatusBarStyle({
+      style: 'dark',
+    })
+    var vm = new Vue({
+      el: '#warp',
+      data: {
 
-                title: '',
-                info:''
-            },
-            methods:{
-                navsystem(){
-                    this.openW('my_msg_details_win',true)
-                },
-                bandinit(){
-                var that =this;
-                var data ={
+        title: '',
+        info: ''
+      },
+      methods: {
+        navsystem() {
+          this.openW('my_msg_details_win', true)
+        },
+        bandinit() {
+          var that = this;
+          var data = {
 
-                }
-                that.ajaxpost('post',globalData.firstMessage,data).then((res)=>{
+          }
+          that.ajaxpost('post', globalData.firstMessage, data).then((res) => {
 
-                    var res =$.parseJSON(res);
-                        console.log(JSON.stringify(res))
-                    if(res.code==1){
-                        that.info =res.data
-                    }
-                    }).catch((ret)=>{
-                        loginfo(ret)
-                    })
-                },
+            var res = $.parseJSON(res);
+            console.log(JSON.stringify(res))
+            if (res.code == 1) {
+              that.info = res.data
+            }
+          }).catch((ret) => {
+            loginfo(ret)
+          })
+        },
 
-                kefu(){
-                    this.openW('kefu_win',true)
-                    // var mq = api.require('meiQia');
-                    // //设置title以及按钮颜色
-                    // var titleColor = {
-                    //     color: "#000000"
-                    // };
-                    // var scheduleParam = {
-                    //     agentId: "1283371",
-                    //     scheduleRule: "none"
-                    // };
-                    // mq.setScheduledAgentOrAgentGroup(scheduleParam);
+        kefu() {
+          this.openW('kefu_win', true)
+          // var mq = api.require('meiQia');
+          // //设置title以及按钮颜色
+          // var titleColor = {
+          //     color: "#000000"
+          // };
+          // var scheduleParam = {
+          //     agentId: "1283371",
+          //     scheduleRule: "none"
+          // };
+          // mq.setScheduledAgentOrAgentGroup(scheduleParam);
 
-                    // mq.setTitleColor(titleColor);
+          // mq.setTitleColor(titleColor);
 
-                    // mq.show({showAvatar:false});
-                }
-            },
-            mounted: function () {
-                var mq = api.require('meiQia');
-                this.bandinit()
-            },
+          // mq.show({showAvatar:false});
+        }
+      },
+      mounted: function () {
+        var mq = api.require('meiQia');
+        this.bandinit()
+      },
 
-        })
-      };
-  </script>
-  </html>
+    })
+  };
+</script>
+
+</html>
