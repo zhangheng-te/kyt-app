@@ -6,11 +6,11 @@
     <meta name="viewport"
         content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="../css/api.css" /> -->
     <link rel="stylesheet" href="../css/aui.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <!-- <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/sign.css">
-    <link rel="stylesheet" href="../css/add.css">
+    <link rel="stylesheet" href="../css/add.css"> -->
     <link rel="stylesheet" href="../css/vant.css">
     <link rel="stylesheet" href="../css/swiper.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css"> -->
@@ -36,12 +36,7 @@
             border: 0;
         }
 
-        .home_top {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /*height: 10vw;*/
-        }
+       
 
         .home_ss {
             width: 3.5vw;
@@ -206,38 +201,588 @@
             border-radius: 10px;
         }
         #header{
-          background-color: #F5F5F5;
-          background: #1A71D3;
-          position: fixed;
+          background-color: #fff;
+          position: relative;
           top:0;
           left:0;
-          width: 94vw;
-          height: 12.5vw;
+          width: 100%;
+          /* height:11.733vw; */
+          line-height:11.733vw ;
           z-index: 1000;
-          padding: 0 2vw 0 4vw;
+          padding:0 4.667vw;
+          box-sizing: border-box;
+          text-align: center;
+          font-size: 3.467vw;
+          z-index:100;
+          
+        }
+        
+        #header img {
+            height: 6.133vw;
+            margin-top:2.933vw
+        } 
+        
+      
+  
+        .nav-top ul {
+            padding: 0 2.667vw;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            line-height: 10.267vw;
+            font-size: 3.2vw;
+            font-weight: 600;
+        }
+
+        .nav-top ul li {
+            float: left;
+           
+        
+        }
+
+        .active {
+            font-size: 4vw;
+            color: #2497ff;
+        }
+
+        .my-swipe .van-swipe-item {
+            color: #fff;
+            font-size: 20px;
+            line-height: 150px;
+             text-align: center;
+            background-color: #39a9ed;
+            margin-bottom: 5.333vw;
+          }
+
+        .index {
+         width: 100%;
+          height: 35.067vw;
+          margin-top:2.4vw
+         }
+
+         .my-swipe {
+             height: 35.067vw;
+
+         }
+
+         .list {
+             width: 25%;
+         }
+
+         /* .active {
+             color: #2497ff;
+             font-size: 4vw;
+         } */
+
+         .banner {
+             height: 35.067vw;
+             width: 100%;
+             background-color: #fff;
+             margin-top:2.4vw;
+             margin-bottom:5.333vw
+
+         }
+
+         .navs  {
+             width: 100%;
+             height: 17.067vw;
+             padding:0 4.667vw;
+             box-sizing: border-box;
+         }
+         .navs ul {
+             display: flex;
+             justify-content: space-around;
+             width: 100%;
+         }
+
+         .navs ul li {
+             width: 23%;
+             position: relative;
+             text-align: center;
+             font-size: 2.933vw;
+             
+         }
+         .navs ul li div {
+             position: relative;
+             width: 100%;
+             height: 8.933vw; 
+             margin-bottom:2.133vw;
+
+         }
+         .navs ul li img {
+             position: absolute;
+             left: 50%;
+             top: 0;
+             transform: translateX(-50%);
+            height: 8.933vw;
+         }
+
+         .zjzb  {
+             width: 100%;
+             padding:0 4.667vw;
+             box-sizing: border-box;
+
+         }
+
+         .zjzb  .top {
+             width: 100%;
+             height: 8.533vw;
+             font-size: 3.2vw;
+             line-height: 8.533vw;
+             font-weight: 600;
+         }
+
+         .zjzb .bottom {
+             width: 100%;
+             height: 32.933vw;
+         }
+
+         .zjzb .bottom .content {
+             width: 100%;
+             height: 29.6vw;
+             background-color: #fff;
+             border-radius: 3.333vw;
+             position: relative;
+         }
+
+         .content .zt {
+             width: 16.133vw;
+             height: 6.667vw;
+             background-color: #2398ff;
+             border-radius: 3.333vw 0;
+             line-height: 6.667vw ;
+             text-align: center;
+           
+         }
+         .content .zt p {
+            font-size: 2.933vw;
+             color: #fff;
+         }
+
+         .content .tit {
+             height: 8.933vw;
+             font-size: 3.467vw;
+             line-height:  8.933vw;
+             font-weight: 600;
+             margin-left:2.533vw
+
+         }
+
+         .content .teacher {
+             height: 4.133vw;
+             line-height:4.133vw ;
+             font-size: 2.667vw;
+             color: #838383;
+             margin-left:2.533vw ;
+         }
+
+         .content .bmrs {
+            height:8.4vw ;
+            line-height: 8.4vw;
+            font-size:2.667vw ;
+            color: #838383;
+            margin-left:2.533vw ;
+        }
+
+        .content .tingke {
+            height:6.133vw ;
+            line-height:6.133vw  ;
+            text-align: center;
+            width:18vw ;
+            position: absolute;
+            bottom:4.4vw;
+            right:3.6vw ;
+            background-color: #2398ff;
+            color:#fff ;
+            border-radius: 3.333vw;
+            font-size: 3.2vw;
+
+        }
+
+      
+
+        .zbk  .bottom {
+         height: 31.733vw;
+        width: 100%;
+        white-space: nowrap;
+         overflow-y:auto;
+
+            }
+
+            .zbk  .bottom     .zblb {
+                display: inline-block;
+                width: 53.333vw;
+                height:27.2vw;
+                background-color: #fff;
+               margin-left: 2.667vw;
+                border-radius: 3.333vw;
+                overflow: hidden;
+
+            }
+
+            .zbk  .list_top {
+                height:20.533vw ;
+                width: 100%;
+                background-color: #cce9ff;
+              
+
+            }
+
+            .zbk  .list_top  h2 {
+                font-size: 3.2vw;
+                line-height: 13.467vw;
+                margin-left: 3.733vw;
+            }
+
+            .zbk  .list_top  span {
+                font-size: 2.4vw;
+                margin-left: 3.733vw;
+                line-height: 5.2vw;
+                color: #75797c;
+            }
+
+            .zbk  .list_bottom {
+                height: 6.667vw;
+                line-height: 6.667vw;
+                width: 100%;
+            }
+
+            .gyys .top {
+            height: 8.8vw;
+            line-height: 8.8vw;
+            padding:0 4.667vw;
+            box-sizing: border-box;
+        }
+
+        .gyys .top .left {
+            float: left;
+            font-size: 3.2vw;
+            font-weight: 600;
+        }
+
+        .gyys .top .right {
+            float: right;
+            width: 14vw;
+            height: 4.4vw;
+            line-height:  4.4vw;
+            text-align: center;
+            font-size: 2.4vw;
+            border:0.133vw solid #2398ff;
+            border-radius:3.333vw;
+            color:#2398ff ;
+            margin-top:1.867vw;
+            box-sizing: border-box;
+        }
+
+        .jxkc .bottom {
+            height:33.867vw;
+            width: 100%;
+            padding:0 4.667vw;
+            box-sizing: border-box;
+        }
+
+        .jxkc .bottom ul {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .jxkc .bottom ul li {
+            width: 29.333vw;
+            height: 100%;
+
+        }
+        .jxkc .bottom ul li .tp {
+            width: 100%;
+            height: 27.6vw;
+            background-color: #2397ff;
+            border-radius: 3.333vw;
+            overflow: hidden;
+        }
+
+        .jxkc .bottom ul li .tp img {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .jxkc_list .bottom {
+                width: 100%;
+                padding:0 4.667vw;
+                box-sizing: border-box;
+        }
+
+        .jxkc_list .bottom ul {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+        }
+
+        .jxkc_list .bottom ul li {
+            width:29.333vw ;
+            height: 36.133vw;
+            background-color: #ff3040;
+            margin-bottom:0.4vw
+        }
+
+        .jxkc_list .bottom ul li .tp {
+            width: 100%;
+            height: 27.6vw;
+            position: relative;
+            background-color: #fff;
+
+        }
+
+        .jxkc_list .bottom ul li .tp img {
+            width: 100%;
+            height: 100%;
+        }
+        .jxkc_list .bottom ul li .tp .gm {
+            position: absolute;
+          bottom: 2vw;
+            right: 2vw;
+            width: 11.067vw;
+            height: 3.6vw;
+           background: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 
 <body>
-    <div id="app" v-cloak class="aui-content home">
-      <div class="home_top" id='header'>
-          <div class="home_top_wrap" @click='navCourse(-1)'>
-              <i class="home_ss"></i>
-              <input type="text" name="" placeholder='请输入搜索内容' value="" disabled>
-          </div>
-          <!-- <div class="home_top_saom" @click='saom'></div> -->
+    <div id="app" >
+        <!-- 头部 -->
+      <div  id='header' >
+        
+          2021考研倒计时<span style="color: #2497ff;font-size: 3.2vw;margin:0 0.667vw;font-weight: 600;">{{kectime}}</span>天
+          <img src="../image/iconimg/rldk.png" alt="" style="float: right;">
       </div>
-      <div id="main" class="main" style="position:relative;">
-        <div style="height:12.5vw;"></div>
-        <div class="home_banner">
+      <!-- 内容 -->
+      <div class="content" style="width: 100%;">
+     
+          <van-tabs v-model="active" sticky  
+          offset-top=0
+          title-active-color="#2497ff"  
+          swipe-threshold="6" 
+          line-width=0 
+          line-height=0>
+            <van-tab title="首页">
+                <!-- 轮播图 -->
+                <div class="banner">
+
+                </div>
+                <!-- 导航 -->
+                <div class="navs">
+                    <ul>
+                        <li><div><img src="../image/iconimg/mrlx.png" alt=""></div>每日练习</li>
+                        <li><div><img src="../image/iconimg/zbk.png" alt=""></div>直播课</li>
+                        <li><div><img src="../image/iconimg/jc.png" alt=""></div>教材</li>
+                        <li><div><img src="../image/iconimg/gkls.png" alt=""></div>观看历史</li>
+                    </ul>
+                </div>
+                <!-- 近期直播课 -->
+                <div class="zjzb">
+                    <div class="top">
+                        近期直播课
+                    </div>
+                    <div class="bottom">
+                        <div class="content">
+                            <!-- 直播状态 -->
+                            <div class="zt">
+                                <p v-if="zt">正在直播</p>
+                                <p v-else>即将开始</p>
+                            </div>
+                            <!-- 直播标题 -->
+                            <div class="tit">东南大学2021MBA宣讲会</div>
+                            <!-- 主讲教师 -->
+                            <div class="teacher">
+                                主讲教师：XXX
+                            </div>
+                            <!-- 报名人数 -->
+                            <div class="bmrs">
+                                已有<span style="margin:0 0.667vw;color: #40a6ff;">222</span>人报名
+                            </div>
+                            <!-- 立即听课按钮 -->
+                            <div class="tingke">
+                                立即听课
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 直播课 -->
+                <div class="zbk gyys">
+                    <div class="top">
+                        <div class="left">直播课</div>
+                        <div class="right">更多直播</div>
+                    </div>
+                    <div class="bottom">
+                        <div class="zblb" style=" margin-left: 4.667vw;">
+                            <div class="list_top">
+                                <h2>南京理工大学2021MBA宣讲会</h2>
+                                <span>开播时间：9月3日&nbsp;&nbsp;2:00</span>
+                            </div>
+                            <div class="list_bottom">
+                                <span style="font-size: 2.933vw;margin-left: 2.533vw;float: left;color: #2398ff;">主讲教师：XXX</span>
+                                <span style="font-size: 2.4vw;float: right;margin-right: 2vw;color: #838383;">已有<span style="color: #2398ff;margin:0 0.4vw">123</span>人报名</span>
+                            </div>
+                        </div>
+                        <div class="zblb">
+                            <div class="list_top">
+                                <h2>南京理工大学2021MBA宣讲会</h2>
+                                <span>开播时间：9月3日&nbsp;&nbsp;2:00</span>
+                            </div>
+                            <div class="list_bottom">
+                                <span style="font-size: 2.933vw;margin-left: 2.533vw;float: left;color: #2398ff;">主讲教师：XXX</span>
+                                <span style="font-size: 2.4vw;float: right;margin-right: 2vw;color: #838383;">已有<span style="color: #2398ff;margin:0 0.4vw">123</span>人报名</span>
+                            </div>
+                        </div>
+                        <div class="zblb">
+                            <div class="list_top">
+                                <h2>南京理工大学2021MBA宣讲会</h2>
+                                <span>开播时间：9月3日&nbsp;&nbsp;2:00</span>
+                            </div>
+                            <div class="list_bottom">
+                                <span style="font-size: 2.933vw;margin-left: 2.533vw;float: left;color: #2398ff;">主讲教师：XXX</span>
+                                <span style="font-size: 2.4vw;float: right;margin-right: 2vw;color: #838383;">已有<span style="color: #2398ff;margin:0 0.4vw">123</span>人报名</span>
+                            </div>
+                        </div>
+                        <div class="zblb">
+                            <div class="list_top">
+                                <h2>南京理工大学2021MBA宣讲会</h2>
+                                <span>开播时间：9月3日&nbsp;&nbsp;2:00</span>
+                            </div>
+                            <div class="list_bottom">
+                                <span style="font-size: 2.933vw;margin-left: 2.533vw;float: left;color: #2398ff;">主讲教师：XXX</span>
+                                <span style="font-size: 2.4vw;float: right;margin-right: 2vw;color: #838383;">已有<span style="color: #2398ff;margin:0 0.4vw">123</span>人报名</span>
+                            </div>
+                        </div>
+                        
+                       
+
+                       
+                    </div>
+
+                </div>  
+                <!-- 精选免费课程 -->
+                <div class="jxkc gyys">
+                    <div class="top">
+                        <div class="left">精选免费课程</div>
+                        <div class="right">更多课程</div>
+                    </div>
+                    <div class="bottom">
+                        <ul>
+                            <li>
+                                <div class="tp"> <img src="" alt=""></div>
+                            <p style="font-size: 2.4vw;margin-top:1.333vw ;text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"> MBA提前面试系统课程</p>
+                            </li>
+                            <li>
+                                <div class="tp"> <img src="" alt=""></div>
+                            <p style="font-size: 2.4vw;margin-top:1.333vw ;text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"> MBA提前面试系统课程</p>
+                            </li>
+                            <li>
+                                <div class="tp"> <img src="" alt=""></div>
+                            <p style="font-size: 2.4vw;margin-top:1.333vw ;text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"> MBA提前面试系统课程</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 精选课程 -->
+                <div class="jxkc_list gyys">
+                    <div class="top">
+                        <div class="left">精选课程</div>
+                        <div class="right">更多课程</div>
+                    </div>
+                    <div class="bottom">
+                        <ul>
+                           <li>
+                               <div class="tp">
+                                   <img src="" alt="">
+                                   <div class="gm"></div>
+                               </div>
+                           </li>
+                           <li></li>
+                           <li></li>
+                           <li></li>
+                           <li></li>
+                           <li></li>
+                        </ul>
+
+
+
+                    </div>
+                </div>
+
+
+            </van-tab>
+            <van-tab title="面试">
+                内容
+              </van-tab>
+              <van-tab title="外语">
+                内容 
+              </van-tab>
+              <van-tab title="逻辑">
+                内容
+              </van-tab>
+              <van-tab title="写作">
+                内容
+              </van-tab>
+              <van-tab title="数学">
+                内容 
+              </van-tab>
+          </van-tabs>
+      </div>
+      <!-- <div class="nav-top">
+        <ul>
+            <li class="active">首页</li>
+            <li>面试</li>
+            <li>外语</li>
+            <li>逻辑</li>
+            <li>写作</li>
+            <li>数学</li>
+        </ul>
+      </div>
+      <div class="content">
+        <div class="index">
+            <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" >
+                <van-swipe-item>1</van-swipe-item>
+                <van-swipe-item>2</van-swipe-item>
+                <van-swipe-item>3</van-swipe-item>
+                <van-swipe-item>4</van-swipe-item>
+              </van-swipe>
+            <div style="height: 13.733vw;padding: 5.333vw 4vw;">
+                <ul style="width: 100%;height: 100%;display: flex;justify-content: space-around;font-size: 2.933vw;text-align: center;">
+                    <li class="list"> <div><img src="../image/iconimg/mrlx.png" alt="" ></div>每日练习</li>
+                    <li class="list"><div><img src="../image/iconimg/zbk.png" alt="" ></div>直播课</li>
+                    <li class="list"><div><img src="../image/iconimg/jc.png" alt=""></div>教材</li>
+                    <li class="list"><div><img src="../image/iconimg/gkls.png" alt="" ></div>观看历史</li>
+                </ul>
+            </div>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div> -->
+      <!-- <div id="main" class="main" style="position:relative;margin: 0;"> -->
+        <!-- 导航栏 -->
+        <!-- <div class="nav_top">
+123
+        </div> -->
+
+
+
+        <!-- <div class="home_banner">
           <van-swipe style="width:96vw;height:30vw;border-radius:10px;overflow:hidden;" :autoplay="3000" indicator-color="white">
-            <van-swipe-item style="96vw;height:30vw;"  v-for='(items,index) in bannerimg'class="banner">
-              <img class="fill" style="96vw;height:30vw;" :src="items.path">
+            <van-swipe-item style="width:96vw;height:30vw;"  v-for='(items,index) in bannerimg'class="banner">
+              <img class="fill" style=" width:96vw;height:30vw;" :src="items.path">
             </van-swipe-item>
           </van-swipe>
-        </div>
-        <div class="mask" :style="signmodel?'display:block':'display:none'"></div>
+        </div> -->
+        <!-- <div class="mask" :style="signmodel?'display:block':'display:none'"></div>
         <div class="sign_model" :style="signmodel?'display:block':'display:none'">
             <div class="sign_model_conent">
                 <img src="../icon/true.png" alt="">
@@ -275,35 +820,30 @@
                         v-bind:class='items.sign==1?"my_s_active":items.now==1?"my_s_sign":""'>
                           <div class="fcc" :class="{circle:items.now==1}">{{items.day}}</div>
                         </span>
-                    <!-- <span class="my_s_sign">2</span>
-              <span class="my_s_active">3</span>
-           -->
+                   
                 </div>
                 <div class="my_s_time" v-show='datelistcurr.length>0'>
                     <span v-for='item,index in datelistcurr'
                         v-bind:class='item.sign==1?"my_s_active":item.now==1?"my_s_sign":""'>
                           <div class="fcc" :class="{circle:item.now==1}">{{item.day}}</div>
                         </span>
-                    <!-- <span class="my_s_sign">2</span>
-              <span class="my_s_active">3</span>
-           -->
+                 
                 </div>
                 <div class="my_s_btn">
                     <div @click="bindsignBtn" class="aui-btn">立即签到</div>
                 </div>
             </div>
-            <!-- <div class="curriculum_home_sign_line"></div> -->
             <div style="position:absolute;right:1.5vw;top:1.5vw;" class="curriculum_home_sign_cha" @click="bindcloseSign"></div>
-        </div>
+        </div> -->
 
-        <div class="f_c" style="width:100vw;box-sizing: border-box;background-color:#ffffff;padding:4vw 0;overflow-x:scroll">
+        <!-- <div class="f_c" style="width:100vw;box-sizing: border-box;background-color:#ffffff;padding:4vw 0;overflow-x:scroll">
           <div class="fd_c" style="margin:0 3vw"  v-for='item in Tablist' @click='navCourse(item.id)'>
             <div style="width:13vw;height:13vw">
               <img class="fit" :src="item.path"/>
             </div>
             <div style="font-size:4vw;margin-top:2.5vw">{{item.title}}</div>
           </div>
-        </div>
+        </div> -->
 
 
         <!-- <div class="home-row-list" style="position: relative;">
@@ -315,13 +855,13 @@
               <i class="i_arrow"></i>
             </div>
         </div> -->
-        <div class="line"></div>
+        <!-- <div class="line"></div>
         <div class="home_topic">
             <div class="home_time">
                 <p>考研倒计时</p>
-                <div class="home_time_day">
+                <div class="home_time_day"> -->
                     <!-- <img src="../image/home_ico3.png" alt=""> -->
-                    <time style="font-size:2.2vw;color:#5AAFFE;"><span
+                    <!-- <time style="font-size:2.2vw;color:#5AAFFE;"><span
                             style="font-size:3.7vw;color:#5AAFFE;margin-right:1vw;">{{kectime}}</span>天</time>
                 </div>
 
@@ -343,8 +883,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="line"></div>
+        </div> -->
+        <!-- <div class="line"></div>
         <div class="home_course">
             <div class="home_course_t">
                 <p>近期直播</p>
@@ -445,8 +985,8 @@
 
             </div>
 
-        </div>
-        <div class="mask" :style="flrst_xy?'display:block':'display:none'"></div>
+        </div> -->
+        <!-- <div class="mask" :style="flrst_xy?'display:block':'display:none'"></div>
         <div class="ltl-layer" v-show='flrst_xy'>
             <div class="ltl-ok">
                 <h3>用户协议和隐私协议</h3>
@@ -456,8 +996,8 @@
                     style="width: 80%;margin: auto; display: flex; justify-content: space-between;"><a class="ltl-blue"
                         @click='is_xyShow(1)'>暂不使用</a><a class="ltl-blue" @click='is_xyShow(2)'>同意</a></div>
             </div>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -481,6 +1021,9 @@
             el: '#app',
             data() {
                 return {
+                    zt:false,
+                    border:false,
+                    active:0,
                     flrst_xy: false,
                     kectime: '',
                     title: '',

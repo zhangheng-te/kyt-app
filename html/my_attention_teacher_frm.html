@@ -7,98 +7,257 @@
     content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
   <title>title</title>
   <link rel="stylesheet" type="text/css" href="../css/api.css" />
-  <link rel="stylesheet" href="../css/aui.css">
-  <link rel="stylesheet" href="../css/add.css">
-  <link rel="stylesheet" type="text/css" href="../css/common.css" />
-  <link rel="stylesheet" type="text/css" href="../css/attention_teacher.css" />
+  <!-- <link rel="stylesheet" href="../css/aui.css">
+  <link rel="stylesheet" href="../css/add.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="../css/common.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" href="../css/attention_teacher.css" /> -->
   <style>
-    body {}
+    body {
+      padding-left: 8.267vw;
+    }
 
-    .atteneion {
-      width: 16vw;
-      font-size: 3vw;
+    [v-cloak] {
+      display: none
+    }
+
+
+
+    .teacher_area {
+      position: relative;
+      border-bottom: 0.133vw solid #dadada;
+      height: 26.533vw;
+
+    }
+
+    .left_tx {
+      float: left;
+      position: relative;
+      width: 18.4vw;
+      height: 100%;
+      margin-right: 3.867vw;
+
+
+    }
+
+    .left_tx .tx {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 18.4vw;
+      height: 18.4vw;
+      border-radius: 50%;
+      background-color: #666;
+      overflow: hidden;
+
+
+    }
+
+    .left_tx .img {
+      /* max-width: 100%; */
+      max-height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .left_tx .vip {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 18.4vw;
+      height: 18.4vw;
+    }
+
+    .left_tx .vip img {
+      width: 6.933vw;
+      height: 3.467vw;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+    }
+
+    .msg {
+      height: 100%;
+      padding: 2.133vw 0;
+    }
+
+    .msg .top {
+      padding: 2.667vw 0;
+      font-size: 3.733vw;
+      font-weight: 700;
+      overflow: hidden;
+    }
+
+    .top .name {
+      float: left;
+    }
+
+
+
+    .star {
+      float: left;
+      margin-left: 2.667vw;
+    }
+
+    .star img {
+      height: 2.667vw;
+    }
+
+    .cont {
+      font-size: 2.133vw;
+      height: 3.333vw;
+      line-height: 3.333vw;
+      color: #fff
+    }
+
+    .cont .kecheng {
+      float: left;
+      height: 100%;
+      padding: 0 1.2vw;
+      background-image: linear-gradient(to bottom, #5bbbff, #289bff);
       text-align: center;
+      margin-right: 2.667vw;
+      border-radius: 0.8vw;
+
     }
 
-    .on_xx {
-      width: 2.5vw;
-      height: 2.5vw;
-      display: inline-block;
-      background: url(../image/star0.jpg) 0 0 no-repeat;
-      background-size: 100% 100%;
-      -webkit-background-size: 100% 100%;
-      margin: 0;
+    .cont .jifen {
+      float: left;
+      height: 100%;
+      padding: 0 1.2vw;
+      background-image: linear-gradient(to bottom, #5bbbff, #289bff);
+      border-radius: 0.8vw;
     }
 
-    .on_xx1 {
-      width: 2.5vw;
-      height: 2.5vw;
-      display: inline-block;
-      background: url(../image/star1.jpg) 0 0 no-repeat;
-      background-size: 100% 100%;
-      -webkit-background-size: 100% 100%;
-      margin: 0;
+    .bottom div {
+      float: left;
+      font-size: 2.4vw;
+      margin-top: 3.067vw;
+      color: #a7a7a7;
+      margin-right: 4vw;
     }
 
-    .on_xx2 {
-      width: 2.5vw;
-      height: 2.5vw;
-      display: inline-block;
-      background: url(../image/star2.jpg) 0 0 no-repeat;
-      background-size: 100% 100%;
-      -webkit-background-size: 100% 100%;
-      margin: 0;
+    .bottom div span {
+      font-size: 3.467vw;
+      color: #2398ff;
+      padding-right: 1.067vw;
     }
 
-    .on_h1 {
-      width: 2.5vw;
-      height: 2.5vw;
-      display: inline-block;
-      background: url(../image/h1.jpg) 0 0 no-repeat;
-      background-size: 100% 100%;
-      -webkit-background-size: 100% 100%;
-      margin: 0;
+    .guanzhu {
+      width: 16.267vw;
+      height: 6.667vw;
+      box-sizing: border-box;
+      border: 0.267vw solid #2397ff;
+      border-radius: 2vw;
+      position: absolute;
+      top: 50%;
+      right: 5.333vw;
+      transform: translateY(-50%);
+      line-height: 6.667vw;
+      text-align: center;
+      font-size: 3.467vw;
+      color: #2397ff;
     }
 
-    .on_h2 {
-      width: 2.5vw;
-      height: 2.5vw;
-      display: inline-block;
-      background: url(../image/h2.jpg) 0 0 no-repeat;
-      background-size: 100% 100%;
-      -webkit-background-size: 100% 100%;
-      margin: 0;
-    }
-
-    .on_h3 {
-      width: 2.5vw;
-      height: 2.5vw;
-      display: inline-block;
-      background: url(../image/h3.jpg) 0 0 no-repeat;
-      background-size: 100% 100%;
-      -webkit-background-size: 100% 100%;
-      margin: 0;
-    }
-
-    .on_h4 {
-      width: 2.5vw;
-      height: 2.5vw;
-      display: inline-block;
-      background: url(../image/h4.jpg) 0 0 no-repeat;
-      background-size: 100% 100%;
-      -webkit-background-size: 100% 100%;
-      margin: 0;
-    }
+    /* .vip {
+      background-color: #fff;
+    } */
   </style>
 </head>
 
 <body>
   <div id='wrap2'>
 
-    <div class="space_border"></div>
-    <p style="text-align:center;color:#666;font-size:4vw;" v-if='followList.data&&followList.data.length==0'>暂无数据</p>
+    <!-- <div class="space_border"></div>
+    <p style="text-align:center;color:#666;font-size:4vw;" v-if='followList.data&&followList.data.length==0'>暂无数据</p> -->
     <div class="teacher_area" v-for="item,index in followList.data" @click="turnTD(item)">
-      <div class="top_area">
+      <!-- 头像 -->
+      <div class="left_tx">
+        <div class="tx"><img :src="item.avatar" style='width:100%;height:100%;' alt=""></div>
+        <div class="vip">
+          <img src="../image/iconimg/vip1.png" alt="" style="background-color: #fff;border-radius: 1.5vw;">
+          <img src="../image/iconimg/vip.png" alt="" style="background-color: #fff;border-radius: 1.5vw;">
+        </div>
+      </div>
+      <!-- 信息 -->
+      <div class="msg">
+        <div class="top">
+          <!-- 昵称 -->
+          <div class="name">{{item.nickname}}</div>
+          <!-- 星级 -->
+          <div class="star">
+            <img src="../image/star/1.1.png" alt="" v-if="item.score>1&&item.score<=1000">
+            <img src="../image/star/1.2.png" alt="" v-if="item.score>1000&&item.score<=5000">
+            <img src="../image/star/1.3.png" alt="" v-if="item.score>5000&&item.score<=10000">
+            <img src="../image/star/1.4.png" alt="" v-if="item.score>10000&&item.score<=15000">
+            <img src="../image/star/1.5.png" alt="" v-if="item.score>15000&&item.score<=25000">
+            <img src="../image/star/2.1.png" alt="" v-if="item.score>25000&&item.score<=35000">
+            <img src="../image/star/2.2.png" alt="" v-if="item.score>35000&&item.score<=45000">
+            <img src="../image/star/2.3.png" alt="" v-if="item.score>45000&&item.score<=60000">
+            <img src="../image/star/2.4.png" alt="" v-if="item.score>60000&&item.score<=75000">
+            <img src="../image/star/2.5.png" alt="" v-if="item.score>75000&&item.score<=95000">
+            <img src="../image/star/3.1.png" alt="" v-if="item.score>95000&&item.score<=115000">
+            <img src="../image/star/3.2.png" alt="" v-if="item.score>115000&&item.score<=135000">
+            <img src="../image/star/3.3.png" alt="" v-if="item.score>135000&&item.score<=155000">
+            <img src="../image/star/3.4.png" alt="" v-if="item.score>155000&&item.score<=180000">
+            <img src="../image/star/3.5.png" alt="" v-if="item.score>180000&&item.score<=210000">
+            <img src="../image/star/4.1.png" alt="" v-if="item.score>210000&&item.score<=240000">
+            <img src="../image/star/4.2.png" alt="" v-if="item.score>240000&&item.score<=270000">
+            <img src="../image/star/4.3.png" alt="" v-if="item.score>270000&&item.score<=310000">
+            <img src="../image/star/4.4.png" alt="" v-if="item.score>310000&&item.score<=350000">
+            <img src="../image/star/4.5.png" alt="" v-if="item.score>350000&&item.score<=390000">
+            <img src="../image/star/5.1.png" alt="" v-if="item.score>390000&&item.score<=440000">
+            <img src="../image/star/5.2.png" alt="" v-if="item.score>440000&&item.score<=490000">
+            <img src="../image/star/5.3.png" alt="" v-if="item.score>490000&&item.score<=540000">
+            <img src="../image/star/5.4.png" alt="" v-if="item.score>540000&&item.score<=590000">
+            <img src="../image/star/5.5.png" alt="" v-if="item.score>590000&&item.score<=640000">
+            <img src="../image/star/6.1.png" alt="" v-if="item.score>640000&&item.score<=720000">
+            <img src="../image/star/6.2.png" alt="" v-if="item.score>720000&&item.score<=800000">
+            <img src="../image/star/6.3.png" alt="" v-if="item.score>800000&&item.score<=880000">
+            <img src="../image/star/6.4.png" alt="" v-if="item.score>880000&&item.score<=960000">
+            <img src="../image/star/6.5.png" alt="" v-if="item.score>960000&&item.score<=1020000">
+            <img src="../image/star/7.1.png" alt="" v-if="item.score>1020000&&item.score<=1120000">
+            <img src="../image/star/7.2.png" alt="" v-if="item.score>1120000&&item.score<=1220000">
+            <img src="../image/star/7.3.png" alt="" v-if="item.score>1220000&&item.score<=1320000">
+            <img src="../image/star/7.4.png" alt="" v-if="item.score>1320000&&item.score<=1420000">
+            <img src="../image/star/7.5.png" alt="" v-if="item.score>1420000&&item.score<=1520000">
+
+          </div>
+
+        </div>
+        <div class="cont">
+          <div class="kecheng">
+            面试
+          </div>
+          <div class="jifen">
+            积分：{{item.score}}
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="kc">
+            <span>{{item.course_num}}</span>课程
+          </div>
+          <div class="shj">
+            <span>{{item.paper_num}}</span>试卷
+          </div>
+          <div class="fans">
+            <span>{{item.follow_num}}</span>粉丝
+          </div>
+        </div>
+
+      </div>
+      <!-- 关注 -->
+      <div class="guanzhu" @click.stop='follow(index)' :style='item.text==1?"background-color: #2397ff;color:#fff;":""'>
+        {{item.text==1?'取消关注':'+关注'}}
+      </div>
+
+
+      <!-- <div class="top_area">
+        
         <div class="teacher_img"><img :src="item.avatar" style='width:100%;height:100%;' alt=""></div>
         <div class="teacher_right">
           <div class="right_line1 f_row_sb">
@@ -259,7 +418,7 @@
           <div style="margin-left:2vw;">他的试卷</div>
           <div style="color:#999999">（{{item.paper_num}}个）</div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </body>
@@ -330,11 +489,15 @@
             var res = $.parseJSON(res);
             res.data.status1 = that.getteacherdip(res.data.teachertype);
             res.data.status2 = that.getteachertype(res.data.dip);
+            alert(JSON.stringify(res))
             if (res.data.is_real_teacher == 1) {
               res.data.status = '已认证';
             }
+            if (res.data.isVip == 1) {
+              this.is_vip = 2;
+            }
             res.data.status.level = item.level;
-            console.log(JSON.stringify(res.data))
+            alert(JSON.stringify(res.data))
             that.openW('teacher_dtl', {
               info: res.data
             }, true, null, false);

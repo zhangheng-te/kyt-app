@@ -23,7 +23,8 @@
     }
 
     #header {
-      background-color: #fff;
+      background-image: linear-gradient(to right, #5bbbff, #289bff);
+
       border-bottom: 1px solid #eee;
     }
 
@@ -179,6 +180,8 @@
         remark: ''
       },
       mounted: function () {
+        // alert(this.pic1)
+        // alert(this.pic2)
         var that = this;
         this.initData();
         api.addEventListener({
@@ -209,12 +212,14 @@
           }
           that.ajaxpost('post', globalData.getMemberApplyStatus, param).then((res) => {
             var res = $.parseJSON(res);
+            // alert(JSON.stringify(res))
             if (res.code == 1) {
               that.step = res.data.status;
               that.remark = res.data.remark;
               if (res.data.status != 0) {
                 that.ajaxpost('post', globalData.getMemberRealInfo, param).then((res) => {
                   var res = $.parseJSON(res);
+                  alert(JSON.stringify(res))
                   if (res.code == 1) {
                     that.name = res.data.name;
                     that.num = res.data.real_card;
@@ -261,7 +266,9 @@
             return
           }
           that.ajaxpost('post', globalData.realApply, param).then((res) => {
+
             var res = $.parseJSON(res);
+            // alert(JSON.stringify(res))
             if (res.code == 1) {
               that.toast('提交成功')
               setTimeout(function () {
@@ -275,7 +282,7 @@
         addPic(a) {
           var that = this;
           that.uploadfirst((res) => {
-            console.log(JSON.stringify(res.data))
+
             if (res.code == 1) {
               if (a == 1) {
                 that.pic1 = res.data;

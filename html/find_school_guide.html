@@ -10,22 +10,99 @@
       <link rel="stylesheet" type="text/css" href="../css/add.css"/>
       <link rel="stylesheet" type="text/css" href="../css/school_guide.css"/>
       <style>
+
           body{
 
           }
-          #header{
+          #wrap2 #header{
+            background-image: linear-gradient(to right, #5bbbff, #289bff);
+            height: 11.733vw;
+            width: 100%;
+            position: fixed;
+            top:0;
+            left: 0;
+          }
+
+         #wrap2 #header .sousuo {
+           float: left;
+           margin:2.933vw 0 0 6vw;
+            width: 77.6vw;
+            height: 6.133vw;
+            background-color: #afdbff;
+            border-radius: 3.333vw;
+            text-align: center;
+            position: relative;
+          }
+
+          #wrap2   #aaaaaaaaaa {
+            width: 100%;
+            height: 6.133vw;
+            text-align: center;
+            font-size: 3.467vw;
+            line-height:  6.133vw;
+            outline:none;
+         
+          }
+
+
+          #wrap2    #aaaaaaaaaa::-webkit-input-placeholder {
+            color: #fff;
+          }
+
+          #wrap2 #header  img{
+            position: absolute;
+            top: 1.333vw;
+            right: 3.333vw;
+            width: 3.467vw;
+            height: 3.333vw;
+            
+          }
+
+          #wrap2 .btn {
+            position: absolute;
+            right:6.133vw ;
+            font-size: 3.467vw;
+          
+            
+          }
+
+          #main {
+            background-image: linear-gradient(to right, #5bbbff, #289bff); 
+            overflow: hidden;
+          }
+
+          #main .connent {
+            margin-top: 11.733vw;
+            width: 100%;
+            height: 100%;
+            border-radius: 3.333vw  3.333vw 0 0;
             background-color: #fff;
+            overflow: hidden;
+          }
+
+          /* #wrap2 .aui-pull-right span {
+             font-size: 3.467vw;
+            color: #fff;
           }
           #header .aui-title{
             color: #000;
           }
           #header .aui-icon-left{
             color: #000
-          }
+          } */
           .menu_navs{
-            padding:  0 3.5vw;
+            display: flex;
             position: relative;
+            height: 9.067vw;
+            font-size: 3.2vw;
+            padding:3.467vw  4.667vw  0;
+            border: 0;
+            box-sizing: border-box;
 
+          }
+          .menu_navs select {
+            width: 100%;
+            text-align: center;
           }
 
           .school_img img{
@@ -38,6 +115,13 @@
           .menu_nav{
             width: 100%;
             flex: 1;
+            text-align: center;
+          }
+
+          .down {
+         background: url( ../image/iconimg/xia.png) no-repeat;
+         background-size: 100%;
+         float: left;
           }
           .mask{
             width:100%;
@@ -80,45 +164,10 @@
             color: #fff;
             margin: 2vw 0;
           }
-          #header{
-            height: 12.5vw;
-            position: fixed;
-            top:0;
-            left:0;
-          }
+         
           .aui-searchbar-input input::-webkit-input-placeholder {
-      			color: #666;
-      		}
-          #header {
-      			background-color: #fff;
-      		}
-
-      		#header .aui-title {
-      			color: #000;
-      		}
-
-      		#header .aui-icon-left {
-      			color: #000
-      		}
-
-      		#header .aui-searchbar {
-      			background-color: #fff;
-      		}
-
-      		#header .aui-searchbar-input {
-      			background-color: #f1f4fb;
-      		}
-          .aui-searchbar-input input::-webkit-input-placeholder {
-      			color: #666;
-      		}
-
-      		#header .aui-title .aui-icon-search {
-      			font-size: 0.8rem;
-      		}
-
-      		#header .aui-searchbar-input {
-      			border-radius: 100px;
-      		}
+      			color: #666;  }
+        
           #search-input::-webkit-input-placeholder { /* WebKit browsers 适配谷歌 */
               color: #979ba6;
           }
@@ -135,104 +184,104 @@
   </head>
   <body>
     <div id='wrap2'>
+      <!-- 头部搜索框 -->
       <header id="header" class="aui-bar aui-bar-nav" v-cloak>
-  			<div class="aui-title" style="width:87vw;left:2vw;">
-  				<div class="aui-searchbar">
-  					<div class="aui-searchbar-input aui-border-radius">
-  						<i class="aui-iconfont aui-icon-search"></i>
-              <!-- <form target="frameFile" id="search_from" style="position:relative;"> -->
+  			<div class="sousuo" >
+  			
     						<input id="aaaaaaaaaa" @focus='inoutFocus' type="search" v-model="keyword" placeholder="请输入搜索内容" id="search-input">
-                <!-- <iframe name='frameFile' class="hide"></iframe>
-              </form> -->
-  						<div class="aui-searchbar-clear-btn">
-  							<i class="aui-iconfont aui-icon-close"></i>
-  						</div>
-  					</div>
-  				</div>
+              <img src="../image/iconimg/sousuo.png.png" alt="">
+  				
   			</div>
-  			<div v-if="!search" class="aui-pull-right aui-btn" style="color:#9a9ea1;font-size:4vw;" @click='searchConfirm()'>
+  			<div v-if="!search" class="btn"  @click='searchConfirm()'>
   				<span>搜索</span>
   			</div>
-        <div v-if="search" class="aui-pull-right aui-btn" style="color:#9a9ea1;font-size:4vw;" @click='cancelSearch()'>
+        <div v-if="search" class="btn"   @click='cancelSearch()'>
   				<span>取消</span>
   			</div>
       </header>
+      <!-- 内容区域 -->
       <div id="main" class="main" v-cloak>
-        <div id="mao" style="height:12.5vw;"></div>
-      <div class="find_banner">
-        <img src="../image/find_banner.png" alt="">
-      </div>
-      <div class="menu_navs" style="border-top:1px solid #f2f2f2;" style="position:absolute;bottom:0;" v-cloak>
-        <div class="menu_nav">
-
-          <select v-model='TabFengl.provinceid' @change='changeschool(-1,1)'>
-              <option v-for='item in TabFengl.province' v-bind:disabled="item.disabled" v-bind:value="item.id">{{item.name}}</option>
-          </select>
-          <div class="down_icon"></div>
-        </div>
-        <div class="menu_nav">
-          <select v-model='TabFengl.cityid' @change='changeschool(-1)'>
-              <option v-for='item in TabFengl.city' v-bind:disabled="item.disabled" v-bind:value="item.area_id">{{item.area_name}}</option>
-              <option :value="TabFengl.cityid" disabled='true' v-if="TabFengl.city.length==0">城市</option>
-          </select>
-          <div class="down_icon"></div>
-        </div>
-        <div class="menu_nav">
-          <!-- <select v-model='TabFengl.Typeid' @change='changeschool(-1)'>
-              <option v-for='item in TabFengl.Type' v-bind:disabled="item.disabled" v-bind:value="item.value">{{item.name}}</option>
-          </select> -->
-          <div @click.stop='is_type=true' style="width: 100%;font-size: 3vw;">性质</div>
-
-          <div class="down_icon" ></div>
-        </div>
-        <div class="menu_nav">
-            <!-- <select v-model='TabFengl.Typeid' @change='changeschool(-1)'>
-                <option v-for='item in TabFengl.Type' v-bind:disabled="item.disabled" v-bind:value="item.value">{{item.name}}</option>
-            </select> -->
-            <div @click.stop='is_zy=true' style="width: 100%;font-size: 3vw;">专业</div>
-
-            <div class="down_icon" ></div>
+        <div class="connent">
+          <!-- 导航栏 -->
+          <div class="menu_navs"   v-cloak>
+            <div class="menu_nav">
+    
+              <select v-model='TabFengl.provinceid' @change='changeschool(-1,1)'>
+                  <option v-for='item in TabFengl.province' v-bind:disabled="item.disabled" v-bind:value="item.id">{{item.name}}</option>
+              </select>
+              <div class="down" style="width: 1.733vw;height: 0.933vw;margin-left: 1.867vw;"></div>
+            </div>
+            <div class="menu_nav">
+              <select v-model='TabFengl.cityid' @change='changeschool(-1)'>
+                  <option v-for='item in TabFengl.city' v-bind:disabled="item.disabled" v-bind:value="item.area_id">{{item.area_name}}</option>
+                  <option :value="TabFengl.cityid" disabled='true' v-if="TabFengl.city.length==0">城市</option>
+              </select>
+              <div class="down" style="width: 1.733vw;height: 0.933vw;margin-left: 1.867vw;"></div>
+            </div>
+            <div class="menu_nav">
+              <!-- <select v-model='TabFengl.Typeid' @change='changeschool(-1)'>
+                  <option v-for='item in TabFengl.Type' v-bind:disabled="item.disabled" v-bind:value="item.value">{{item.name}}</option>
+              </select> -->
+              <div @click.stop='is_type=true' style="width: 100%;font-size: 3vw;">性质</div>
+    
+              <div class="down" style="width: 1.733vw;height: 0.933vw;margin-left: 1.867vw;">
+              </div>
+            </div>
+            <div class="menu_nav">
+                <!-- <select v-model='TabFengl.Typeid' @change='changeschool(-1)'>
+                    <option v-for='item in TabFengl.Type' v-bind:disabled="item.disabled" v-bind:value="item.value">{{item.name}}</option>
+                </select> -->
+                <div @click.stop='is_zy=true' style="width: 100%;font-size: 3vw;">专业</div>
+    
+                <div class="down" style="width: 1.733vw;height: 0.933vw;margin-left: 1.867vw;"></div>
+              </div>
           </div>
-      </div>
-      <div class="mask" :style="is_type||is_zy?'display:block':'display:none'" @click='is_type=false;is_zy=false'></div>
-      <div class="mask_grop_show" :style="is_type?'display:block':'display:none'" v-cloak>
-        <div v-for='item in TabFengl.Type' class="menu_typeitem"><h4>{{item.name}}</h4><input  v-model='TabFengl.Typeid' :value="item.value" type="checkbox"></div>
-        <div class="fcc">
-          <div class="menu_type_bat" style="margin-right:4vw;" @click='is_type=false;is_zy=false'>取消</div>
-          <div class="menu_type_bat" @click='changeschool(-1)'>确定</div>
-        </div>
-      </div>
-      <div class="mask_grop_show" :style="is_zy?'display:block':'display:none'" v-cloak>
-          <div v-for='item in TabFengl.Type_zy' class="menu_typeitem"><h4>{{item.name}}</h4><input  v-model='TabFengl.Type_zyid' :value="item.value" type="checkbox"></div>
-          <div class="fcc">
-            <div class="menu_type_bat" style="margin-right:4vw;" @click='is_type=false;is_zy=false'>取消</div>
-            <div class="menu_type_bat" @click='changeschool(-1)'>确定</div>
-          </div>
-      </div>
-      <p style="text-align:center;color:rgb(15, 15, 15);font-size:4vw;" v-if='schooldata&&schooldata.length==0'>暂无数据</p>
-      <div class="school_area" v-for="item,index in schooldata" @click='navschoolDetails(index)' v-cloak>
-        <div class="school_img"><img :src="item.school_logo_text || item.school_picture_text" alt=""></div>
-        <div class="school_right">
-          <div class="school_line1 f_row_sb">
-            <div style="font-size:4vw; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 70%;">{{item.school_name}}</div>
-            <div style="font-size:3.5vw;color:#666666;">{{item.school_area_text}}</div>
-          </div>
-          <div class="school_line2">
-            <div class="line2_item f_middle" v-for="items in item.school_system_text">
-              <div class="diamond"></div>
-              <div style="font-size:3.8vw;" >{{items}}</div>
+          <div class="mask" :style="is_type||is_zy?'display:block':'display:none'" @click='is_type=false;is_zy=false'></div>
+          <div class="mask_grop_show" :style="is_type?'display:block':'display:none'" v-cloak>
+            <div v-for='item in TabFengl.Type' class="menu_typeitem"><h4>{{item.name}}</h4><input  v-model='TabFengl.Typeid' :value="item.value" type="checkbox"></div>
+            <div class="fcc">
+              <div class="menu_type_bat" style="margin-right:4vw;" @click='is_type=false;is_zy=false'>取消</div>
+              <div class="menu_type_bat" @click='changeschool(-1)'>确定</div>
             </div>
           </div>
-          <div class="school_line3" >{{item.major}}</div>
-          <div class="school_line2" style="display:flex;flex-wrap:wrap;">
-            <div class="line4_items line4_items1 f_middle"  style="font-size:2.2vw;margin-top:1vw;" v-for='titem in item.school_type_text' v-if="titem != '其他'">{{titem}}</div>
-            <div class="line4_items f_middle"  style="font-size:2.2vw;background-color:#f6f6f6;color:#999;margin-top:1vw;" v-for='titem in item.school_type_text' v-if="titem == '其他'">{{titem}}</div>
+          <div class="mask_grop_show" :style="is_zy?'display:block':'display:none'" v-cloak>
+              <div v-for='item in TabFengl.Type_zy' class="menu_typeitem"><h4>{{item.name}}</h4><input  v-model='TabFengl.Type_zyid' :value="item.value" type="checkbox"></div>
+              <div class="fcc">
+                <div class="menu_type_bat" style="margin-right:4vw;" @click='is_type=false;is_zy=false'>取消</div>
+                <div class="menu_type_bat" @click='changeschool(-1)'>确定</div>
+              </div>
           </div>
-
+          <p style="text-align:center;color:rgb(15, 15, 15);font-size:4vw;" v-if='schooldata&&schooldata.length==0'>暂无数据</p>
+          <!-- 院校 -->
+          <div class="school_area" v-for="item,index in schooldata" @click='navschoolDetails(index)' v-cloak>
+            <div class="school_img" style="width: 24vw;height: 24vw;"><img :src="item.school_logo_text || item.school_picture_text" alt=""></div>
+            <div class="school_right"  style="padding:0">
+              <!-- 院校名称 -->
+              <div class="school_line1 f_row_sb">
+                <div style="font-size:3.467vw; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 70%;font-weight: 600;margin-bottom: 4.067vw;padding:0">{{item.school_name}}</div>
+                
+              </div>
+              <!-- 信息是否在职 -->
+              <div class="school">
+                <div class="line2 " v-for="items in item.school_system_text">  
+                  {{items}}
+                </div>
+                {{item.major}}
+              </div>
+              <!-- 性质 -->
+         
+              <div class="xingzhi" >
+                <div class="list  "  v-for='titem in item.school_type_text' v-if="titem != '其他'">{{titem}}</div>
+                <div class="list"   v-for='titem in item.school_type_text' v-if="titem == '其他'">{{titem}}</div>
+              </div>
+              <!-- 地区 -->
+              <div style="font-size:2.667vw;color:#666666;float: left;position: relative;"><p style="padding-right: 1.333vw;font-size: 2.667vw;color: #9b9b9b;">{{item.school_area_text}}</p> <img src="../image/iconimg/you.png" alt="" style="float: right;width: 0.933vw;height: 1.733vw;position: absolute;top: 50%;transform: translateY(-50%);right: 0;"> </div>
+            </div>
+          </div>
+              <p style="text-align:center;color:#666;font-size:4vw;" v-if='schooldata&&schooldata.length!=0'>已经到底了~</p>
         </div>
-      </div>
-          <p style="text-align:center;color:#666;font-size:4vw;" v-if='schooldata&&schooldata.length!=0'>已经到底了~</p>
-    </div>
+        </div>
+    
     </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
@@ -315,6 +364,7 @@
               this.search = true;
               this.keyword_c = this.keyword;
               this.changeschool(-1,null,this.keyword);
+              
             },
             //上拉
             scrolltobottom() {
@@ -369,13 +419,14 @@
                 school_city:that.TabFengl.cityid==-1?'':that.TabFengl.cityid,
                 school_zy:that.TabFengl.Type_zyid.length==0?'':that.TabFengl.Type_zyid,
                 page:that.TabFengl.page,
-                limit:5
+                limit:10
               }
               if(this.search){
                 data.keyword = this.keyword_c;
               }
               that.ajaxpost_noloading('post',globalData.schoolList,data).then((res)=>{
                 var res =$.parseJSON(res);
+                // alert(JSON.stringify(res))
                 if(!res.data.data){
                   return
                 }

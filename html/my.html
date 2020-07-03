@@ -17,9 +17,9 @@
       background-color: #f3f3f3;
     }
 
-    /* [v-cloak] {
+    [v-cloak] {
       display: none
-    } */
+    }
 
     #app {
       overflow: hidden;
@@ -282,7 +282,7 @@
 </head>
 
 <body>
-  <div id="app">
+  <div id="app" v-cloak>
     <!-- 头部 -->
     <header id="header" class="aui-bar aui-bar-nav">
       <!-- 左侧消息提示 -->
@@ -628,7 +628,7 @@
           that.ajaxpost_noloading('post', globalData.getUserBalance, data).then((res) => {
 
             var res = $.parseJSON(res);
-            al(JSON.stringify(res))
+
             if (res.code == 1) {
               that.money = res.data
             }
@@ -651,7 +651,7 @@
               that.viptype = moment.unix(res.data.is_vip).format('YYYY-MM-DD');
 
             }
-            alert(JSON.stringify(res))
+            // alert(JSON.stringify(res))
 
             if (res.data.is_vip != '') {
               that.is_vip = true
@@ -669,7 +669,7 @@
           }
           that.ajaxpost_noloading('post', globalData.userInfo, data).then((res) => {
             var res = $.parseJSON(res);
-            console.log(JSON.stringify(res))
+            // console.log(JSON.stringify(res))
             window.localStorage.setItem('mobile', res.data.mobile)
             getLevel(res.data.score, function (level) {
               res.data.level = level;
@@ -689,7 +689,7 @@
           that.ajaxpost('post', globalData.followList, data).then((res) => {
 
             var res = $.parseJSON(res);
-            alert(JSON.stringify(res))
+            // alert(JSON.stringify(res))
             that.number = res.data.data.length
 
           }).catch((ret) => {

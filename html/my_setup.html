@@ -14,9 +14,10 @@
       background: #ffffff;
     }
 
+    /* 
     [v-cloak] {
       display: none;
-    }
+    } */
 
     #header {
       background-color: #fff;
@@ -28,6 +29,31 @@
 
     #header .aui-icon-left {
       color: #000
+    }
+
+    .aui-list-item-arrow:before {
+      width: 1.733vw;
+      height: 1.733vw;
+      border: 1px solid #818181;
+      border-top: none;
+      border-right: none;
+      margin-left: 22px;
+    }
+
+    .aui-list {
+      width: 100%;
+      padding-left: 8.267vw;
+      box-sizing: border-box;
+    }
+
+    .setop .aui-list-in .aui-list-item {
+      border-bottom: 0.133vw solid #dadada;
+      box-sizing: border-box;
+      height: 12.533vw;
+      width: 100%;
+      font-size: 3.733vw;
+      margin: 0;
+      padding: 0 6.5vw 0 0;
     }
 
     .aui-list-item input {
@@ -51,15 +77,10 @@
       background: red;
     }
 
-    .setop_img {
-      background-image: url(../image/iconimg/linshitx.png);
-      background-size: contain;
-    }
 
 
-    .aui-list-item-arrow {
-      padding: 1.5vw;
-    }
+
+
 
     .my_setup_aui-btn div {
 
@@ -69,7 +90,7 @@
           #0163ce 0%,
           #1f8dfe 100%);
       border-radius: 5.33vw;
-      border: solid 0.13vw #f5f5f5;
+      border: solid 0.13vw #b3b3b3;
       color: #fff;
       line-height: 10.67vw;
       margin: auto;
@@ -87,6 +108,24 @@
       padding-top: 5vw;
       font-size: 3.5vw;
     }
+
+
+    #app ul .lis {
+      height: 22.267vw;
+    }
+
+    #app ul .lis .img {
+      width: 13.333vw;
+      height: 13.333vw;
+      background-image: url(../image/iconimg/linshitx.png);
+      background-size: contain;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+
+    #app ul .lis .img img {
+      width: 100%;
+    }
   </style>
 </head>
 
@@ -94,10 +133,10 @@
   <div id="app" v-cloak>
     <div class="setop">
       <ul class="aui-list aui-list-in">
-        <li class="aui-list-item">
+        <li class="aui-list-item lis">
           <div class="aui-list-item-inner aui-list-item-arrow">
-            <span>头像<span style="color:red;">*</span></span>
-            <div class="setop_img" @click='imgsetup'>
+            <span>头像</span>
+            <div class="img" @click='imgsetup'>
               <img :src="imgs" alt="">
             </div>
           </div>
@@ -105,7 +144,7 @@
         </li>
         <li class="aui-list-item">
           <div class="aui-list-item-inner aui-list-item-arrow">
-            <span>昵称<span style="color:red;">*</span></span>
+            <span>昵称</span>
             <div class="setop_call">
               <input type="text" placeholder='请输入' v-model='setup.Nickname' name="" value="">
 
@@ -114,16 +153,16 @@
         </li>
         <li class="aui-list-item" @click="turnRZ">
           <div class="aui-list-item-inner aui-list-item-arrow">
-            <span>姓名</span>
+            <span>实名认证</span>
             <div class="setop_name">
-              <input type="text" placeholder='请完成实名认证' disabled v-model='setup.name' name="" value="">
+              <input type="text" placeholder='未验证' disabled v-model='setup.name' name="" value="">
 
             </div>
           </div>
         </li>
         <li class="aui-list-item">
           <div class="aui-list-item-inner aui-list-item-arrow">
-            <span>性别<span style="color:red;">*</span></span>
+            <span>性别</span>
             <div class="setop_sex">
               <select class="" v-model='setup.sex' name="">
                 <option v-for='item in sexlist' v-bind:value="item.id">{{item.title}}</option>
@@ -133,7 +172,7 @@
         </li>
         <li class="aui-list-item">
           <div class="aui-list-item-inner aui-list-item-arrow">
-            <span>年龄<span style="color:red;">*</span></span>
+            <span>年龄</span>
             <div class="setop_age">
               <input type="number" placeholder='请输入' v-model='setup.age' name="" value="">
 
@@ -142,7 +181,7 @@
         </li>
         <li class="aui-list-item">
           <div class="aui-list-item-inner aui-list-item-arrow">
-            <span>手机号码<span style="color:red;">*</span></span>
+            <span>手机号码</span>
             <div class="setop_phone">
               <input type="text" placeholder='请输入' disabled='true' v-model='setup.phone' name="" value="">
 
@@ -151,7 +190,7 @@
         </li>
         <li class="aui-list-item">
           <div class="aui-list-item-inner aui-list-item-arrow">
-            <span>工作单位<span style="color:red;">*</span></span>
+            <span>工作单位</span>
             <div class="setop_sign">
               <input type="text" placeholder='请输入' maxlength="20" v-model='setup.work' name="" value="">
 
@@ -160,7 +199,7 @@
         </li>
         <li class="aui-list-item">
           <div class="aui-list-item-inner aui-list-item-arrow">
-            <span>地区<span style="color:red;">*</span></span>
+            <span>地区</span>
             <div class="setop_sign">
               <input type="text" placeholder='请输入' maxlength="20" v-model='setup.area' name="" value="">
 
@@ -169,7 +208,7 @@
         </li>
         <li class="aui-list-item">
           <div class="aui-list-item-inner aui-list-item-arrow">
-            <span>现任职务<span style="color:red;">*</span></span>
+            <span>现任职务</span>
             <div class="setop_sign">
               <input type="text" placeholder='请输入' maxlength="20" v-model='setup.job' name="" value="">
 

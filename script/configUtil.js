@@ -790,7 +790,7 @@ Vue.prototype.ajaxpost_noloading =function (type,url,data) {
           resolve(res)
         },
         error:function(ret){
-          console.log('err:' + JSON.stringify(res));
+          console.log('err:' + JSON.stringify(ret));
           that.toast('网络超时，请稍后重试...')
           reject(ret)
         },
